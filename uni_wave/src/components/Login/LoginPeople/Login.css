@@ -1,0 +1,65 @@
+form {
+  position: absolute;
+  top: 50%;
+  left: 20%;
+}
+
+.username {
+  color: rgb(78, 0, 146);
+  font-weight: bold;
+  font-size: 30px;
+  font-family: cursive;
+}
+
+.password {
+    color: rgb(78, 0, 146);
+  font-weight: bold;
+  font-size: 30px;
+  font-family: cursive;
+  position: absolute;
+  top: 90%;
+  left: 5%;
+}
+
+input {
+  transform: translateX(25px);
+  width: 190%;
+  height: 50%;
+  background-color: rgba(223, 189, 255, 0.8);
+  box-shadow: 5px 5px 1px 1px rgba(0, 0, 255, 0.2);
+  position: absolute;
+}
+
+button {
+    display:inline-block;
+    padding: 0.3em 1.2em;
+    margin: 0 0.1em 0.1em 0;
+    border: 0.16em solid rgba(255,255,255,0);
+    border-radius: 2em;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'Roboto',sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    text-align: center;
+    color: rgb(115, 0, 255);
+    text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
+    text-align: center;
+    transition: all 0.2s;
+    background-color: #e5a4ff;
+    position: absolute;
+    top: 250%;
+    width: 90%;
+    height: 90%;
+}
+
+button:hover {
+    border-color: rgba(255,255,255,1);
+}
+
+@media all and (max-width:30em){
+    button {
+        display: block;
+        margin: 0.2em auto;
+    }
+}

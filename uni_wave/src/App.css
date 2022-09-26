@@ -1,0 +1,40 @@
+body {
+  background-color: #e9d4ff;
+  background-position: center;
+}
+
+.logInContainer {
+  height: 90%;
+  width: 50%;
+  background-color: #9b51e013;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 68%;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 5px solid rgba(166, 0, 255, 0.22);
+  padding: 50px 35px;
+  border-radius: 58px;
+}
+
+.log {
+  border-radius: 58px;
+  background: #7306e75c;
+  position: absolute;
+  top: 15%;
+  bottom: 15%;
+  left: 4%;
+  width: 90%;
+  height: 70%;
+  backdrop-filter: blur(10px);
+}
+
+.logo {
+  position: absolute;
+  top: 10%;
+  right: 60%;
+  height: 77%;
+}
+
