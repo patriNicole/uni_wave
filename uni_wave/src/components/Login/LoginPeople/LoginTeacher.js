@@ -1,10 +1,18 @@
 import React from "react";
 import './Login.css';
+import { useNavigate } from "react-router-dom";
 
 export default function LoginTeacher() {
+  
+  const navigate = useNavigate();
+
+  function Submit(e){
+    e.preventDefault();
+    navigate("/home");
+  }
   return (
     <>
-      <form>
+      <form  onSubmit={Submit}>
         <label className="username">
           username:
           <input type="text" />
