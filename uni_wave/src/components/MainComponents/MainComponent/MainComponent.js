@@ -13,7 +13,7 @@ export default function MainComponent() {
                 <Link to="/map">map</Link>
             </div>
             <div className="mainComponentGroup">
-                <Link to="/group">group</Link>
+                <Link to="/groups">group</Link>
             </div>
             <div className="mainComponentTeaching">
                 <Link to="/teaching">teaching</Link>
