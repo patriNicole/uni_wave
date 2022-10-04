@@ -1,14 +1,14 @@
 import React from "react";
 import SideNav from './SideNav/SideNav.js';
 import TopNav from "./TopNav/TopNav.js";
-import MainComponent from "../MainComponents/MainComponent/MainComponent.js";
+import SettingsComponent from "../MainComponents/SettingsComponent/SettingsComponent.js";
 
-export default function Main() {
+export default function MainSettings() {
     return (
         <>
             <TopNav/>
             <SideNav/>
-            <MainComponent/>
+            <SettingsComponent/>
         </>
     );
 }
