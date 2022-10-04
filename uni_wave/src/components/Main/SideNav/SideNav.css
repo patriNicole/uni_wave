@@ -1,0 +1,102 @@
+#uniwaveLogo {
+  position: absolute;
+  top: -15%;
+  left: 0%;
+  width: 60%;
+}
+
+#menu {
+  position: absolute;
+  top: 15%;
+  width: 15%;
+}
+#menu .pro-sidebar {
+  height: 80vh;
+}
+#menu .closemenu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #960df2;
+  position: absolute;
+  right: 15px;
+  z-index: 9999;
+  line-height: 20px;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 28px;
+  top: 10px;
+  cursor: pointer;
+}
+
+#menu .closemenu :hover {
+  color: #ffffff;
+}
+
+#menu .closemenu h3 {
+  color: #960df2;
+  font-size: 25px;
+  font-weight: 700;
+  position: absolute;
+  top: -40%;
+  right: 105%;
+  margin-right: 15px;
+}
+
+#menu .pro-sidebar {
+  width: 80%;
+  min-width: 70%;
+}
+#menu .pro-sidebar.collapsed {
+  width: 85px;
+  min-width: 70px;
+}
+#menu .pro-sidebar-inner {
+  background-color: #ffffff00;
+}
+#menu .pro-sidebar-inner .pro-sidebar-layout {
+  overflow-y: hidden;
+}
+
+#menu .pro-sidebar-inner .pro-sidebar-layout ul {
+  padding: 0 5px;
+  margin-top: 55px;
+}
+
+#menu .pro-sidebar-inner .pro-sidebar-layout ul .pro-inner-item {
+  color: #960df2;
+  margin: 10px 0px;
+  font-weight: bold;
+}
+
+#menu
+  .pro-sidebar-inner
+  .pro-sidebar-layout
+  ul
+  .pro-inner-item
+  .pro-icon-wrapper {
+  background-color: #960df2;
+  color: rgb(255, 255, 255);
+  border-radius: 20px; 
+}
+
+#menu
+  .pro-sidebar-inner
+  .pro-sidebar-layout
+  ul
+  .pro-inner-item
+  .pro-icon-wrapper
+  .pro-item-content {
+  color: #000000;
+}
+
+#menu .pro-sidebar-inner .pro-sidebar-layout .pro-inner-item:hover {
+  color: white;
+}
+
+#menu .pro-sidebar-inner .pro-sidebar-layout .active {
+  color: white;
+}
+#menu .logo {
+  padding: 20px;
+}
