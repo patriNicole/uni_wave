@@ -1,0 +1,119 @@
+.todoLists {
+  position: absolute;
+  top: 50.5%;
+  left: 77.5%;
+  height: 86%;
+  width: 40%;
+  background-color: #04105700;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(5px);
+  padding: 50px 35px;
+  border-radius: 58px;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+h1 {
+  font-size: 40px;
+  font-family: "Times New Roman", Times, serif;
+  font-weight: bold;
+  color: white;
+  text-shadow: 2px 2px rgb(41, 6, 136);
+  margin: 0 0 25% 0;
+}
+
+.complete {
+  text-decoration: line-through;
+  opacity: 0.3;
+}
+
+.todo-form {
+  position: fixed;
+  top: 20%;
+  left: 10%;
+}
+
+.todo-input {
+  padding: 14px 32px 14px 16px;
+  border-radius: 4px 0 0 4px;
+  border: 2px solid #5d0cff;
+  outline: none;
+  width: 320px;
+  background: transparent;
+  color: #fff;
+}
+
+.todo-input::placeholder {
+  color: #ffffff;
+}
+
+.todo-button {
+  padding: 16px;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  outline: none;
+  background: linear-gradient(
+    90deg,
+    rgba(93, 12, 255, 1) 0%,
+    rgba(155, 0, 250, 1) 100%
+  );
+  color: #fff;
+  font-weight: bold;
+}
+
+.todo-input.edit {
+  border: 2px solid #149fff;
+  margin-top: 20%;
+}
+
+.todo-button.edit {
+  background: linear-gradient(90deg, rgb(20, 59, 255) 0%, rgb(15, 8, 141) 100%);
+  padding: 16px 22px;
+  font-weight: bold;
+}
+
+.todo-container {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+
+.todo-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 4px auto;
+  color: #fff;
+  background: linear-gradient(
+    90deg,
+    rgba(93, 12, 255, 1) 0%,
+    rgba(155, 0, 250, 1) 100%
+  );
+  padding: 16px;
+  border-radius: 5px;
+  width: 70%;
+}
+
+.todo-row:nth-child(2n + 1) {
+  background: linear-gradient(90deg, #3406ff 0%, rgb(81, 17, 255) 100%);
+}
+
+.iconsTodo {
+  display: flex;
+  align-items: center;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.delete-iconTodo {
+  margin-right: 5px;
+  color: #fff;
+}
+
+.edit-iconTodo {
+  color: #fff;
+}

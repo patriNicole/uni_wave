@@ -1,0 +1,330 @@
+.calendar {
+  position: absolute;
+  top: 65.5%;
+  left: 27.5%;
+  height: 55%;
+  width: 50%;
+  background-color: #04105719;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(5px);
+  padding: 50px 35px;
+  border-radius: 58px;
+}
+
+button {
+  background-color: rgb(123, 0, 238);
+}
+
+.input-calendar {
+  position: absolute;
+}
+
+/* ADD EVENT CALENDAR */
+
+.buttonAddEvent {
+  display: inline-block !important;
+  padding: 0.3em 1.2em !important;
+  margin: 0 0.1em 0.1em 0 !important;
+  border: 0.16em solid rgba(255, 255, 255, 0) !important;
+  border-radius: 2em !important;
+  box-sizing: border-box !important;
+  text-decoration: none !important;
+  font-family: "Roboto", sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 18px !important;
+  text-align: center !important;
+  color: white !important;
+  text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35) !important;
+  text-align: center !important;
+  transition: all 0.2s !important;
+  background-color: #5f43dd !important;
+  border-color: rgb(141, 144, 255) !important;
+  position: absolute !important;
+  top: 2% !important;
+}
+
+.buttonAddEvent:hover {
+  border-color: rgba(255, 255, 255, 1) !important;
+}
+
+.close-event {
+  position: absolute;
+  right: 5%;
+  top: 5%;
+  width: 8%;
+  height: 8%;
+  display: inline-block !important;
+  padding: 0.3em 1.2em !important;
+  margin: 0 0.1em 0.1em 0 !important;
+  border: 0.16em solid rgba(255, 255, 255, 0) !important;
+  border-radius: 2em !important;
+  box-sizing: border-box !important;
+  text-decoration: none !important;
+  background-color: #5f43dd !important;
+  border-color: rgb(141, 144, 255) !important;
+}
+
+.close-event:before {
+  font-size: 45px;
+  font-weight: 700;
+  position: absolute;
+  left: 24%;
+  top: -20%;
+  content: "x";
+  color: white;
+}
+
+.close-event:hover {
+  border-color: rgba(255, 255, 255, 1) !important;
+}
+
+.close-event:before:hover {
+  color: rgb(41, 6, 136);
+}
+
+.save-event {
+  display: inline-block !important;
+  padding: 0.3em 1.2em !important;
+  margin: 0 0.1em 0.1em 0 !important;
+  border: 0.16em solid rgba(255, 255, 255, 0) !important;
+  border-radius: 2em !important;
+  box-sizing: border-box !important;
+  text-decoration: none !important;
+  font-family: "Roboto", sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 18px !important;
+  text-align: center !important;
+  color: white !important;
+  text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35) !important;
+  text-align: center !important;
+  transition: all 0.2s !important;
+  background-color: #5f43dd !important;
+  border-color: rgb(141, 144, 255) !important;
+  position: absolute !important;
+  top: 90% !important;
+  right: 10%;
+}
+
+/* event content */
+/* Add New Event */
+.add-event-calendar {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 50%;
+  width: 30%;
+  background-color: #04105731;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(5px);
+  padding: 50px 35px;
+  border-radius: 58px;
+}
+
+.addEventHead {
+  font-size: 40px;
+  font-family: "Times New Roman", Times, serif;
+  font-weight: bold;
+  position: absolute;
+  top: 3%;
+  color: white;
+  text-shadow: 2px 2px rgb(41, 6, 136);
+}
+
+.event-content-add {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 50%;
+  width: 80%;
+  background-color: rgba(201, 182, 252, 0.186);
+  position: absolute;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(5px);
+  padding: 50px 35px;
+  border-radius: 58px;
+}
+
+.event-content-add:hover {
+  border-color: rgba(255, 255, 255, 1) !important;
+}
+
+.name-of-event {
+  transform: translateX(25px);
+  width: 70% !important;
+  height: 9%;
+  background-color: transparent;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 255, 0.026);
+  position: absolute;
+  top: 7%;
+  color:white;
+  font-size: 18px;
+  letter-spacing: 2px;
+  font-weight: 100;
+  border: transparent;
+}
+
+.name-of-event::placeholder{
+  color:white;
+  font-size: 18px;
+  letter-spacing: 2px;
+  font-weight: 100;
+}
+
+.pick-start-date {
+  transform: translateX(25px);
+  background-color: transparent;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 255, 0.026);
+  position: fixed;
+  top: 25% !important;
+  color:white;
+  font-size: 20px;
+  letter-spacing: 2px;
+  font-weight: 100;
+  border: transparent;
+}
+
+.pick-start-date::placeholder{
+  color:white;
+  font-size: 18px;
+  letter-spacing: 2px;
+  font-weight: 100;
+}
+
+.pick-end-date {
+  transform: translateX(25px);
+  background-color: transparent;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 255, 0.026);
+  position: fixed;
+  top: 40% !important;
+  color:white;
+  font-size: 20px;
+  letter-spacing: 2px;
+  font-weight: 100;
+  border: transparent;
+}
+
+.pick-end-date::placeholder{
+  color:rgb(255, 255, 255);
+  font-size: 18px;
+  letter-spacing: 2px;
+  font-weight: 100;
+}
+
+/* Update/Delete Events */
+.update-delete-event-calendar {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 50%;
+  width: 30%;
+  background-color: #04105731;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(5px);
+  padding: 50px 35px;
+  border-radius: 58px;
+}
+
+.updateDeleteEventHead {
+  font-size: 33px;
+  font-family: "Times New Roman", Times, serif;
+  font-weight: bold;
+  position: absolute;
+  top: 3%;
+  color: white;
+  text-shadow: 2px 2px rgb(41, 6, 136);
+}
+
+.delete-event {
+  display: inline-block !important;
+  padding: 0.3em 1.2em !important;
+  margin: 0 0.1em 0.1em 0 !important;
+  border: 0.16em solid rgba(255, 255, 255, 0) !important;
+  border-radius: 2em !important;
+  box-sizing: border-box !important;
+  text-decoration: none !important;
+  font-family: "Roboto", sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 18px !important;
+  text-align: center !important;
+  color: white !important;
+  text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35) !important;
+  text-align: center !important;
+  transition: all 0.2s !important;
+  background-color: #900000 !important;
+  border-color: rgb(141, 144, 255) !important;
+  position: absolute !important;
+  top: 90% !important;
+  right: 50%;
+}
+
+/* REACT BIG CALENDAR CSS */
+.rbc-row {
+  font-size: 17px !important;
+  font-weight: bold !important;
+}
+
+.rbc-today {
+  background-color: #5f43dd3a !important;
+}
+
+.rbc-toolbar button {
+  color: #580a70 !important;
+  font-weight: bold !important;
+}
+
+.rbc-toolbar button:active,
+.rbc-toolbar button.rbc-active {
+  background-color: #5f43dd !important;
+  color: white !important;
+  border-color: white !important;
+  font-weight: bold !important;
+}
+
+.rbc-toolbar button:active:hover,
+.rbc-toolbar button:active:focus,
+.rbc-toolbar button.rbc-active:hover,
+.rbc-toolbar button.rbc-active:focus {
+  background-color: #5f43dd !important;
+  color: white !important;
+  border-color: white !important;
+  font-weight: bold !important;
+}
+
+.rbc-off-range {
+  color: #5c5555bb !important;
+}
+
+.rbc-off-range-bg {
+  background: #e6e6e600 !important;
+}
+
+.rbc-header {
+  background-color: #5f43dd !important;
+  color: white !important;
+  border-color: white !important;
+  font-weight: bold !important;
+}
+
+.rbc-toolbar {
+  color: rgb(37, 8, 65) !important;
+  border-color: white !important;
+  font-size: 17px !important;
+  font-weight: bold !important;
+}
+
+.rbc-event, .rbc-day-slot .rbc-background-event { 
+  background-color: #5f43dd !important;
+}
+
+
