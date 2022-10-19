@@ -8,7 +8,7 @@ export default function MainPlanner(props) {
         <>
             <TopNav/>
             <SideNav pageColor={props.pageColor} setPageColor={props.setPageColor}/>
-            <PlannerComponent/>
+            <PlannerComponent pageColor={props.pageColor} setPageColor={props.setPageColor}/>
         </>
     );
 }

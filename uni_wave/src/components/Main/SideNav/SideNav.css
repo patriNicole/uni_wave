@@ -104,9 +104,10 @@
 /* PAGE COLOR TOGGLE */
 
 .bgMainPageColor {
-  background-color: rgba(211, 146, 255, 0);
+  background-color: transparent;
   position: absolute;
   top: 0%;
   left: 0%;
   width: 0% !important;
+  color: white;
 }
