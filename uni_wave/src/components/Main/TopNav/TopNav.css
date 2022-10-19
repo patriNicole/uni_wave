@@ -30,12 +30,12 @@
   outline: none;
   border-radius: 25px;
   transition: all .5s ease-in-out;
-  background-color: #960df228;
+  background-color: #2406863c;
   padding-right: 40px;
-  color:#7922b3;
+  color:#240686;
 }
 .input-search::placeholder{
-  color:rgb(171, 93, 255);
+  color:white;
   font-size: 18px;
   letter-spacing: 2px;
   font-weight: 100;

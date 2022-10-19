@@ -1,6 +1,6 @@
 p {
   font-size: 60px;
-  font-family: cursive;
+  font-family: "Times New Roman", Times, serif;
   position: absolute;
   top: -3%;
   color: rgb(226, 223, 229);
@@ -27,7 +27,7 @@ p {
   color: rgb(226, 223, 229);
   text-shadow: 2px 2px #3c00ff;
   font-size: 40px;
-  font-family: cursive;
+  font-family: "Times New Roman", Times, serif;
 }
 
 .switchTeacher input[type="checkbox"] {
@@ -51,16 +51,16 @@ p {
   top: 2px;
   width: 21px;
   height: 21px;
-  background-color: rgb(211, 146, 255);
+  background-color: #3c00ff;
   border-radius: 50%;
   transition: transform 0.3s ease;
 }
 .switchTeacher input[type="checkbox"]:checked + .switch::before {
   transform: translateX(25px);
-  background-color: #9a07ee;
+  background-color: #3c00ff;
 }
 .switchTeacher input[type="checkbox"]:checked + .switch {
-  background-color: #4b3399;
+  background-color: #240686;
 }
 
 /* Student Switcher */
@@ -81,7 +81,7 @@ p {
   color: rgb(226, 223, 229);
   text-shadow: 2px 2px #3c00ff;
   font-size: 40px;
-  font-family: cursive;
+  font-family: "Times New Roman", Times, serif;
 }
 
 .switchStudent input[type="checkbox"] {
@@ -105,16 +105,16 @@ p {
   top: 2px;
   width: 21px;
   height: 21px;
-  background-color: rgb(211, 146, 255);
+  background-color: #3c00ff;
   border-radius: 50%;
   transition: transform 0.3s ease;
 }
 .switchStudent input[type="checkbox"]:checked + .switch::before {
   transform: translateX(25px);
-  background-color: #9a07ee;
+  background-color: #3c00ff;
 }
 .switchStudent input[type="checkbox"]:checked + .switch {
-  background-color: #4b3399;
+  background-color: #240686;
 }
 
 /* Pass Switcher */
@@ -135,7 +135,7 @@ p {
   color: rgb(226, 223, 229);
   text-shadow: 2px 2px #3c00ff;
   font-size: 40px;
-  font-family: cursive;
+  font-family: "Times New Roman", Times, serif;
 }
 
 .switchPass input[type="checkbox"] {
@@ -159,14 +159,34 @@ p {
   top: 2px;
   width: 21px;
   height: 21px;
-  background-color: rgb(211, 146, 255);
+  background-color: #3c00ff;
   border-radius: 50%;
   transition: transform 0.3s ease;
 }
 .switchPass input[type="checkbox"]:checked + .switch::before {
   transform: translateX(25px);
-  background-color: #9a07ee;
+  background-color: #3c00ff;
 }
 .switchPass input[type="checkbox"]:checked + .switch {
-  background-color: #4b3399;
+  background-color: #240686;
+}
+
+/* PAGE COLOR TOGGLE */
+
+.bgPageColor {
+  display: inline-block;
+  padding: 0.3em 1.2em;
+  margin: 0 0.1em 0.1em 0;
+  border: 0.16em solid rgba(255, 255, 255, 0);
+  border-radius: 2em;
+  box-sizing: border-box;
+  text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+  text-align: center;
+  transition: all 0.2s;
+  background-color: rgba(33, 0, 142, 0.21);
+  position: absolute;
+  top: 85%;
+  width: 9%;
+  height: 7%;
+  border-color: rgb(141, 144, 255);
 }

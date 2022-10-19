@@ -17,7 +17,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #960df2;
+  color: #240686;
   position: absolute;
   right: 15px;
   z-index: 9999;
@@ -34,7 +34,7 @@
 }
 
 #menu .closemenu h3 {
-  color: #960df2;
+  color: #240686;
   font-size: 25px;
   font-weight: 700;
   position: absolute;
@@ -64,7 +64,7 @@
 }
 
 #menu .pro-sidebar-inner .pro-sidebar-layout ul .pro-inner-item {
-  color: #960df2;
+  color: #240686;
   margin: 10px 0px;
   font-weight: bold;
 }
@@ -75,9 +75,9 @@
   ul
   .pro-inner-item
   .pro-icon-wrapper {
-  background-color: #960df2;
+  background-color: #240686;
   color: rgb(255, 255, 255);
-  border-radius: 20px; 
+  border-radius: 20px;
 }
 
 #menu
@@ -99,4 +99,14 @@
 }
 #menu .logo {
   padding: 20px;
+}
+
+/* PAGE COLOR TOGGLE */
+
+.bgMainPageColor {
+  background-color: rgba(211, 146, 255, 0);
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 0% !important;
 }
