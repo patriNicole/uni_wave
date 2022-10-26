@@ -15,13 +15,13 @@ export default function LoginStudent() {
       <form onSubmit={Submit}>
         <label className="username">
           username:
-          <input type="text" />
+          <input className="input-form" type="text" />
         </label>
         <label className="password">
           password:
-          <input type="password" />
+          <input className="input-form" type="password" />
         </label>
-        <button type="submit">Submit</button>
+        <button className="button-submit" type="submit">Submit</button>
       </form>
     </>
   );

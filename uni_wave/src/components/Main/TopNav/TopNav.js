@@ -5,11 +5,11 @@ import { FcSearch } from "react-icons/fc";
 export default function TopNav() {
   return (
     <>
-      <div className="topnav">
-          <form>
-            <div class="search-box">
-              <button class="btn-search"><FcSearch size={40}/></button>
-              <input type="text" class="input-search" placeholder="Type to Search..." />
+      <div className="topnav-top">
+          <form className="form">
+            <div className="search-box-top">
+            <button className="btn-search-top"></button><FcSearch size={40}/>
+              <input type="text" className="input-search-top" placeholder="  Search..." />
             </div>
           </form>
       </div>

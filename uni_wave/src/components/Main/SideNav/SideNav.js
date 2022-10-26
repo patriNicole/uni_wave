@@ -79,7 +79,7 @@ export default function SideBar(props) {
             <Menu iconShape="square">
               <MenuItem icon={<FiHome size={20} />}>
                 Home
-                <Link exact to="/home" />
+                <Link exact="true" to="/home" />
               </MenuItem>
               <MenuItem icon={<FiCalendar size={20} />}>
                 Planner
@@ -111,7 +111,7 @@ export default function SideBar(props) {
             <Menu iconShape="square">
               <MenuItem icon={<FiLogOut size={20} />}>
                 LogOut
-                <Link exact to="/" />
+                <Link exact="true" to="/" />
               </MenuItem>
               <MenuItem>
                 <button
