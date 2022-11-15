@@ -3,12 +3,18 @@
   top: -15%;
   left: 0%;
   width: 60%;
+  flex: 1;
+  flex-direction: 'row';
+  flex-wrap: 'wrap';
 }
 
 #menu {
   position: absolute;
   top: 15%;
   width: 15%;
+  flex: 1;
+  flex-direction: 'row';
+  flex-wrap: 'wrap';
 }
 #menu .pro-sidebar {
   height: 80vh;
