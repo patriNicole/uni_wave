@@ -2,6 +2,9 @@
   position: absolute;
   right: 20%;
   top: 2%;
+  flex: 1;
+  flex-direction: 'row';
+  flex-wrap: 'wrap';
 }
 
 #searchbar {
