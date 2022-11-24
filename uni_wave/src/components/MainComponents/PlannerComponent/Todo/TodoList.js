@@ -5,6 +5,8 @@ import "./Todo.css";
 
 export default function TodoList() {
   const [todos, setTodos] = useState([]);
+  //categories for Todo list
+  const [showCategory, setCategory] = useState("university");
 
   //add a new task to the list of tasks
   const addTodoTask = (todo) => {
@@ -15,8 +17,15 @@ export default function TodoList() {
     //create a new array having all the todos and adding the new todo
     const newTodos = [todo, ...todos];
     setTodos(newTodos);
-    //console.log(...todos);
   };
+
+  console.log(...todos);
+
+  {/* Filter ToDo List so that it will display based on categories */}
+  const todoFiltered = todos.filter(todo => {
+    return todo.category === showCategory;
+  });
+  //console.log(todoFiltered);
 
   const updateTodo = (todoId, newValueTodo) => {
     if (!newValueTodo.text || /^\s*$/.test(newValueTodo.text)) {
@@ -47,12 +56,15 @@ export default function TodoList() {
   return (
     <div className="todoLists">
       <h1>My To-Do List</h1>
-      <TodoForm onSubmit={addTodoTask} />
+      <TodoForm onSubmit={addTodoTask} showCategory={showCategory} setCategory={setCategory}/>
       <Todo
         todos={todos}
         removeTodo={removeTodo}
         completeTask={completeTask}
         updateTodo={updateTodo}
+        showCategory={showCategory} 
+        setCategory={setCategory}
+        todoFiltered={todoFiltered}
       />
     </div>
   );
