@@ -1,5 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+#database connction should not appear in the files pushed on Github
+#./ConnectionDatabase/connection.js
+
 # dependencies
 /node_modules
 /.pnp
