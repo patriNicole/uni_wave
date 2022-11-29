@@ -1,8 +1,8 @@
-import "./Login.css";
+import "./SingnUp.css";
 import React, { useState } from "react";
-import LoginTeacher from "./LoginPeople/LoginTeacher.js";
-import LoginStudent from "./LoginPeople/LoginStudent.js";
-import LoginPass from "./LoginPeople/LoginPass.js";
+import LoginTeacher from "./SignUpPeople/SingnUpTeacher.js";
+import LoginStudent from "./SignUpPeople/SingnUpStudent.js";
+import LoginPass from "./SignUpPeople/SingnUpPass.js";
 import "../../App.css";
 
 export default function LogIn(props) {
