@@ -4,7 +4,7 @@
 .switchTeacher {
   position: absolute;
   top: 25%;
-  left: 45% !important;
+  left: 40% !important;
   display: inline-block;
   width: 50px;
   height: 25px;
@@ -16,9 +16,9 @@
   right: 119%;
   top: -20%;
   color: rgb(226, 223, 229);
-  text-shadow: 2px 2px #3c00ff;
-  font-size: 40px;
-  font-family: "Times New Roman", Times, serif;
+  text-shadow: 1px 1px #754bff;
+  font-size: 33px;
+  font-family: Raleway, sans-serif;
 }
 
 .switchTeacher input[type="checkbox"] {
@@ -42,23 +42,23 @@
   top: 2px;
   width: 21px;
   height: 21px;
-  background-color: #3c00ff;
+  background-color: #754bff;
   border-radius: 50%;
   transition: transform 0.3s ease;
 }
 .switchTeacher input[type="checkbox"]:checked + .switch::before {
   transform: translateX(25px);
-  background-color: #3c00ff;
+  background-color: #754bff;
 }
 .switchTeacher input[type="checkbox"]:checked + .switch {
-  background-color: #240686;
+  background-color: #492f9d;
 }
 
 /* Student Switcher */
 .switchStudent {
   position: absolute;
   top: 25%;
-  left: 60% !important;
+  left: 52% !important;
   display: inline-block;
   width: 50px;
   height: 25px;
@@ -70,9 +70,9 @@
   right: 119%;
   top: -20%;
   color: rgb(226, 223, 229);
-  text-shadow: 2px 2px #3c00ff;
-  font-size: 40px;
-  font-family: "Times New Roman", Times, serif;
+  text-shadow: 1px 1px #754bff;
+  font-size: 33px;
+  font-family: Raleway, sans-serif;
 }
 
 .switchStudent input[type="checkbox"] {
@@ -96,23 +96,23 @@
   top: 2px;
   width: 21px;
   height: 21px;
-  background-color: #3c00ff;
+  background-color: #754bff;
   border-radius: 50%;
   transition: transform 0.3s ease;
 }
 .switchStudent input[type="checkbox"]:checked + .switch::before {
   transform: translateX(25px);
-  background-color: #3c00ff;
+  background-color: #754bff;
 }
 .switchStudent input[type="checkbox"]:checked + .switch {
-  background-color: #240686;
+  background-color: #492f9d;
 }
 
 /* Pass Switcher */
 .switchPass {
   position: absolute;
   top: 25%;
-  left: 73% !important;
+  left: 63% !important;
   display: inline-block;
   width: 50px;
   height: 25px;
@@ -124,9 +124,9 @@
   right: 119%;
   top: -20%;
   color: rgb(226, 223, 229);
-  text-shadow: 2px 2px #3c00ff;
-  font-size: 40px;
-  font-family: "Times New Roman", Times, serif;
+  text-shadow: 1px 1px #754bff;
+  font-size: 33px;
+  font-family: Raleway, sans-serif;
 }
 
 .switchPass input[type="checkbox"] {
@@ -150,14 +150,14 @@
   top: 2px;
   width: 21px;
   height: 21px;
-  background-color: #3c00ff;
+  background-color: #754bff;
   border-radius: 50%;
   transition: transform 0.3s ease;
 }
 .switchPass input[type="checkbox"]:checked + .switch::before {
   transform: translateX(25px);
-  background-color: #3c00ff;
+  background-color: #754bff;
 }
 .switchPass input[type="checkbox"]:checked + .switch {
-  background-color: #240686;
+  background-color: #492f9d;
 }
