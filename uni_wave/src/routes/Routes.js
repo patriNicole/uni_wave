@@ -1,5 +1,8 @@
 import React, { useState } from "react";
-import LogIn from "../components/Login/LogIn";
+import HomePage from "../components/HomePage/HomePage.js";
+import NotFound from "../components/HomePage/NotFound.js";
+import LogIn from "../components/Login/LogIn.js";
+import SignUp from "../components/SignUp/SingnUp.js";
 import Main from "../components/Main/Main.js";
 import MainPlanner from "../components/Main/MainPlanner.js";
 import MainMap from "../components/Main/MainMap.js";
@@ -17,7 +20,9 @@ export default function PageRoutes() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<LogIn pageColor={pageColor} setPageColor={setPageColor}/>} />
+        <Route path="/" element={<HomePage pageColor={pageColor} setPageColor={setPageColor}/>} />
+        <Route path="/login" element={<LogIn pageColor={pageColor} setPageColor={setPageColor}/>} />
+        <Route path="/signup" element={<SignUp pageColor={pageColor} setPageColor={setPageColor}/>} />
         <Route path="/home" element={<Main pageColor={pageColor} setPageColor={setPageColor}/>} /> 
         <Route path="/planner" element={<MainPlanner pageColor={pageColor} setPageColor={setPageColor}/>} />
         <Route path="/groups" element={<MainGroups pageColor={pageColor} setPageColor={setPageColor}/>} />
@@ -25,7 +30,7 @@ export default function PageRoutes() {
         <Route path="/info" element={<MainInfo pageColor={pageColor} setPageColor={setPageColor}/>} />  
         <Route path="/settings" element={<MainSettings pageColor={pageColor} setPageColor={setPageColor}/>} />
         <Route path="/map" element={<MainMap pageColor={pageColor} setPageColor={setPageColor}/>} />
-        <Route path="/*" element={<LogIn pageColor={pageColor} setPageColor={setPageColor}/>} />
+        <Route path="/*" element={<NotFound pageColor={pageColor} setPageColor={setPageColor}/>} />
       </Routes>
     </Router>
   );

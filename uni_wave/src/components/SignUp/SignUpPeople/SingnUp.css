@@ -11,6 +11,25 @@ form {
   font-family: "Times New Roman", Times, serif;
 }
 
+.email {
+  color: rgb(227, 207, 255);
+  font-weight: bold;
+  font-size: 30px;
+  font-family: "Times New Roman", Times, serif;
+  position: absolute;
+  top: -100%;
+  left: 39%;
+}
+
+.email .input-form {
+  transform: translateX(25px);
+  width: 320%;
+  height: 60%;
+  background-color: #7b7dfdc1;
+  box-shadow: 5px 5px 1px 1px rgba(0, 0, 255, 0.2);
+  position: absolute;
+}
+
 .password {
   color: rgb(227, 207, 255);
   font-weight: bold;
@@ -23,7 +42,7 @@ form {
 
 .input-form {
   transform: translateX(25px);
-  width: 190%;
+  width: 200%;
   height: 60%;
   background-color: #7b7dfdc1;
   box-shadow: 5px 5px 1px 1px rgba(0, 0, 255, 0.2);
