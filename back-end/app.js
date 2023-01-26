@@ -1,33 +1,28 @@
+require('dotenv').config();
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
+//Access-Control-Allow-Methods CORS header
+//Cross-Origin Resource Sharing
+const cors = require("cors");
+
+//middlewares
 app.use(express.json());
+app.use(cors());
 
 //connected to the database
 require("./ConnectionDatabase/connection");
 
-app.listen(8000, () => {
-  console.log("Server Started");
-});
 
 /* USER REGISTRATION */
-//Import the user schema
-require("./SignUp/userSchema");
-//access User Model
-const User = mongoose.model("UserInformation");
-//POST call to the API
-app.post("/register", async (req, res) => {
+const userRoutes = require("./routes/users.js");
+/* USER AUTHENTIFICATION */
+const authRoutes = require("./routes/auth.js");
+app.use("/api/users", userRoutes);
+app.use("/api/auth", authRoutes);
 
-  //in order to register, require data from user
-  //destructioring
-  const {userName, email} = req.body;
-  try {
-    await User.create({
-        username: userName,
-        email: email
-    })
-    res.send({ status: "ok" });
-  } catch (error) {
-    res.send({ status: "Something went wrong. Try again." });
-  }
+
+//start server
+app.listen(8000, () => {
+  console.log("Server Started");
 });

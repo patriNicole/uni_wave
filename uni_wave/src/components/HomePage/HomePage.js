@@ -27,7 +27,7 @@ export default function HomePage(props) {
             <img src={logo} alt="logo" className="logo" />
             <style>
               {
-                "body { background-color: rgb(20, 0, 37) !important; } .username { color: white; } .password { color: white; } .log {background-color: #5e73eb3b !important;} .logInContainer {background-color: #5e73eb3b !important;}"
+                "body { background-color: rgb(20, 0, 37) !important; } .username { color: white; } .password { color: white; } .email { color: white; } .log {background-color: #5e73eb3b !important;} .logInContainer {background-color: #5e73eb3b !important;}"
               }
             </style>
           </>

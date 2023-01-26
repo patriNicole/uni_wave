@@ -17,6 +17,10 @@ export default function LoginTeacher() {
           username:
           <input className="input-form" type="text" />
         </label>
+        <label className="email">
+          email:
+          <input className="input-form" type="text" />
+        </label>
         <label className="password">
           password:
           <input className="input-form" type="password" />

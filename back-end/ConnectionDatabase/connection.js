@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 
-const mongourl = "mongodb+srv://patri:Nicole28patricia@cluster0.t7uqm6m.mongodb.net/?retryWrites=true&w=majority";
+const mongourl = process.env.DB;
 mongoose.connect(mongourl, {
     useNewUrlParser:true
 }).then(() => {
-    console.log("Connected to the database");
+    console.log("Connected to the database successfully");
 }).catch(error => {
-    console.log(error);
+    console.log("Error connecting to the database");
 });
