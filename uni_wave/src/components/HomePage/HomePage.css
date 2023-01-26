@@ -7,8 +7,8 @@
 /* Tabs for SingIn/LogIn */
 .tabs-registration {
   position: absolute;
-  left: 38%;
-  top: 14%;
+  left: 30%;
+  top: 9%;
   width: 40%;
 }
 
@@ -25,10 +25,10 @@
 
 .nav-tabs .nav-link {
   border-bottom: none !important;
-  color: #1b004e !important;
+  color: #f6f5ff !important;
   font-weight: bold !important;
   font-size: 30px;
-  font-family: "Times New Roman", Times, serif;
+  font-family: Raleway, sans-serif;
   color: rgb(226, 223, 229);
 }
 
@@ -55,4 +55,16 @@
   height: 7%;
   border-color: rgb(141, 144, 255);
   color: white;
+}
+
+/* LOGO PAGE */
+
+#uniwaveLogoSignIn {
+  position: absolute;
+  top: -3%;
+  left: 0%;
+  width: 65vh;
+  flex: 1;
+  flex-direction: 'row';
+  flex-wrap: 'wrap';
 }

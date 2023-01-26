@@ -16,9 +16,9 @@
   right: 119%;
   top: -20%;
   color: rgb(226, 223, 229);
-  text-shadow: 2px 2px #3c00ff;
+  text-shadow: 1px 1px #754bff;
   font-size: 40px;
-  font-family: "Times New Roman", Times, serif;
+  font-family: Raleway, sans-serif;
 }
 
 .switchTeacher input[type="checkbox"] {
@@ -70,9 +70,9 @@
   right: 119%;
   top: -20%;
   color: rgb(226, 223, 229);
-  text-shadow: 2px 2px #3c00ff;
+  text-shadow: 1px 1px #754bff;
   font-size: 40px;
-  font-family: "Times New Roman", Times, serif;
+  font-family: Raleway, sans-serif;
 }
 
 .switchStudent input[type="checkbox"] {
@@ -124,9 +124,9 @@
   right: 119%;
   top: -20%;
   color: rgb(226, 223, 229);
-  text-shadow: 2px 2px #3c00ff;
+  text-shadow: 1px 1px #754bff;
   font-size: 40px;
-  font-family: "Times New Roman", Times, serif;
+  font-family: Raleway, sans-serif;
 }
 
 .switchPass input[type="checkbox"] {

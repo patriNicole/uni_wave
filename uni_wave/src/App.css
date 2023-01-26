@@ -1,15 +1,20 @@
 body {
-  background-color: #767ae981 !important;
+  background: linear-gradient(to bottom, #C7C5F4, #776BCC) !important;
+}
+
+.page_background {
+  background: linear-gradient(to bottom, #C7C5F4, #776BCC) !important;
+  height: 100vh;
 }
 
 .logInContainer {
-  height: 70%;
+  height: 80%;
   width: 50%;
-  background-color: #3d118fca !important;
+  background: #f4f2ff2c !important;
   position: absolute;
   transform: translate(-50%, -50%);
   top: 50%;
-  left: 60%;
+  left: 50%;
   border-radius: 10px;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(5px);
@@ -22,7 +27,7 @@ body {
   border-radius: 58px;
   background: #5820bf98 !important; 
   position: absolute;
-  top: 15%;
+  top: 5%;
   bottom: 15%;
   left: 4%;
   width: 90%;

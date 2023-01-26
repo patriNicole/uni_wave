@@ -3,9 +3,9 @@ import Routes from './routes/Routes.js';
 
 function App() {
   return (
-    <>
+    <div className="page_background">
       <Routes/>
-    </>
+    </div>
   );
 }
 

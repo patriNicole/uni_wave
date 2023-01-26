@@ -5,7 +5,16 @@ import { useNavigate } from "react-router-dom";
 import AlertEmailFormat from "../../Alerts/AlertWarningEmailRegistration.js";
 import AlertPasswordLength from "../../Alerts/AlertWarningPasswordLength.js";
 
+import { FaUser, FaKey } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
+import { IoIosArrowForward } from "react-icons/io";
+import { ImFilePicture } from "react-icons/im";
+
 export default function LoginPass() {
+
+  //style for the icons
+  const style = { color: "white", fontSize: "1.5em" };
+
   const [data, setData] = useState({
     username: "",
     email: "",
@@ -15,14 +24,13 @@ export default function LoginPass() {
 
   const [alertEmail, setAlertEmail] = useState(false);
   const [alertPassword, setAlertPassword] = useState(false);
-  
+
   //redirect to home page
   //const navigate = useNavigate();
 
   const handleChange = ({ currentTarget: input }) => {
     setData({ ...data, [input.name]: input.value });
   };
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -61,7 +69,6 @@ export default function LoginPass() {
 
         //navigate to home
         //navigate("/home");
-
       } else {
         //warning message
         setAlertEmail(true);
@@ -79,43 +86,58 @@ export default function LoginPass() {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <label className="username">
-          username:
+      <form onSubmit={handleSubmit} className="signup">
+        <div class="login__field">
+          <FaUser size={30} style={style} />
           <input
-            className="input-form"
             type="text"
+            class="login__input"
+            placeholder="Username"
             name="username"
             onChange={handleChange}
-						value={data.username}
+            value={data.username}
             required
           />
-        </label>
-        <label className="email">
-          email:
+        </div>
+        <div class="login__field">
+          <MdEmail size={30} style={style} />
           <input
-            className="input-form"
-            type="text"
+            type="email"
+            class="login__input"
+            placeholder="Password"
             name="email"
             onChange={handleChange}
-						value={data.email}
+            value={data.email}
             required
           />
-        </label>
-        <label className="password">
-          password:
+        </div>
+        <div class="login__field">
+          <FaKey size={30} style={style} />
           <input
-            className="input-form"
             type="password"
+            class="login__input"
+            placeholder="Password"
             name="password"
             onChange={handleChange}
-						value={data.password}
+            value={data.password}
             required
           />
-        </label>
-        <button className="button-submit" type="submit">
-          Submit
-        </button>
+        </div>
+        <div class="login__field">
+          <ImFilePicture size={30} style={style} />
+          <input
+            type="file"
+            class="login__input"
+            placeholder="Choose file"
+            name="file"
+            required
+          />
+        </div>
+        
+        <button class="button login__submit" type="submit">
+					<span class="button__text">Submit</span>
+					<IoIosArrowForward class="button__icon fas fa-chevron-right" />
+				</button>	
       </form>
 
       {error && <div>{error}</div>}

@@ -1,5 +1,5 @@
 import "./HomePage.css";
-import React, { useState } from "react";
+import React from "react";
 import "../../App.css";
 
 //import tabs from react-bootstrap
@@ -11,30 +11,28 @@ import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import SignUp from "../SignUp/SingnUp.js";
 import LogIn from "../Login/LogIn.js";
 
-import logo from "../../pictures/uniwave.png";
-import logoColor from "../../pictures/logo-colorr.png";
-
 import { BiSun, BiMoon } from "react-icons/bi";
+
+import logo from "../../pictures/uniwave.png";
 
 export default function HomePage(props) {
 
   return (
     <div>
+      {/*<img src={logo} alt="logo" id="uniwaveLogoSignIn" /> */}
       <div className="logInContainer">
         {/* Change Backgroung Color of the Page */}
         {props.pageColor ? (
           <>
-            <img src={logo} alt="logo" className="logo" />
             <style>
               {
-                "body { background-color: rgb(20, 0, 37) !important; } .username { color: white; } .password { color: white; } .email { color: white; } .log {background-color: #5e73eb3b !important;} .logInContainer {background-color: #5e73eb3b !important;}"
+                " .page_background { background: rgb(20, 0, 37) !important; } .username { color: white; } .password { color: white; } .email { color: white; } .log {background-color: #5e73eb3b !important;} .logInContainer {background-color: #5e73eb3b !important;}"
               }
             </style>
           </>
         ) : (
           <>
-            <img src={logoColor} alt="logo" className="logo" />
-            <style>{"body { background-color: #5e73eb5 !important;}"}</style>
+            <style>{".page_background { background-image: linear-gradient(to bottom, #5d54a4, #736bb4, #8a83c4, #a19bd3, #b8b4e3) !important;}"}</style>
           </>
         )}
       </div>
@@ -52,7 +50,7 @@ export default function HomePage(props) {
           <>
             <BiMoon size={30} />
             <style>
-              {".bgPageColor {background-color: #240686 !important;}"}
+              {".bgPageColor {background: #240686 !important;}"}
             </style>
           </>
         ) : (
@@ -60,7 +58,7 @@ export default function HomePage(props) {
             <BiSun size={30} />
             <style>
               {
-                ".bgPageColor {background-color: rgba(33, 0, 142, 0.21) !important;}"
+                ".bgPageColor {background: rgba(33, 0, 142, 0.21) !important;}"
               }
             </style>
           </>

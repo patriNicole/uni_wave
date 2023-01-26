@@ -45,12 +45,12 @@ export default function SideBar(props) {
       {props.pageColor ? (
         <style>
           {
-            "body { background-color: rgb(20, 0, 37) !important; } .input-search { color: white; } #menu .closemenu h3 { color: #e1c3ffc6; } #menu .pro-sidebar-inner .pro-sidebar-layout ul .pro-inner-item { color: #e1c3ffc6; }"
+            ".page_background { background: rgb(20, 0, 37) !important; } .input-search { color: white; } #menu .closemenu h3 { color: #e1c3ffc6; } #menu .pro-sidebar-inner .pro-sidebar-layout ul .pro-inner-item { color: #e1c3ffc6; }"
           }
         </style>
       ) : (
         <>
-          <style>{"body { background-color: #5e73eb5 !important;}"}</style>
+          <style>{" .page_background {background-image: linear-gradient(to bottom, #5d54a4, #736bb4, #8a83c4, #a19bd3, #b8b4e3) !important;}"}</style>
         </>
       )}
 
