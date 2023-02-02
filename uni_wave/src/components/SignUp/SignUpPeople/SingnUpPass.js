@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./SingnUp.css";
-import { useNavigate } from "react-router-dom";
 
 import AlertEmailFormat from "../../Alerts/AlertWarningEmailRegistration.js";
 import AlertPasswordLength from "../../Alerts/AlertWarningPasswordLength.js";
@@ -8,9 +7,16 @@ import AlertPasswordLength from "../../Alerts/AlertWarningPasswordLength.js";
 import { FaUser, FaKey } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { IoIosArrowForward } from "react-icons/io";
-import { ImFilePicture } from "react-icons/im";
 
-export default function LoginPass() {
+//dispach actions to the store, by adding actions as argument
+//to the new variable
+import { useDispatch } from "react-redux";
+import signupAction from '../../../store/actions/signupAction.js';
+
+export default function SignUpPass() {
+
+  //dispach the action from the store
+  const dispatch = useDispatch();
 
   //style for the icons
   const style = { color: "white", fontSize: "1.5em" };
@@ -19,7 +25,11 @@ export default function LoginPass() {
     username: "",
     email: "",
     password: "",
+    image: "",
   });
+
+  const [loadImage, setLoadImage] = useState("");
+
   const [error, setError] = useState("");
 
   const [alertEmail, setAlertEmail] = useState(false);
@@ -29,13 +39,43 @@ export default function LoginPass() {
   //const navigate = useNavigate();
 
   const handleChange = ({ currentTarget: input }) => {
+    //each input has a name
     setData({ ...data, [input.name]: input.value });
+  };
+
+  const fileHandle = ({ currentTarget: input }) => {
+    if (input.files.length !== 0) {
+      setData({
+        ...data,
+        [input.name]: input.files[0],
+      });
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      setLoadImage(reader.result);
+    };
+    reader.readAsDataURL(input.files[0]);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    //console.log(data);
+
+    const formData = new FormData();
+
+    //append as key-value
+    //key is all the input data (name) 
+    //save it into out state, which is the value
+    formData.append("username", data.username);
+    formData.append("email", data.email);
+    formData.append("password", data.password);
+    formData.append("image", data.image);
+
+    dispatch(signupAction(formData));
+
     //console.log(username, email, password);
-    try {
+    /*try {
       //if the email is in the right format
       if (data.email.includes("@student.manchester.ac.uk")) {
         setAlertEmail(false);
@@ -44,8 +84,8 @@ export default function LoginPass() {
           setAlertPassword(true);
         } else {
           setAlertPassword(false);
-          /* fetch data from API */
-          /* REGISTRATION */
+          // fetch data from API 
+          // REGISTRATION 
           await fetch("http://localhost:8000/api/users", {
             method: "POST",
             crossDomain: true,
@@ -81,17 +121,17 @@ export default function LoginPass() {
       ) {
         setError(error.response.data.message);
       }
-    }
+    }*/
   };
 
   return (
     <>
       <form onSubmit={handleSubmit} className="signup">
-        <div class="login__field">
+        <div className="login__field">
           <FaUser size={30} style={style} />
           <input
             type="text"
-            class="login__input"
+            className="login__input"
             placeholder="Username"
             name="username"
             onChange={handleChange}
@@ -99,23 +139,23 @@ export default function LoginPass() {
             required
           />
         </div>
-        <div class="login__field">
+        <div className="login__field">
           <MdEmail size={30} style={style} />
           <input
             type="email"
-            class="login__input"
-            placeholder="Password"
+            className="login__input"
+            placeholder="Email"
             name="email"
             onChange={handleChange}
             value={data.email}
             required
           />
         </div>
-        <div class="login__field">
+        <div className="login__field">
           <FaKey size={30} style={style} />
           <input
             type="password"
-            class="login__input"
+            className="login__input"
             placeholder="Password"
             name="password"
             onChange={handleChange}
@@ -123,21 +163,34 @@ export default function LoginPass() {
             required
           />
         </div>
-        <div class="login__field">
-          <ImFilePicture size={30} style={style} />
-          <input
-            type="file"
-            class="login__input"
-            placeholder="Choose file"
-            name="file"
-            required
-          />
+        <div className="login__field">
+          <div className="file-image">
+            <div className="image">
+              {loadImage ? (
+                <img alt={loadImage} src={loadImage} style={{ objectFit: "cover" }} />
+              ) : (
+                ""
+              )}
+            </div>
+            <div className="file">
+              <label className="upload-label">
+                <input
+                  type="file"
+                  className="login__input"
+                  placeholder="Choose file"
+                  name="image"
+                  onChange={fileHandle}
+                />
+                Select Image
+              </label>
+            </div>
+          </div>
         </div>
-        
-        <button class="button login__submit" type="submit">
-					<span class="button__text">Submit</span>
-					<IoIosArrowForward class="button__icon fas fa-chevron-right" />
-				</button>	
+
+        <button className="button login__submit" type="submit">
+          <span className="button__text">Submit</span>
+          <IoIosArrowForward className="button__icon fas fa-chevron-right" />
+        </button>
       </form>
 
       {error && <div>{error}</div>}
