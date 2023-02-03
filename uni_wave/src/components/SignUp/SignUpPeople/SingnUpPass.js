@@ -10,7 +10,7 @@ import { IoIosArrowForward } from "react-icons/io";
 
 //dispach actions to the store, by adding actions as argument
 //to the new variable
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import signupAction from '../../../store/actions/signupAction.js';
 
 export default function SignUpPass() {
@@ -30,10 +30,12 @@ export default function SignUpPass() {
 
   const [loadImage, setLoadImage] = useState("");
 
-  const [error, setError] = useState("");
+  //const [error, setError] = useState("");
 
   const [alertEmail, setAlertEmail] = useState(false);
   const [alertPassword, setAlertPassword] = useState(false);
+
+  const { loading, authenticate, error, successMessage, userInfo } = useSelector(state => state.auth);
 
   //redirect to home page
   //const navigate = useNavigate();
@@ -136,7 +138,7 @@ export default function SignUpPass() {
             name="username"
             onChange={handleChange}
             value={data.username}
-            required
+            //required
           />
         </div>
         <div className="login__field">
@@ -148,7 +150,7 @@ export default function SignUpPass() {
             name="email"
             onChange={handleChange}
             value={data.email}
-            required
+            //required
           />
         </div>
         <div className="login__field">
@@ -160,7 +162,7 @@ export default function SignUpPass() {
             name="password"
             onChange={handleChange}
             value={data.password}
-            required
+            //required
           />
         </div>
         <div className="login__field">
@@ -193,7 +195,7 @@ export default function SignUpPass() {
         </button>
       </form>
 
-      {error && <div>{error}</div>}
+      {/*error && <div>{error}</div>*/}
       {alertEmail && <AlertEmailFormat />}
       {alertPassword && <AlertPasswordLength />}
     </>
