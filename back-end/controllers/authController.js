@@ -1,9 +1,12 @@
 //parsing form data, especially file uploads
 const formidable = require("formidable");
 const validator = require("validator");
-
 const signupModel = require("../model/authModel.js");
-
+//password hashing
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const { options } = require("../routes/authRoute");
+//used for uploading the picture
 const cloudinary = require("cloudinary").v2;
 
 // Configuration
@@ -19,9 +22,9 @@ module.exports.userRegister = (req, res) => {
   form.parse(req, async (err, fields, files) => {
     const { username, email, password } = fields;
 
-    //const { image } = files;
     const error = [];
 
+    /* Check inputs */
     if (!username) {
       error.push("Please provide your user name");
     }
@@ -39,100 +42,92 @@ module.exports.userRegister = (req, res) => {
       error.push("Please provide password mush be 8 charecter");
     }
     //if no image uploaded
-    /*if (Object.keys(files).length === 0) {
+    if (Object.keys(files).length === 0) {
       error.push("Please provide user image");
-    }*/
+    }
+
+    /* If error while processing the inputs */
     if (error.length > 0) {
       res.status(400).json({
         error: {
           errorMessage: error,
         },
       });
+
     } else {
-      console.log(fields, files);
-      /* IF USER ALREADY EXISTS => ERROR */
-	  /*cloudinary.uploader.upload(files.image.path, {
-		resource_type: "auto"
-	  }, function(error, result) {
-		if(error) throw error;
-		console.log(result.url);
-		// Pass the result.url to your MongoDB user schema
-	  });/*
+
       try {
+        
         const checkUserExists = await signupModel.findOne({
           email: email,
         });
+        /* IF USER ALREADY EXISTS => ERROR */
         if (checkUserExists) {
           res.status(404).json({
             error: {
               errorMessage: ["You already signed up with this email."],
             },
           });
+
         } else {
 
-        // CREATE THE USER 
-		
-		  cloudinary.uploader.upload(files.image.path, {
-			resource_type: "auto"
-		  }, function(error, result) {
-			if(error) throw error;
-			console.log(result.url);
-			// Pass the result.url to your MongoDB user schema
-		  });
-          
+          /* Upload Image on Cloudinary */
+          cloudinary.uploader.upload(
+            files.image.filepath,
+            {
+              resource_type: "auto",
+            },
+            function (error, result) {
+              if (error) throw error;
+              //console.log(result.url);
+            }
+          );
+
+          /* CREATE THE USER */
           const userCreate = await signupModel.create({
             username,
             email,
-            password,
-            image: "urlImage",
+            password: await bcrypt.hash(password, 10),
+            image: files.image.originalFilename,
           });
-          console.log("registration Complete successfully");
+          //console.log("registration Complete successfully, ");
+
+          /* JWT for communicating information as a JSON object between two parties */
+          const token = jwt.sign(
+            {
+              //access the userCreate values from database
+              id: userCreate._id,
+              username: userCreate.username,
+              email: userCreate.email,
+              image: userCreate.image,
+              registerTime: userCreate.createdAt,
+            },
+            //generate the secret key
+            process.env.JWTPRIVATEKEY,
+            {
+              //token expires in 1 day
+              expiresIn: process.env.TOKEN_EXP,
+            }
+          );
+
+          /* Pass the data to cookie */
+          //option for cookie to expire (date, min, sec, milisec)
+          const options = { expires : new Date(Date.now() + process.env.COOKIE_EXP * 24 * 60 * 60 * 1000 )}
+          //generate the cookie with the name authToken
+          res.status(201).cookie('authToken',token, options).json({
+            successMessage : 'Your Register Successful', token
+          })
         }
+
       } catch (error) {
+
         res.status(500).json({
           error: {
             errorMessage: ["Interanl Server Error"],
           },
+
         });
-      }*/
+      }
     }
   });
 };
-
-/*
-const { User } = require("../model/userSchema.js");
-//bcrypt the password
-const bcrypt = require("bcryptjs");
-const Joi = require("joi");
-
-router.post("/", async (req, res) => {
-	try {
-		const { error } = validate(req.body);
-		if (error)
-			return res.status(400).send({ message: error.details[0].message });
-
-		const user = await User.findOne({ email: req.body.email });
-		if (!user)
-			return res.status(401).send({ message: "Invalid Email or Password" });
-
-		const validPassword = await bcrypt.compare(
-			req.body.password,
-			user.password
-		);
-		if (!validPassword)
-			return res.status(401).send({ message: "Invalid Email or Password" });
-
-		const token = user.generateAuthToken();
-		res.status(200).send({ data: token, message: "Logged in successfully" });
-	} catch (error) {
-		res.status(500).send({ message: "Internal Server Error" });
-	}
-});
-
-const validate = (data) => {
-	const schema = Joi.object({
-		email: Joi.string().email().required().label("Email"),
-		password: Joi.string().required().label("Password"),
-	});
-	return schema.validate(data);
-};*/

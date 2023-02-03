@@ -1,7 +1,7 @@
 const {model,Schema} = require('mongoose');
 
 const registerSchema = new Schema({
-     userName : {
+     username : {
           type : String,
           required : true,
           unique: true,
@@ -23,7 +23,6 @@ const registerSchema = new Schema({
      image : {
           type: String,
           required : true,
-          trim: true
      }
     //timestamp represents the time when the 
     //account has been created or updated
