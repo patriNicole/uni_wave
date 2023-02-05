@@ -1,5 +1,5 @@
-import { REGISTER_FAIL, REGISTER_SUCCESS } from "../types/authType";
-import deCodeToken from 'jwt-decode';
+import { REGISTER_FAIL, REGISTER_SUCCESS, SUCCESS_MESSAGE_CLEAR, ERROR_CLEAR } from "../types/authType";
+import deCodeToken from "jwt-decode";
 
 //the purpose of this function is to handle changes
 //to the state of an authentication-related data store
@@ -16,36 +16,35 @@ const authState = {
 };
 
 /* DECODE TOKEN SO THAT WE CAN GET USER INFO */
-const tokenDecode = (token) =>{
-    const tokenDecoded = deCodeToken(token);
-    //take the expiration time of our tokenDecoded * 1000 mili-sec
-    //how much time left from the 1 day set in backend
-    const expTime = new Date(tokenDecoded.exp*1000);
-    //if token expired then return null
-    if(new Date() > expTime){
-         return null;
-    }
-    return tokenDecoded;
-}
+const tokenDecode = (token) => {
+  const tokenDecoded = deCodeToken(token);
+  //take the expiration time of our tokenDecoded * 1000 mili-sec
+  //how much time left from the 1 day set in backend
+  const expTime = new Date(tokenDecoded.exp * 1000);
+  //if token expired then return null
+  if (new Date() > expTime) {
+    return null;
+  }
+  return tokenDecoded;
+};
 
 /* IF USER REFRESHES THE PAGE, USER STILL REGISTERED UNTIL TOKEN EXPIRES */
 //get the token from local storage of browser
-const getToken = localStorage.getItem('authToken');
+const getToken = localStorage.getItem("authToken");
 //if there is a token
-if(getToken){
-    //get all the user info from token
-     const getUserInfo = tokenDecode(getToken);
-     //if there is user info
-     if(getUserInfo){
-        //if user is registering his info will be stored
-        //till the token is expiring
-        authState.userInfo = getUserInfo;
-        //user already registered as token key still available
-        authState.authenticate = true;
-        authState.loading = false;
-     }
+if (getToken) {
+  //get all the user info from token
+  const getUserInfo = tokenDecode(getToken);
+  //if there is user info
+  if (getUserInfo) {
+    //if user is registering his info will be stored
+    //till the token is expiring
+    authState.userInfo = getUserInfo;
+    //user already registered as token key still available
+    authState.authenticate = true;
+    authState.loading = false;
+  }
 }
-
 
 /* CONSTRUCT THE REDUCER */
 
@@ -81,6 +80,20 @@ export const authReducer = (state = authState, action) => {
       error: "",
       authenticate: true,
       loading: false,
+    };
+  }
+
+  if (type === SUCCESS_MESSAGE_CLEAR) {
+    return {
+      ...state,
+      successMessage: "",
+    };
+  }
+
+  if (type === ERROR_CLEAR) {
+    return {
+      ...state,
+      error: "",
     };
   }
 

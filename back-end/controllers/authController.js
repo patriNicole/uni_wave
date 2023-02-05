@@ -26,24 +26,25 @@ module.exports.userRegister = (req, res) => {
 
     /* Check inputs */
     if (!username) {
-      error.push("Please provide your user name");
+      error.push("Please provide your user name. ");
     }
     if (!email) {
-      error.push("Please provide your Email");
+      error.push("Please provide your Email. ");
     }
     //if unauthorised email
     if (email && !validator.isEmail(email)) {
-      error.push("Please provide your Valid Email");
+      error.push("Please provide your Valid Email. ");
     }
+    var pass = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
     if (!password) {
-      error.push("Please provide your Password");
+      error.push("Please provide your Password. ");
     }
-    if (password && password.length < 9) {
-      error.push("Please provide password mush be 8 charecter");
+    if (password && password.length < 6) {
+      error.push("Please provide password with at least 6 characters. ");
     }
     //if no image uploaded
     if (Object.keys(files).length === 0) {
-      error.push("Please provide user image");
+      error.push("Please provide user image. ");
     }
 
     /* If error while processing the inputs */
@@ -115,7 +116,7 @@ module.exports.userRegister = (req, res) => {
           const options = { expires : new Date(Date.now() + process.env.COOKIE_EXP * 24 * 60 * 60 * 1000 )}
           //generate the cookie with the name authToken
           res.status(201).cookie('authToken',token, options).json({
-            successMessage : 'Your Register Successful', token
+            successMessage : ' You Registered Successfully ', token
           })
         }
 
