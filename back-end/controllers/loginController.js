@@ -6,18 +6,16 @@ const { options } = require("../routes/authRoute.js");
 
 module.exports.userLogin = async (req, res) => {
   const error = [];
-  //take the email and password from requested body
-  const { email, password } = req.body;
+  //take the username and password from requested body
+  const { username, password } = req.body;
 
-  if (!email) {
-    error.push("Please provide your Emai. ");
+  if (!username) {
+    error.push("Please provide your username. ");
   }
   if (!password) {
     error.push("Please provide your Passowrd. ");
   }
-  if (email && !validator.isEmail(email)) {
-    error.push("Please provide your Valid Email. ");
-  }
+  
   if (error.length > 0) {
     res.status(400).json({
       error: {
@@ -26,10 +24,10 @@ module.exports.userLogin = async (req, res) => {
     });
   } else {
     try {
-      //check user by email
+      //check user by username
       const checkUserExists = await signupModel
         .findOne({
-          email: email,
+          username: username,
           //The .select('+password') modifier is used to override the select:
           //false setting for the password field and include it in the query result.
         })
@@ -84,7 +82,7 @@ module.exports.userLogin = async (req, res) => {
       } else {
         res.status(400).json({
           error: {
-            errorMessage: ["Your Email Not Found. "],
+            errorMessage: ["Your Username Not Found. "],
           },
         });
       }

@@ -20,6 +20,7 @@ import { ERROR_CLEAR, SUCCESS_MESSAGE_CLEAR } from '../../../store/types/authTyp
 export default function SignUpPass() {
 
   //dispach the action from the store
+  //working with reducer
   const dispatch = useDispatch();
 
   //style for the icons
@@ -93,20 +94,20 @@ export default function SignUpPass() {
     if(authenticate){
       setAlertSuccessRegister(true);
       //navigate('/home');
-      setAlertSuccessRegister(false);
+      //setAlertSuccessRegister(false);
     }
     if(successMessage){
       setAlertSuccessRegister(true);
       setAlertWarningRegister(false);
-      dispatch({type : SUCCESS_MESSAGE_CLEAR })
+      //dispatch({type : SUCCESS_MESSAGE_CLEAR })
     }
     if(error){
       setAlertSuccessRegister(false);
       setAlertWarningRegister(true);
-      dispatch({type : ERROR_CLEAR })
+      //dispatch({type : ERROR_CLEAR })
     }
 
-  },[successMessage, error])
+  },[successMessage, error]);
 
   return (
     <>

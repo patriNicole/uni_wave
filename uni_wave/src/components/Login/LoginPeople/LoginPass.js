@@ -1,20 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Login.css";
-//import { useNavigate } from "react-router-dom";
+
+import { useNavigate } from "react-router-dom";
+
+import AlertWarningRegister from "../../Alerts/AlertWarningRegister.js";
+import AlertSuccessRegister from "../../Alerts/AlertSuccessRegister.js";
 
 import { FaUser, FaKey } from "react-icons/fa";
 import { IoIosArrowForward } from "react-icons/io";
+
+import {useDispatch,useSelector} from "react-redux";
+import { ERROR_CLEAR, SUCCESS_MESSAGE_CLEAR } from '../../../store/types/authType.js';
+import loginAction from '../../../store/actions/loginAction.js';
 
 export default function LoginPass() {
   //style for the icons
   const style = { color: "white", fontSize: "1.5em" };
 
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [userData, setUserData] = useState({
     username: "",
     password: "",
   });
+
+  //Alerts
+  const [alertWarningRegister, setAlertWarningRegister] = useState(false);
+  const [alertSuccessRegister, setAlertSuccessRegister] = useState(false);
+
+  //data
+  const { loading, authenticate, error, successMessage, userInfo } = useSelector(state => state.auth);
+
+  //dispach the action from the store
+  //working with reducer
+  const dispatch = useDispatch();
 
   const inputUser = (input) => {
     setUserData({
@@ -26,9 +45,28 @@ export default function LoginPass() {
 
   const loginUser = (e) => {
     e.preventDefault();
-    console.log(userData);
-    //navigate("/home");
+    //console.log(userData);
+    dispatch(loginAction(userData)); 
   };
+
+  useEffect(()=>{
+    if(authenticate){
+      setAlertSuccessRegister(true);
+      //navigate('/home');
+      //setAlertSuccessRegister(false);
+    }
+    if(successMessage){
+      setAlertSuccessRegister(true);
+      setAlertWarningRegister(false);
+      //dispatch({type : SUCCESS_MESSAGE_CLEAR })
+    }
+    if(error){
+      setAlertSuccessRegister(false);
+      setAlertWarningRegister(true);
+      //dispatch({type : ERROR_CLEAR })
+    }
+
+  },[successMessage, error]);
 
   return (
     <>
@@ -62,6 +100,9 @@ export default function LoginPass() {
           <IoIosArrowForward className="button__icon fas fa-chevron-right" />
         </button>
       </form>
+
+      {alertWarningRegister && <AlertWarningRegister />}
+      {alertSuccessRegister && <AlertSuccessRegister/>}
     </>
   );
 }
