@@ -10,7 +10,14 @@ const cors = require("cors");
 const dotenv = require('dotenv');
 dotenv.config({
   path : './config/config.env'
-})
+});
+
+//handling HTTP POST request data
+//parses the incoming request bodies in a middleware before the handlers
+const bodyParser = require('body-parser');
+//parses the cookies attached to an HTTP request 
+//and populates the req.cookies object with key-value pairs
+const cookieParser = require('cookie-parser');
 
 //middlewares
 app.use(cors());
@@ -21,14 +28,14 @@ const databaseConnect = require("./config/database.js");
 databaseConnect();
 
 const PORT = process.env.PORT || 8000
-app.get('/', (req, res)=>{
-  res.send('This is from backend Sever')
-})
 
 //MIDDLEWARES
 /* USER AUTHENTIFICATION */
 const authRoutes = require("./routes/authRoute.js");
 app.use('/api/uniwave', authRoutes);
+//the type of request data requested will be json
+app.use(bodyParser.json());
+app.use(cookieParser());
 
 //start server
 app.listen(PORT, () => {

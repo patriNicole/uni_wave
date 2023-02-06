@@ -16,6 +16,10 @@ const registerSchema = new Schema({
      password : {
           type: String,
           required : true,
+          //IMPORTANT - security reasons
+          //even if someone gains unauthorized access to the database, 
+          //they won't be able to see the password in plain text
+          //PASSWORD WON'T BE DISPLAYED IN Check User unless select: true
           select : false,
           minlength: 8,
           trim: true

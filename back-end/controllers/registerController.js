@@ -5,7 +5,7 @@ const signupModel = require("../model/authModel.js");
 //password hashing
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { options } = require("../routes/authRoute");
+const { options } = require("../routes/authRoute.js");
 //used for uploading the picture
 const cloudinary = require("cloudinary").v2;
 
