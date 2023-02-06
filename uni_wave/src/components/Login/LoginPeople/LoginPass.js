@@ -45,7 +45,6 @@ export default function LoginPass() {
 
   const loginUser = (e) => {
     e.preventDefault();
-    //console.log(userData);
     dispatch(loginAction(userData)); 
   };
 

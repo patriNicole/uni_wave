@@ -6,7 +6,7 @@ export default function loginAction(data) {
     try {
       const config = {
         headers: {
-          "Content-Type": "application/josn",
+          "Content-Type": "application/json",
         },
       };
       // fetch data from API

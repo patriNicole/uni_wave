@@ -31,6 +31,9 @@ import "./SideNav.css";
 import uniwave from "../../../pictures/logo-color.png";
 import logo from "../../../pictures/uniwave.png";
 
+import {useDispatch } from 'react-redux';
+import {userLogout } from '../../../store/actions/logoutAction.js';
+
 export default function SideBar(props) {
   const [menuCollapse, setMenuCollapse] = useState(true);
 
@@ -38,6 +41,14 @@ export default function SideBar(props) {
     //condition checking to change state from true to false and vice versa
     menuCollapse ? setMenuCollapse(false) : setMenuCollapse(true);
   };
+
+  //dispach the action from the store
+  //working with reducer
+  const dispatch = useDispatch();
+  
+  const logoutUser = () => {
+    dispatch(userLogout());
+  }
 
   return (
     <>
@@ -109,10 +120,14 @@ export default function SideBar(props) {
           </SidebarContent>
           <SidebarFooter>
             <Menu iconShape="square">
-              <MenuItem icon={<FiLogOut size={20} />}>
+
+              {/* SIGN OUT */}
+              <MenuItem icon={<FiLogOut size={20} />} onClick={logoutUser}>
                 LogOut
-                <Link exact="true" to="/" />
+                {/*<Link exact="true" to="/" />*/}
               </MenuItem>
+              {/* SIGN OUT */}
+
               <MenuItem>
                 <button
                   className="bgMainPageColor"

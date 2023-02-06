@@ -9,6 +9,8 @@ module.exports.userLogin = async (req, res) => {
   //take the username and password from requested body
   const { username, password } = req.body;
 
+  console.log(req.body)
+
   if (!username) {
     error.push("Please provide your username. ");
   }
