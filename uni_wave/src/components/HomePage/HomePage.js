@@ -13,7 +13,7 @@ import LogIn from "../Login/LogIn.js";
 
 import { BiSun, BiMoon } from "react-icons/bi";
 
-import logo from "../../pictures/uniwave.png";
+//import logo from "../../pictures/uniwave.png";
 
 export default function HomePage(props) {
 

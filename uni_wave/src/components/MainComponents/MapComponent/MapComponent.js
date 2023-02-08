@@ -35,7 +35,7 @@ export default function MapComponent(props) {
     <>
       <div className="mapComponent">
         <div className="map">
-        <img src={CampusMap} className="campusImage" useMap="#campusmap" onMouseMove={_onMouseMove.bind(this)}/>
+        <img src={CampusMap} alt="CampusMap" className="campusImage" useMap="#campusmap" onMouseMove={_onMouseMove.bind(this)}/>
           <map name="campusmap">
             <area shape="rect" coords="76,19,216,91" alt="Engineering Building" 
             onClick={() => {

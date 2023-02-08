@@ -19,6 +19,7 @@ export default function MapInfoKilburnFirstFloor(props) {
       {/* First Floor */}
       {props.showFirstFloor && (
         <img
+          alt={KilburnFirstFloor}
           src={KilburnFirstFloor}
           className="campusImage"
           useMap="#kilburnfirstfloormap"
@@ -43,7 +44,7 @@ export default function MapInfoKilburnFirstFloor(props) {
           Floor Plan
         </button>
       )}
-      {props.showFirstFloorPlan && <img src={KilburnFirstFloorPlan} className="floorImage" />}
+      {props.showFirstFloorPlan && <img alt={KilburnFirstFloorPlan} src={KilburnFirstFloorPlan} className="floorImage" />}
       {props.showFirstFloorPlan && (
         <button
           className="buttonViewFloor"

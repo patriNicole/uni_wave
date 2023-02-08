@@ -78,10 +78,10 @@ export default function StudentCalendar(props) {
     //set the event clicked
     setEvent(event);
     //if the delete button is pressed, then delete the event
-    if (deleteEvent == true) {
+    if (deleteEvent === true) {
       deleteSelectedEvent();
     }
-    if (updateEvent == true) {
+    if (updateEvent === true) {
       updateSelectedEvent();
     }
   }
@@ -116,12 +116,12 @@ export default function StudentCalendar(props) {
         //the update action just happened, so the state will return to false
         setUpdateEvent(false);
         allEvents.findIndex((obj) => {
-          if (obj === pEvent && titleEvent != "" && startDateEvent != "" && endDateEvent != "") {
+          if (obj === pEvent && titleEvent !== "" && startDateEvent !== "" && endDateEvent !== "") {
             obj.title = titleEvent;
             obj.start = startDateEvent;
             obj.end = endDateEvent;
           } else {
-            if (obj === pEvent && titleEvent == "") {
+            if (obj === pEvent && titleEvent === "") {
               obj.start = startDateEvent;
               obj.end = endDateEvent;
             }
@@ -158,7 +158,7 @@ export default function StudentCalendar(props) {
           onSelectEvent={(event) => {
             onSelectEvent(event);
             //when an event selected, a popup will appear
-            if (showUpdateDelete == false) setUpdateDelete(true);
+            if (showUpdateDelete === false) setUpdateDelete(true);
           }}
         />
 

@@ -16,3 +16,6 @@
 .alert.warning {
   background-color: #900000;
 }
+.alert.success-registered {
+  background-color: #04aa6d5e;
+}
