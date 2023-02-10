@@ -1,0 +1,51 @@
+/* LEFT COMPONENT OF CHAT */
+.leftGroupChat {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  height: 100%;
+}
+
+.leftGroupChatContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.userHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.userImage {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 2px solid rgb(255, 250, 250);
+  overflow: hidden;
+}
+
+.userName {
+  padding-left: 10px;
+  font-weight: 600;
+  font-size: 20px !important;
+  color: white;
+}
+
+.searchUser {
+  justify-content: flex-start;
+  align-items: center;
+  top: 30px;
+  margin-left: -120px !important;
+  width: 100%;
+}
+
+/* RIGHT COMPONENT OF CHAT */
+.rightGroupChat {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  height: 100vh;
+}
