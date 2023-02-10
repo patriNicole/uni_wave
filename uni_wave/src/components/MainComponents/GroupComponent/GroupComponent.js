@@ -8,6 +8,8 @@ import { FcSearch } from "react-icons/fc";
 
 import userPicture from "../../../pictures/uniwave.png";
 
+import ActiveFriends from "./ActiveFriend/ActiveFriend.js";
+
 export default function GroupComponent() {
   return (
     <div className="groupComponent">
@@ -35,6 +37,10 @@ export default function GroupComponent() {
               </div>
             </form>
           </div>
+
+          {/* USERS */}
+          <ActiveFriends/>
+          
         </div>
       </div>
 
