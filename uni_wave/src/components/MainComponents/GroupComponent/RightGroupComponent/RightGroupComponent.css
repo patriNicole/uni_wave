@@ -17,11 +17,12 @@
   border-bottom: 1px solid white;
   border-radius: 5%;
   height: 9% !important;
+  margin-top: 10px;
 }
 
 .centerChat {
   margin-top: 5%;
-  
+  height: 70%;
 }
 
 .hiddenCenter {

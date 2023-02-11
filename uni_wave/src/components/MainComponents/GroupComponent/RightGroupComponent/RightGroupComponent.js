@@ -2,6 +2,9 @@ import React from "react";
 
 import "./RightGroupComponent.css";
 
+import HeaderChat from "./HeaderChat/HeaderChat.js";
+import MessageFriend from "./MessageFriend/MessageFriend";
+
 export default function RightGroupComponent() {
   return (
     <div className="rightGroupChat">
@@ -10,10 +13,10 @@ export default function RightGroupComponent() {
       <div className="centerPart">
         {/* HEADER PART */}
         <div className="centerHeader">
-          header
+          <HeaderChat/>
         </div>
         <div className="centerChat">
-          center
+          <MessageFriend/>
         </div>
       </div>
 
