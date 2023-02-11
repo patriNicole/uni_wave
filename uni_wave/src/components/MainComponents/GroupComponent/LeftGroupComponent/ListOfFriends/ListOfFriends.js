@@ -1,11 +1,11 @@
 import React from "react";
 
-import "./MessageFriends.css";
+import "./ListOfFriends.css";
 import "../../GroupComponent.css";
 
 import userPicture from "../../../../../pictures/uniwave.png";
 
-export default function MessageFriends() {
+export default function ListOfFriends() {
   return (
     <div className="friend-list">
 

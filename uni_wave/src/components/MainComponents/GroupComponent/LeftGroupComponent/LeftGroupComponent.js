@@ -7,7 +7,7 @@ import { FcSearch } from "react-icons/fc";
 import userPicture from "../../../../pictures/uniwave.png";
 
 import ActiveFriends from "./ActiveFriend/ActiveFriend.js";
-import MessageFriends from "./MessageFriends/MessageFriends.js";
+import MessageFriends from "./ListOfFriends/ListOfFriends.js";
 
 export default function LeftGroupComponent() {
     return (

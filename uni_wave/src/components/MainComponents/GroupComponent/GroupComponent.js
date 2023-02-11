@@ -13,9 +13,7 @@ export default function GroupComponent() {
       <LeftGroupComponent/>
 
       {/* RIGHT SIDE OF THE CHAT */}
-      <div class="rightGroupChat">
-        <RightGroupComponent/>
-      </div>
+      <RightGroupComponent/>
     </div>
   );
 }
