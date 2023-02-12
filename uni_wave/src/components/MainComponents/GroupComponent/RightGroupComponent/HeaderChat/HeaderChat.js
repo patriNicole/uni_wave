@@ -3,7 +3,7 @@ import "./HeaderChat.css";
 
 import { FaPhoneAlt, FaVideo, FaRocketchat } from "react-icons/fa";
 
-import userPicture from "../../../../../pictures/uniwave.png";
+import userPicture from "../../../../../pictures/notfound.jpg";
 
 export default function HeaderChat() {
   return (

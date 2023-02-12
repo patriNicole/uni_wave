@@ -1,7 +1,7 @@
 import React from "react";
 import "./MessageFriend.css";
 
-import userPicture from "../../../../../pictures/uniwave.png";
+import userPicture from "../../../../../pictures/notfound.jpg";
 
 export default function MessageFriend() {
   return (
@@ -12,6 +12,15 @@ export default function MessageFriend() {
         <div className="my-image-and-message">
           <div className="my-message-text">
             <p className="message-text"> How Are You? hhhhhhhhaWDHwkdhxskwHDXHASDHJXShdxhashdxashdxahxjhsajx </p>
+          </div>
+        </div>
+        <div className="time">2 Jan 2022</div>
+      </div>
+
+      <div className="my-message">
+        <div className="my-image-and-message">
+          <div className="my-message-text">
+            <p className="message-text"> <img src={userPicture} alt="userPicture"/> </p>
           </div>
         </div>
         <div className="time">2 Jan 2022</div>

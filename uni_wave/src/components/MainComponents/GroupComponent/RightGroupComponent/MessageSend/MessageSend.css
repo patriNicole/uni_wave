@@ -1,0 +1,74 @@
+.message-send-section {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+}
+
+.iconMessageFile {
+  display: flex;
+  padding: 8px;
+  font-size: 20px;
+  align-items: center;
+  margin-bottom: 0px;
+  cursor: pointer;
+  color: white;
+}
+
+.message-type {
+  display: flex;
+  width: 70%;
+  height: 40px;
+  background-color: transparent;
+  border-radius: 50px;
+  border: none;
+  align-items: center;
+}
+
+.form-control-message-send {
+  width: 100%;
+  border-radius: 50px;
+  background-color: transparent;
+  border: 2px solid #594cbe;
+  color: white;
+}
+
+.form-control-message-send:hover {
+  padding: 10px;
+}
+
+.form-control-message-send::placeholder {
+  color: white;
+  padding: 10px;
+}
+
+.emoji-section {
+  width: 200px;
+  background: #594cbe;
+  position: absolute;
+  right: 60px;
+  padding: 6px;
+  bottom: 50px;
+  border-radius: 20px;
+  border-bottom-right-radius: 0px;
+  display: none;
+}
+
+.emoji {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-gap: 4px;
+}
+
+.emoji span {
+  cursor: pointer;
+}
+
+#emoji:checked ~ .emoji-section{
+    display: block;
+}
+
+input[type="checkbox"] {
+  display: none;
+}

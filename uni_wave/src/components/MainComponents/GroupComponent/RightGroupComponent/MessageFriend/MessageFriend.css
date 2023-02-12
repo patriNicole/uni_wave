@@ -8,7 +8,7 @@
 
 .time {
   margin-top: 50px;
-  padding: 1px 0px;
+  padding: 5px 0px;
   color: #ffffffd9;
   font-size: 12px;
   text-align: end;
@@ -49,7 +49,7 @@
   padding-left: 10px;
   padding-right: 10px;
   padding-bottom: -5px;
-  border-radius: 5%;
+  border-radius: 9%;
 }
 
 /* USER'S FRIEND */
@@ -76,6 +76,7 @@
   border: 1px solid rgb(255, 250, 250);
   margin-top: 0px;
   margin-right: 10px;
+  overflow: hidden;
 }
 
 .friend-message-text {
@@ -90,7 +91,7 @@
   padding-left: 20px;
   padding-right: 10px;
   padding-bottom: -5px;
-  border-radius: 5%;
+  border-radius: 9%;
   margin-top: 40px;
 }
 

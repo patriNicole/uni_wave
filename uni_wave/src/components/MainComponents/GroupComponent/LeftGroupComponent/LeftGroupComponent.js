@@ -13,7 +13,7 @@ export default function LeftGroupComponent() {
     return (
       <>
         <div className="leftGroupChat">
-          <div class="leftGroupChatContainer">
+          <div className="leftGroupChatContainer">
             <div className="userHeader">
               <div className="userImage">
                 <img src={userPicture} alt="userPicture" />

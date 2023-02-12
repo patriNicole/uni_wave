@@ -4,6 +4,8 @@ import "./RightGroupComponent.css";
 
 import HeaderChat from "./HeaderChat/HeaderChat.js";
 import MessageFriend from "./MessageFriend/MessageFriend";
+import MessageSend from "./MessageSend/MessageSend.js";
+import FriendInfo from "./FriendInfo/FriendInfo";
 
 export default function RightGroupComponent() {
   return (
@@ -17,13 +19,14 @@ export default function RightGroupComponent() {
         </div>
         <div className="centerChat">
           <MessageFriend/>
+          <MessageSend/>
         </div>
       </div>
 
       {/* SECOND HIDDEN PART */}
       <div className="hiddenCenter">
         <div className="hiddenCenterContent">
-          infoUser
+          <FriendInfo/>
         </div>
       </div>
 
