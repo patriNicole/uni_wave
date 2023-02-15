@@ -32,10 +32,14 @@ const PORT = process.env.PORT || 8000
 //MIDDLEWARES
 /* USER AUTHENTIFICATION */
 const authRoutes = require("./routes/authRoute.js");
-app.use('/api/uniwave', authRoutes);
+const messengerRoute = require('./routes/messengerRouter.js');
+
 //the type of request data requested will be json
 app.use(bodyParser.json());
 app.use(cookieParser());
+//middlewares
+app.use('/api/uniwave', authRoutes);
+app.use('/api/uniwave', messengerRoute);
 
 //start server
 app.listen(PORT, () => {

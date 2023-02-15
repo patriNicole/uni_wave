@@ -2,7 +2,7 @@ const signupModel = require("../model/authModel.js");
 const validator = require("validator");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { options } = require("../routes/authRoute.js");
+//const { options } = require("../routes/authRoute.js");
 
 module.exports.userLogin = async (req, res) => {
   const error = [];
@@ -50,7 +50,7 @@ module.exports.userLogin = async (req, res) => {
             {
               id: checkUserExists._id,
               email: checkUserExists.email,
-              userName: checkUserExists.username,
+              username: checkUserExists.username,
               image: checkUserExists.image,
               registerTime: checkUserExists.createdAt,
             },

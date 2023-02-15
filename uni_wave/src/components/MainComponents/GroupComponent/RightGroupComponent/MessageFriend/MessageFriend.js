@@ -1,9 +1,10 @@
-import React from "react";
+import React,{ useEffect } from "react";
 import "./MessageFriend.css";
 
 import userPicture from "../../../../../pictures/notfound.jpg";
 
 export default function MessageFriend() {
+
   return (
     <div className="messageCenter">
 

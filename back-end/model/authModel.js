@@ -1,4 +1,4 @@
-const {model,Schema} = require('mongoose');
+const { model, Schema } = require('mongoose');
 
 const registerSchema = new Schema({
      username : {
@@ -11,7 +11,8 @@ const registerSchema = new Schema({
           type: String,
           required : true,
           unique: true,
-          trim: true
+          trim: true,
+          lowercase: true
      },
      password : {
           type: String,
