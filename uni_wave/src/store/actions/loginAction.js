@@ -8,6 +8,7 @@ export default function loginAction(data) {
         headers: {
           "Content-Type": "application/json",
         },
+        withCredentials: true
       };
       // fetch data from API
       // REGISTRATION

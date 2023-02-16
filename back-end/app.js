@@ -19,9 +19,18 @@ const bodyParser = require('body-parser');
 //and populates the req.cookies object with key-value pairs
 const cookieParser = require('cookie-parser');
 
+app.use(cookieParser());
+
+configCors = {
+  origin: 'http://localhost:3000',
+  credentials: true
+}
+
 //middlewares
-app.use(cors());
+app.use(cors(configCors));
 app.use(express.json());
+//the type of request data requested will be json
+app.use(bodyParser.json());
 
 //connected to the database
 const databaseConnect = require("./config/database.js");
@@ -34,9 +43,6 @@ const PORT = process.env.PORT || 8000
 const authRoutes = require("./routes/authRoute.js");
 const messengerRoute = require('./routes/messengerRouter.js');
 
-//the type of request data requested will be json
-app.use(bodyParser.json());
-app.use(cookieParser());
 //middlewares
 app.use('/api/uniwave', authRoutes);
 app.use('/api/uniwave', messengerRoute);

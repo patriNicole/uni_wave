@@ -87,7 +87,7 @@ module.exports = {
                     image: result.url, //files.image.originalFilename,
                   })
                   .then((data) => {
-                    console.log("registration Complete successfully, ");
+                    console.log("Registration Complete Successfully. ");
                     /* JWT for communicating information as a JSON object between two parties */
                     const token = jwt.sign(
                       {
@@ -109,9 +109,12 @@ module.exports = {
                         Date.now() +
                           process.env.COOKIE_EXP * 24 * 60 * 60 * 1000
                       ),
+                      httpOnly: true,
+                      domain:"localhost",
+                      sameSite: false
                     };
                     //generate the cookie with the name authToken
-                    res.status(201).cookie("authToken", token, options).json({
+                    res.status(201).cookie('authToken', token, options).json({
                       successMessage: " You Registered Successfully ",
                       token,
                     });

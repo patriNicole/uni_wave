@@ -9,6 +9,7 @@ export default function signupAction(data) {
         headers: {
           "Content-Type": "application/josn",
         },
+        withCredentials: true
       };
       // fetch data from API
       // REGISTRATION

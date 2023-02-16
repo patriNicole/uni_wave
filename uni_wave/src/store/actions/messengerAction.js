@@ -4,7 +4,7 @@ import { FRIEND_GET_SUCCESS } from "../types/messangerType.js";
 export const getFriends = () => async (dispatch) => {
   try {
     const response = await axios.get(
-      "http://localhost:8000/api/uniwave/get-friends"
+      "http://localhost:8000/api/uniwave/get-friends", { withCredentials: true }
     );
     //console.log(response.data);
 
