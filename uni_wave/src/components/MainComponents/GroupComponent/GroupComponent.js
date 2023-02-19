@@ -7,11 +7,18 @@ import LeftGroupComponent from "./LeftGroupComponent/LeftGroupComponent.js";
 import RightGroupComponent from "./RightGroupComponent/RightGroupComponent.js";
 
 import { useDispatch, useSelector } from 'react-redux';
-import { getFriends } from "../../../store/actions/messengerAction.js";
+import { getFriends, messageSend } from "../../../store/actions/messengerAction.js";
 
 export default function GroupComponent() {
 
+  /* Used user info as appears (Redux) when logged in in application */
+  const {userInfo} = useSelector( state => state.auth );
+
+  /* GET CURRENT FRIEND */
   const [currentfriend, setCurrentFriend] = useState('');
+
+  /* NEW MESSAGE FROM USER */
+  const [newMessage, setNewMessage] = useState('');
 
   //from index.js => state.messenger
   const { friends } = useSelector((state) => state.messenger);
@@ -28,16 +35,41 @@ export default function GroupComponent() {
     }
   },[friends]);
 
+
+  /* INPUT MESSAGES FROM USER */
+  const inputMessageHendle = (e) => {
+    setNewMessage(e.target.value);
+  }
+
+  const sendMessage = (e) => {
+      e.preventDefault();
+      //console.log(currentfriend, newMessage);
+      const data = {
+        senderName : userInfo.username,
+        receiverId : currentfriend._id,
+        message : newMessage ? newMessage : '❤'
+      }
+      dispatch(messageSend(data));
+  }
+
   return (
     <div className="groupComponent">
       {/* LEFT SIDE OF THE CHAT */}
-      <LeftGroupComponent currentfriend={currentfriend} setCurrentFriend={setCurrentFriend}/>
+      <LeftGroupComponent 
+        currentfriend={currentfriend} 
+        setCurrentFriend={setCurrentFriend}
+        userInfo={userInfo}
+      />
 
       {/* RIGHT SIDE OF THE CHAT */}
       {
           currentfriend ?  <RightGroupComponent
           currentfriend={currentfriend}
           setCurrentFriend={setCurrentFriend}
+          inputMessageHendle={inputMessageHendle}
+          sendMessage={sendMessage}
+          newMessage={newMessage}
+          setNewMessage={setNewMessage}
           /> : ''
       }
     </div>

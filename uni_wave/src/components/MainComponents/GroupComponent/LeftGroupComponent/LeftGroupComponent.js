@@ -7,12 +7,7 @@ import { FcSearch } from "react-icons/fc";
 import ActiveFriends from "./ActiveFriend/ActiveFriend.js";
 import MessageFriends from "./ListOfFriends/ListOfFriends.js";
 
-import { useSelector } from 'react-redux';
-
-export default function LeftGroupComponent(props) {
-
-  //used user info as appears (Redux) when logged in in application
-  const {userInfo} = useSelector( state => state.auth );
+export default function LeftGroupComponent({ userInfo, currentfriend, setCurrentFriend }) {
 
   return (
     <>
@@ -43,7 +38,7 @@ export default function LeftGroupComponent(props) {
           {/* USERS */}
           <ActiveFriends />
 
-          <MessageFriends currentfriend={props.currentfriend} setCurrentFriend={props.setCurrentFriend}/>
+          <MessageFriends currentfriend={currentfriend} setCurrentFriend={setCurrentFriend}/>
         </div>
       </div>
     </>

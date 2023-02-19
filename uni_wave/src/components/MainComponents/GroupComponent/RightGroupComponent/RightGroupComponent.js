@@ -7,20 +7,7 @@ import MessageFriend from "./MessageFriend/MessageFriend";
 import MessageSend from "./MessageSend/MessageSend.js";
 import FriendInfo from "./FriendInfo/FriendInfo";
 
-import { useSelector } from 'react-redux';
-
 export default function RightGroupComponent(props) {
-
-  const [newMessage, setNewMessage] = useState('');
-
-  const inputMessageHendle = (e) => {
-    setNewMessage(e.target.value);
-  }
-
-  const sendMessage = (e) => {
-      e.preventDefault();
-      console.log(props.currentfriend, newMessage);
-  }
 
   return (
     <div className="rightGroupChat">
@@ -32,12 +19,12 @@ export default function RightGroupComponent(props) {
           <HeaderChat currentfriend={props.currentfriend}/>
         </div>
         <div className="centerChat">
-          <MessageFriend newMessage={newMessage} setNewMessage={setNewMessage}/>
+          <MessageFriend newMessage={props.newMessage} setNewMessage={props.setNewMessage}/>
           <MessageSend 
-            newMessage={newMessage} 
-            setNewMessage={setNewMessage} 
-            inputMessageHendle={inputMessageHendle} 
-            sendMessage={sendMessage}
+            newMessage={props.newMessage} 
+            setNewMessage={props.setNewMessage} 
+            inputMessageHendle={props.inputMessageHendle} 
+            sendMessage={props.sendMessage}
           />
         </div>
       </div>

@@ -21,7 +21,10 @@ export default function ListOfFriends(props) {
 
         {
           friends && friends.length>0 ? friends.map((friend) =>  
-            <div className="friend" key={friend._id} onClick={()=> props.setCurrentFriend(friend)}>
+            <div className={ props.currentfriend._id === friend._id ? "active" : "friend" }
+              key={friend._id} 
+              onClick={()=> props.setCurrentFriend(friend)}
+            >
                 <div className="friendUserImage">
                 <img src={`${friend.image}`} alt="userPicture" />
                 </div>
