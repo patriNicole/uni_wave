@@ -24,7 +24,6 @@ module.exports.getFriends = async (req, res) => {
 };
 
 module.exports.messageUploadDatabase = async (req, res) => {
-
   console.log(req.body);
 
   const { senderName, receiverId, message } = req.body;
@@ -50,6 +49,37 @@ module.exports.messageUploadDatabase = async (req, res) => {
     res.status(500).json({
       error: {
         errorMessage: "Internal Sever Error",
+      },
+    });
+  }
+};
+
+/* GET USER CONVERSATIONS */
+module.exports.getMessage = async (req, res) => {
+  const myId = req.myId;
+  const friendId = req.params.id;
+
+  try {
+    let getAllMessage = await messageModel.find({});
+
+    /* ONLY MESSAGES THAT ARE BETWEEN THE TWO USERS */
+    getAllMessage = getAllMessage.filter(
+      (message) =>
+        (message.senderId === myId && message.receiverId === friendId) ||
+        (message.receiverId === myId && message.senderId === friendId)
+    );
+
+    //console.log(getAllMessage)
+
+    res.status(200).json({
+      success: true,
+      message: getAllMessage,
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      error: {
+        errorMessage: "Internal Server error",
       },
     });
   }

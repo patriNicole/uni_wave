@@ -7,7 +7,7 @@ import LeftGroupComponent from "./LeftGroupComponent/LeftGroupComponent.js";
 import RightGroupComponent from "./RightGroupComponent/RightGroupComponent.js";
 
 import { useDispatch, useSelector } from 'react-redux';
-import { getFriends, messageSend } from "../../../store/actions/messengerAction.js";
+import { getFriends, messageSend,getMessage } from "../../../store/actions/messengerAction.js";
 
 export default function GroupComponent() {
 
@@ -21,7 +21,7 @@ export default function GroupComponent() {
   const [newMessage, setNewMessage] = useState('');
 
   //from index.js => state.messenger
-  const { friends } = useSelector((state) => state.messenger);
+  const { friends, message } = useSelector((state) => state.messenger);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -34,6 +34,12 @@ export default function GroupComponent() {
       setCurrentFriend(friends[0])
     }
   },[friends]);
+
+  /* GET MESSAGES FROM USERS */
+  useEffect(() => {
+    dispatch(getMessage(currentfriend._id))
+  /* IF ANY CURRENT FRIENT => GET ID */
+  },[ currentfriend?._id]);
 
 
   /* INPUT MESSAGES FROM USER */
@@ -70,6 +76,7 @@ export default function GroupComponent() {
           sendMessage={sendMessage}
           newMessage={newMessage}
           setNewMessage={setNewMessage}
+          message={message}
           /> : ''
       }
     </div>

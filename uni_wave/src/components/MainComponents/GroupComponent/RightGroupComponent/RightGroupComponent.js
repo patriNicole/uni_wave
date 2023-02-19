@@ -19,7 +19,10 @@ export default function RightGroupComponent(props) {
           <HeaderChat currentfriend={props.currentfriend}/>
         </div>
         <div className="centerChat">
-          <MessageFriend newMessage={props.newMessage} setNewMessage={props.setNewMessage}/>
+          <MessageFriend 
+            message = { props.message}
+            currentfriend = { props.currentfriend }
+          />
           <MessageSend 
             newMessage={props.newMessage} 
             setNewMessage={props.setNewMessage} 

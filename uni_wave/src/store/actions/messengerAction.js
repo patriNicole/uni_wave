@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FRIEND_GET_SUCCESS } from "../types/messangerType.js";
+import { FRIEND_GET_SUCCESS, MESSAGE_GET_SUCCESS } from "../types/messangerType.js";
 
 export const getFriends = () => async (dispatch) => {
   try {
@@ -33,4 +33,25 @@ export const messageSend = (data) => async (dispatch) => {
   } catch (error) {
     console.log(error.response.data);
   }
+};
+
+export const getMessage = (id) => {
+  return async (dispatch) => {
+    /* USER WHO IS SELECTED */
+    try {
+      const response = await axios.get(
+        `http://localhost:8000/api/uniwave/get-message/${id}`,
+        { withCredentials: true }
+      );
+      //console.log(response.data.message);
+      dispatch({
+        type : MESSAGE_GET_SUCCESS,
+        payload : {
+         message : response.data.message
+        }
+      })
+    } catch (error) {
+      console.log(error.response.data);
+    }
+  };
 };
