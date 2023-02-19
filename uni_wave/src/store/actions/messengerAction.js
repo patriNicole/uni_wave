@@ -22,8 +22,8 @@ export const getFriends = () => async (dispatch) => {
 
 /* data is the message itself */
 export const messageSend = (data) => async (dispatch) => {
-  console.log(data)
-  /*try {
+  //console.log(data)
+  try {
     const response = await axios.post(
       "http://localhost:8000/api/uniwave/send-message",
       data,
@@ -32,5 +32,5 @@ export const messageSend = (data) => async (dispatch) => {
     console.log(response.data);
   } catch (error) {
     console.log(error.response.data);
-  }*/
+  }
 };
