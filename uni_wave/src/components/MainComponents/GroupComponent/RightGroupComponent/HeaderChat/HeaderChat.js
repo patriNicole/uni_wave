@@ -3,18 +3,16 @@ import "./HeaderChat.css";
 
 import { FaPhoneAlt, FaVideo, FaRocketchat } from "react-icons/fa";
 
-import userPicture from "../../../../../pictures/notfound.jpg";
-
-export default function HeaderChat() {
+export default function HeaderChat(props) {
   return (
     <>
       <div className="message-send-show">
         <div className="headerChatMessage">
           <div className="image-name-chat-header">
             <div className="imageFriendChatMessage">
-              <img src={userPicture} alt="userPicture" />
+              <img src={`${props.currentfriend.image}`} alt="userPicture" />
             </div>
-            <div className="nameFriendChat">User friend</div>
+            <div className="nameFriendChat">{props.currentfriend.username}</div>
           </div>
 
           <div className="iconsUserChat">

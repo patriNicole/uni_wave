@@ -8,7 +8,7 @@ import {
   FaPaperPlane,
 } from "react-icons/fa";
 
-export default function MessageSend() {
+export default function MessageSend({ inputMessageHendle, newMessage, sendMessage }) {
   
   const emojis = [
     '😀', '😃', '😄', '😁',
@@ -41,6 +41,8 @@ export default function MessageSend() {
           id="message"
           placeholder="Aa"
           className="form-control-message-send"
+          onChange={ inputMessageHendle }
+          value ={ newMessage }
         />
 
         <div className="iconMessageFile hover-gift">
@@ -50,7 +52,7 @@ export default function MessageSend() {
         </div>
       </div>
 
-      <div className="iconMessageFile">❤</div>
+      <div className="iconMessageFile" onClick={ sendMessage } >❤</div>
 
       <div className="emoji-section">
         <div className="emoji">

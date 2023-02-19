@@ -5,7 +5,7 @@ import { FaCaretSquareDown } from "react-icons/fa";
 
 import userPicture from "../../../../../pictures/notfound.jpg";
 
-export default function FriendInfo() {
+export default function FriendInfo(props) {
   return (
     <div className="friend-info">
       <input type="checkbox" id="galleryUser" />
@@ -13,13 +13,13 @@ export default function FriendInfo() {
       <div className="image-nameFriendInfo">
 
         <div className="imageFriendInfo">
-          <img src={userPicture} alt="userPicture"/>
+          <img src={`${props.currentfriend.image}`} alt="userPicture"/>
         </div>
 
         <div className="active-user">Active</div>
 
         <div className="nameFriend">
-          User Info
+          {props.currentfriend.username}
         </div>
 
       </div>

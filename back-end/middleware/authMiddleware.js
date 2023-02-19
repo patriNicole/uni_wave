@@ -4,7 +4,6 @@ const jwt = require("jsonwebtoken");
 module.exports.authMiddleware = async (req, res, next) => {
 
   const { authToken } = req.cookies;
-  console.log(authToken);
 
   // if user has already been authenticated
   if (authToken) {
