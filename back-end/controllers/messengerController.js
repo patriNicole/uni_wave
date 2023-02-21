@@ -2,6 +2,7 @@ const signupModel = require("../model/authModel.js");
 const messageModel = require("../model/messageModel.js");
 
 const formidable = require("formidable");
+const fs = require("fs");
 
 module.exports.getFriends = async (req, res) => {
   // req.myId from authMiddleware
@@ -97,24 +98,50 @@ cloudinary.config({
 });
 
 module.exports.ImageSend = (req, res) => {
+  const myId = req.myId;
   const form = formidable();
 
   form.parse(req, (err, fields, files) => {
-    const { senderName, receiverId, imageName } = fields;
-    console.log(fields)
+    const { senderName, receiverId, imagename } = fields;
 
     try {
       /* Upload Image on Cloudinary */
-      /*cloudinary.uploader.upload(
+      cloudinary.uploader.upload(
         files.image.filepath,
         {
           resource_type: "auto",
         },
         function (error, result) {
-          if (error) throw error;
-          //console.log(result.url);
+          if (error) {
+            res.status(500).json({
+              error: {
+                errorMessage: "Image upload fail",
+              },
+            });
+          } else {
+            //console.log(result.url);
+            const insertMessage = messageModel.create({
+              senderId: myId,
+              senderName: senderName,
+              receiverId: receiverId,
+              message: {
+                text: "",
+                image: result.url,
+              },
+            });
+            res.status(201).json({
+              success: true,
+              message: insertMessage,
+            });
+          }
         }
-      );*/
-    } catch {}
+      );
+    } catch {
+      res.status(500).json({
+        error: {
+          errorMessage: "Internal Sever Error",
+        },
+      });
+    }
   });
 };

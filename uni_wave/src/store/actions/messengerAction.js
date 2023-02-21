@@ -74,12 +74,12 @@ export const imageSend = (data) => async (dispatch) => {
       { withCredentials: true }
     );
     console.log(response.data);
-    /*dispatch({
+    dispatch({
       type: MESSAGE_SEND_SUCCESS,
       payload : {
            message : response.data.message
       }
-    });*/
+    });
   } catch (error) {
     console.log(error.response.data);
   }

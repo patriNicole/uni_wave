@@ -15,7 +15,7 @@ export default function MessageFriend({ message, currentfriend, scrollRef }) {
               <div className="my-message" ref={scrollRef}>
                 <div className="my-image-and-message">
                   <div className="my-message-text">
-                    <p className="message-text">{m.message.text}</p>
+                    <p className='message-text'> {m.message.text === '' ? <img src={`${m.message.image}`} />  : m.message.text } </p>
                   </div>
                 </div>
                 <div className="time">2 Jan 2022</div>
@@ -28,7 +28,7 @@ export default function MessageFriend({ message, currentfriend, scrollRef }) {
                   </div>
                   <div className="friend-message-time">
                     <div className="friend-message-text">
-                      <p className="message-text">{m.message.text}</p>
+                      <p className='message-text'> {m.message.text === '' ? <img src={`${m.message.image}`} />  : m.message.text } </p>
                     </div>
                     <div className="time">3 Jan 2022</div>
                   </div>
