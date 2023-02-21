@@ -4,11 +4,12 @@ import "./MessageSend.css";
 import {
   FaPlusCircle,
   FaFileImage,
-  FaGift,
-  FaPaperPlane,
+  FaGift
 } from "react-icons/fa";
 
-export default function MessageSend({ inputMessageHendle, newMessage, sendMessage }) {
+import { BsEmojiSunglasses } from 'react-icons/bs';
+
+export default function MessageSend({ inputMessageHendle, newMessage, sendMessage, sendEmojis, ImageSend }) {
   
   const emojis = [
     '😀', '😃', '😄', '😁',
@@ -27,7 +28,8 @@ export default function MessageSend({ inputMessageHendle, newMessage, sendMessag
       </div>
 
       <div className="iconMessageFile hover-image">
-          <FaFileImage />
+          <input onChange={ImageSend} type="file" id='pictureSend' className="form-control-message-send" accept="image/*"/>
+          <label htmlFor='pictureSend'> <FaFileImage/> </label>
       </div>
 
       <div className="iconMessageFile hover-gift">
@@ -47,7 +49,7 @@ export default function MessageSend({ inputMessageHendle, newMessage, sendMessag
 
         <div className="iconMessageFile hover-gift">
           <label htmlFor="emoji">
-            <FaPaperPlane />
+            <BsEmojiSunglasses />
           </label>
         </div>
       </div>
@@ -57,7 +59,7 @@ export default function MessageSend({ inputMessageHendle, newMessage, sendMessag
       <div className="emoji-section">
         <div className="emoji">
           {emojis.map((e) => (
-            <span key={e}>{e}</span>
+            <span onClick={()=>sendEmojis(e)} key={e}>{e}</span>
           ))}
         </div>
       </div>

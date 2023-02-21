@@ -22,12 +22,15 @@ export default function RightGroupComponent(props) {
           <MessageFriend 
             message = { props.message}
             currentfriend = { props.currentfriend }
+            scrollRef = {props.scrollRef}
           />
           <MessageSend 
             newMessage={props.newMessage} 
             setNewMessage={props.setNewMessage} 
             inputMessageHendle={props.inputMessageHendle} 
             sendMessage={props.sendMessage}
+            sendEmojis={props.sendEmojis}
+            ImageSend= {props.ImageSend}
           />
         </div>
       </div>

@@ -3,7 +3,7 @@ import "./MessageFriend.css";
 
 import { useSelector } from "react-redux";
 
-export default function MessageFriend({ message, currentfriend }) {
+export default function MessageFriend({ message, currentfriend, scrollRef }) {
   const { userInfo } = useSelector((state) => state.auth);
 
   return (
@@ -12,7 +12,7 @@ export default function MessageFriend({ message, currentfriend }) {
         message.map((m) => (
           <div key={m._id}>
             {m.senderId === userInfo.id ? (
-              <div className="my-message">
+              <div className="my-message" ref={scrollRef}>
                 <div className="my-image-and-message">
                   <div className="my-message-text">
                     <p className="message-text">{m.message.text}</p>
@@ -21,7 +21,7 @@ export default function MessageFriend({ message, currentfriend }) {
                 <div className="time">2 Jan 2022</div>
               </div>
             ) : (
-              <div className="friend-message">
+              <div className="friend-message" ref={scrollRef}>
                 <div className="friend-image-and-message">
                   <div className="friend-message-image">
                     <img src={`${currentfriend.image}`} alt="userPicture" />

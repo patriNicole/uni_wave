@@ -1,6 +1,8 @@
 const signupModel = require("../model/authModel.js");
 const messageModel = require("../model/messageModel.js");
 
+const formidable = require("formidable");
+
 module.exports.getFriends = async (req, res) => {
   // req.myId from authMiddleware
   const myId = req.myId;
@@ -75,7 +77,6 @@ module.exports.getMessage = async (req, res) => {
       success: true,
       message: getAllMessage,
     });
-
   } catch (error) {
     res.status(500).json({
       error: {
@@ -83,4 +84,37 @@ module.exports.getMessage = async (req, res) => {
       },
     });
   }
+};
+
+//used for uploading the picture
+const cloudinary = require("cloudinary").v2;
+
+// Configuration
+cloudinary.config({
+  cloud_name: process.env.Cloud_Name,
+  api_key: process.env.Api_Key,
+  api_secret: process.env.Api_Secret,
+});
+
+module.exports.ImageSend = (req, res) => {
+  const form = formidable();
+
+  form.parse(req, (err, fields, files) => {
+    const { senderName, receiverId, imageName } = fields;
+    console.log(fields)
+
+    try {
+      /* Upload Image on Cloudinary */
+      /*cloudinary.uploader.upload(
+        files.image.filepath,
+        {
+          resource_type: "auto",
+        },
+        function (error, result) {
+          if (error) throw error;
+          //console.log(result.url);
+        }
+      );*/
+    } catch {}
+  });
 };

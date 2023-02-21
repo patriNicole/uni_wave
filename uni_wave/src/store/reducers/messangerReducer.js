@@ -1,4 +1,4 @@
-import { FRIEND_GET_SUCCESS, MESSAGE_GET_SUCCESS } from "../types/messangerType.js";
+import { FRIEND_GET_SUCCESS, MESSAGE_GET_SUCCESS, MESSAGE_SEND_SUCCESS } from "../types/messangerType.js";
 
 // the friends array in the state object will be updated with 
 // the new data provided in the payload property
@@ -28,6 +28,15 @@ export const messengerReducer = (state = messengerState, action) => {
       //updating the state of the application with the latest message retrieved from the server
          ...state,
          message : payload.message
+    }
+  }
+
+  if(type === MESSAGE_SEND_SUCCESS){
+    return {
+         ...state,
+         // The new message array contains all the elements of the previous message array, 
+         // as well as the new payload.message object added to the end of the array
+         message : [...state.message,  payload.message]
     }
   }
 

@@ -1,5 +1,9 @@
 import axios from "axios";
-import { FRIEND_GET_SUCCESS, MESSAGE_GET_SUCCESS } from "../types/messangerType.js";
+import {
+  FRIEND_GET_SUCCESS,
+  MESSAGE_GET_SUCCESS,
+  MESSAGE_SEND_SUCCESS,
+} from "../types/messangerType.js";
 
 export const getFriends = () => async (dispatch) => {
   try {
@@ -29,7 +33,13 @@ export const messageSend = (data) => async (dispatch) => {
       data,
       { withCredentials: true }
     );
-    console.log(response.data);
+    //console.log(response.data);
+    dispatch({
+      type: MESSAGE_SEND_SUCCESS,
+      payload: {
+        message: response.data.message,
+      },
+    });
   } catch (error) {
     console.log(error.response.data);
   }
@@ -45,13 +55,32 @@ export const getMessage = (id) => {
       );
       //console.log(response.data.message);
       dispatch({
-        type : MESSAGE_GET_SUCCESS,
-        payload : {
-         message : response.data.message
-        }
-      })
+        type: MESSAGE_GET_SUCCESS,
+        payload: {
+          message: response.data.message,
+        },
+      });
     } catch (error) {
       console.log(error.response.data);
     }
   };
+};
+
+export const imageSend = (data) => async (dispatch) => {
+  try {
+    const response = await axios.post(
+      "http://localhost:8000/api/uniwave/send-image-message",
+      data,
+      { withCredentials: true }
+    );
+    console.log(response.data);
+    /*dispatch({
+      type: MESSAGE_SEND_SUCCESS,
+      payload : {
+           message : response.data.message
+      }
+    });*/
+  } catch (error) {
+    console.log(error.response.data);
+  }
 };
