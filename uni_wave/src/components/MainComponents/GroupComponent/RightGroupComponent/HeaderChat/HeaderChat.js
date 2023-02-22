@@ -35,7 +35,12 @@ export default function HeaderChat(props) {
               <FaVideo />
             </div>
 
-            <div className="iconUserChat">
+            <div className="iconUserChat" 
+              onClick={() => {
+                  props.setShowUserInfo(!props.showUserInfo);
+                }
+              }
+            >
               <FaRocketchat />
             </div>
           </div>

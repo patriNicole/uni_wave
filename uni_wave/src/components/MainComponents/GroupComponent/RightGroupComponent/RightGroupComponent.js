@@ -8,40 +8,61 @@ import MessageSend from "./MessageSend/MessageSend.js";
 import FriendInfo from "./FriendInfo/FriendInfo";
 
 export default function RightGroupComponent(props) {
+  const [showUserInfo, setShowUserInfo] = useState(false);
 
   return (
     <div className="rightGroupChat">
-
       {/* FIRST PART */}
       <div className="centerPart">
         {/* HEADER PART */}
         <div className="centerHeader">
-          <HeaderChat currentfriend={props.currentfriend} activeUser={props.activeUser}/>
+          <HeaderChat
+            currentfriend={props.currentfriend}
+            activeUser={props.activeUser}
+            showUserInfo={showUserInfo}
+            setShowUserInfo={setShowUserInfo}
+          />
         </div>
         <div className="centerChat">
-          <MessageFriend 
-            message = { props.message}
-            currentfriend = { props.currentfriend }
-            scrollRef = {props.scrollRef}
+          <MessageFriend
+            message={props.message}
+            currentfriend={props.currentfriend}
+            scrollRef={props.scrollRef}
           />
-          <MessageSend 
-            newMessage={props.newMessage} 
-            setNewMessage={props.setNewMessage} 
-            inputMessageHendle={props.inputMessageHendle} 
+          <MessageSend
+            newMessage={props.newMessage}
+            setNewMessage={props.setNewMessage}
+            inputMessageHendle={props.inputMessageHendle}
             sendMessage={props.sendMessage}
             sendEmojis={props.sendEmojis}
-            ImageSend= {props.ImageSend}
+            ImageSend={props.ImageSend}
           />
         </div>
       </div>
 
       {/* SECOND HIDDEN PART */}
-      <div className="hiddenCenter">
-        <div className="hiddenCenterContent">
-          <FriendInfo currentfriend={props.currentfriend} activeUser={props.activeUser}/>
+      {showUserInfo && (
+        <div className="hiddenCenter">
+          <div className="hiddenCenterContent">
+            <FriendInfo
+              currentfriend={props.currentfriend}
+              activeUser={props.activeUser}
+            />
+          </div>
         </div>
-      </div>
+      )}
 
+      {showUserInfo ? (
+        <style />
+      ) : (
+        <>
+          <style>
+            {
+              ".centerPart {width: 95%;}"
+            }
+          </style>
+        </>
+      )}
     </div>
   );
 }
