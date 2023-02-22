@@ -13,9 +13,8 @@
 
 .imageFriendChatMessage {
   position: relative;
-  overflow: hidden;
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
   border: 1px solid rgb(255, 250, 250);
 }

@@ -16,7 +16,7 @@ export default function RightGroupComponent(props) {
       <div className="centerPart">
         {/* HEADER PART */}
         <div className="centerHeader">
-          <HeaderChat currentfriend={props.currentfriend}/>
+          <HeaderChat currentfriend={props.currentfriend} activeUser={props.activeUser}/>
         </div>
         <div className="centerChat">
           <MessageFriend 
@@ -38,7 +38,7 @@ export default function RightGroupComponent(props) {
       {/* SECOND HIDDEN PART */}
       <div className="hiddenCenter">
         <div className="hiddenCenterContent">
-          <FriendInfo currentfriend={props.currentfriend}/>
+          <FriendInfo currentfriend={props.currentfriend} activeUser={props.activeUser}/>
         </div>
       </div>
 

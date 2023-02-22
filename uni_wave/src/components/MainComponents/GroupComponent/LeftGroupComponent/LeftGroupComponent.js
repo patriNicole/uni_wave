@@ -7,8 +7,12 @@ import { FcSearch } from "react-icons/fc";
 import ActiveFriends from "./ActiveFriend/ActiveFriend.js";
 import MessageFriends from "./ListOfFriends/ListOfFriends.js";
 
-export default function LeftGroupComponent({ userInfo, currentfriend, setCurrentFriend }) {
-
+export default function LeftGroupComponent({
+  userInfo,
+  currentfriend,
+  setCurrentFriend,
+  activeUser,
+}) {
   return (
     <>
       <div className="leftGroupChat">
@@ -36,9 +40,19 @@ export default function LeftGroupComponent({ userInfo, currentfriend, setCurrent
           </div>
 
           {/* USERS */}
-          <ActiveFriends />
+          {activeUser && activeUser.length > 0
+            ? activeUser.map((users) => (
+                <ActiveFriends
+                  user={users}
+                  setCurrentFriend={setCurrentFriend}
+                />
+              ))
+            : ""}
 
-          <MessageFriends currentfriend={currentfriend} setCurrentFriend={setCurrentFriend}/>
+          <MessageFriends
+            currentfriend={currentfriend}
+            setCurrentFriend={setCurrentFriend}
+          />
         </div>
       </div>
     </>

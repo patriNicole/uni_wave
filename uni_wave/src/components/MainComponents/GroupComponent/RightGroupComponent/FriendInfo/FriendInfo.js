@@ -11,17 +11,23 @@ export default function FriendInfo(props) {
       <input type="checkbox" id="galleryUser" />
 
       <div className="image-nameFriendInfo">
-
         <div className="imageFriendInfo">
-          <img src={`${props.currentfriend.image}`} alt="userPicture"/>
+          <img src={`${props.currentfriend.image}`} alt="userPicture" />
         </div>
 
-        <div className="active-user">Active</div>
+        {
+          props.activeUser &&
+          props.activeUser.length > 0 &&
+          props.activeUser.some(
+            (users) => users.userId === props.currentfriend._id
+          ) ? (
+            <div className="active-user">Active</div>
+          ) : (
+            ""
+          )
+        }
 
-        <div className="nameFriend">
-          {props.currentfriend.username}
-        </div>
-
+        <div className="nameFriend">{props.currentfriend.username}</div>
       </div>
 
       <div className="othersFriendInfo">
@@ -44,10 +50,10 @@ export default function FriendInfo(props) {
       </div>
 
       <div className="galleryUser">
-        <img src={userPicture} alt="userPicture"/>
-        <img src={userPicture} alt="userPicture"/>
-        <img src={userPicture} alt="userPicture"/>
-        <img src={userPicture} alt="userPicture"/>
+        <img src={userPicture} alt="userPicture" />
+        <img src={userPicture} alt="userPicture" />
+        <img src={userPicture} alt="userPicture" />
+        <img src={userPicture} alt="userPicture" />
       </div>
     </div>
   );

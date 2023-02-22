@@ -14,7 +14,10 @@ import {
   imageSend
 } from "../../../store/actions/messengerAction.js";
 
+import { io } from "socket.io-client";
+
 export default function GroupComponent() {
+
   /* Used user info as appears (Redux) when logged in in application */
   const { userInfo } = useSelector((state) => state.auth);
 
@@ -27,32 +30,56 @@ export default function GroupComponent() {
   //from index.js => state.messenger
   const { friends, message } = useSelector((state) => state.messenger);
 
+  /* --------------------------------------- SOCKET --------------------------------------- */
+  const [activeUser, setActiveUser] = useState([]);
+
+  const socket = useRef();
+  useEffect(() => {
+    // Socket is running on 8080
+    socket.current = io('ws://localhost:8080');
+  }, []);
+
+  useEffect(() => {
+    // Emit an event with the name addUser and two arguments
+    socket.current.emit('addUser', userInfo.id, userInfo)
+  },[]);
+
+  useEffect(() => {
+    // Get the users list from socket.js using 'getUser' method coming from there.
+    socket.current.on('getUser', (users)=>{
+        //console.log(users)
+        const filterUser = users.filter(userData => userData.userId !== userInfo.id)
+        setActiveUser(filterUser);
+    })
+  },[]);
+  /* -------------------------------------------------------------------------------------- */
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getFriends());
   }, []);
 
-  /* OPEN chat with first user that is in Friend List */
+  /* ------------------------------------ OPEN chat with first user that is in Friend List --------------------------------- */
   useEffect(() => {
     if (friends && friends.length > 0) {
       setCurrentFriend(friends[0]);
     }
   }, [friends]);
 
-  /* GET MESSAGES FROM USERS */
+  /* --------------------------------------- GET MESSAGES FROM USERS --------------------------------------- */
   useEffect(() => {
     dispatch(getMessage(currentfriend._id));
     /* IF ANY CURRENT FRIENT => GET ID */
   }, [currentfriend?._id]);
 
-  /* AUTOMATICALLY scroll at the last message in chat */
+  /* --------------------------------------- AUTOMATICALLY scroll at the last message in chat --------------------------------------- */
   const scrollRef = useRef();
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [message]);
 
-  /* INPUT MESSAGES FROM USER */
+  /* --------------------------------------- INPUT MESSAGES FROM USER --------------------------------------- */
   const inputMessageHendle = (e) => {
     setNewMessage(e.target.value);
   };
@@ -95,14 +122,15 @@ export default function GroupComponent() {
 
   return (
     <div className="groupComponent">
-      {/* LEFT SIDE OF THE CHAT */}
+      {/* --------------------------------------- LEFT SIDE OF THE CHAT --------------------------------------- */}
       <LeftGroupComponent
         currentfriend={currentfriend}
         setCurrentFriend={setCurrentFriend}
         userInfo={userInfo}
+        activeUser={activeUser}
       />
 
-      {/* RIGHT SIDE OF THE CHAT */}
+      {/* --------------------------------------- RIGHT SIDE OF THE CHAT --------------------------------------- */}
       {currentfriend ? (
         <RightGroupComponent
           currentfriend={currentfriend}
@@ -115,6 +143,7 @@ export default function GroupComponent() {
           scrollRef={scrollRef}
           sendEmojis={sendEmojis}
           ImageSend= {ImageSend}
+          activeUser={activeUser}
         />
       ) : (
         ""

@@ -10,7 +10,18 @@ export default function HeaderChat(props) {
         <div className="headerChatMessage">
           <div className="image-name-chat-header">
             <div className="imageFriendChatMessage">
-              <img src={`${props.currentfriend.image}`} alt="userPicture" />
+              <div className="activeUser">
+                <img src={`${props.currentfriend.image}`} alt="userPicture" />
+              </div>
+              {
+                props.activeUser &&
+                props.activeUser.length > 0 &&
+                props.activeUser.some((users) => users.userId === props.currentfriend._id) ? (
+                  <div className="active-icon"></div>
+                ) : (
+                  ""
+                )
+              }
             </div>
             <div className="nameFriendChat">{props.currentfriend.username}</div>
           </div>
