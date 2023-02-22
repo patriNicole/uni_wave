@@ -11,13 +11,12 @@ import {
   getFriends,
   messageSend,
   getMessage,
-  imageSend
+  imageSend,
 } from "../../../store/actions/messengerAction.js";
 
 import { io } from "socket.io-client";
 
 export default function GroupComponent() {
-
   /* Used user info as appears (Redux) when logged in in application */
   const { userInfo } = useSelector((state) => state.auth);
 
@@ -32,26 +31,55 @@ export default function GroupComponent() {
 
   /* --------------------------------------- SOCKET --------------------------------------- */
   const [activeUser, setActiveUser] = useState([]);
+  const [socketMessage, setSocketMessage] = useState("");
 
   const socket = useRef();
   useEffect(() => {
     // Socket is running on 8080
-    socket.current = io('ws://localhost:8080');
+    socket.current = io("ws://localhost:8080");
+    // Geat all the data to socket message
+    socket.current.on('getMessage', (data) => {
+      // User 2 will get all the data when User 1 will send a message
+      //console.log(data);
+      // Load all the data from socket into socketMessage
+      setSocketMessage(data);
+    });
   }, []);
 
   useEffect(() => {
+    // If there is a socketMessage and a current friend active
+    if (socketMessage && currentfriend) {
+      if (
+        socketMessage.senderId === currentfriend._id &&
+        // If receiverId equal with user logged in
+        socketMessage.receiverId === userInfo.id
+      ) {
+        dispatch({
+          type: "SOCKET_MESSAGE",
+          payload: {
+            message: socketMessage,
+          },
+        });
+      }
+    }
+    setSocketMessage("");
+  }, [socketMessage]);
+
+  useEffect(() => {
     // Emit an event with the name addUser and two arguments
-    socket.current.emit('addUser', userInfo.id, userInfo)
-  },[]);
+    socket.current.emit("addUser", userInfo.id, userInfo);
+  }, []);
 
   useEffect(() => {
     // Get the users list from socket.js using 'getUser' method coming from there.
-    socket.current.on('getUser', (users)=>{
-        //console.log(users)
-        const filterUser = users.filter(userData => userData.userId !== userInfo.id)
-        setActiveUser(filterUser);
-    })
-  },[]);
+    socket.current.on("getUser", (users) => {
+      //console.log(users)
+      const filterUser = users.filter(
+        (userData) => userData.userId !== userInfo.id
+      );
+      setActiveUser(filterUser);
+    });
+  }, []);
   /* -------------------------------------------------------------------------------------- */
 
   const dispatch = useDispatch();
@@ -92,7 +120,24 @@ export default function GroupComponent() {
       receiverId: currentfriend._id,
       message: newMessage ? newMessage : "❤",
     };
+
+    /* BEFORE ADD TO DB send to socket so that the message will be displayed automatically 
+    for both users. */
+    socket.current.emit("sendMessage", {
+      senderId: userInfo.id,
+      senderName: userInfo.username,
+      receiverId: currentfriend._id,
+      time: new Date(),
+      message: {
+        text: newMessage ? newMessage : "❤",
+        image: "",
+      },
+    });
+
     dispatch(messageSend(data));
+
+    // Set socket new message back to empty after upload to db
+    setNewMessage('');
   };
 
   const sendEmojis = (emoji) => {
@@ -100,24 +145,28 @@ export default function GroupComponent() {
   };
 
   const ImageSend = (image) => {
-    try{
-      if (image && image.target && image.target.files && image.target.files.length !== 0) {
+    try {
+      if (
+        image &&
+        image.target &&
+        image.target.files &&
+        image.target.files.length !== 0
+      ) {
         const imagename = image.target.files[0].name;
         const newImageName = Date.now() + imagename;
-  
+
         const formData = new FormData();
-  
+
         formData.append("senderName", userInfo.username);
         formData.append("imagename", newImageName);
         formData.append("receiverId", currentfriend._id);
         formData.append("image", image.target.files[0]);
-        
+
         dispatch(imageSend(formData));
       }
     } catch (e) {
       console.log(e);
     }
-    
   };
 
   return (
@@ -142,7 +191,7 @@ export default function GroupComponent() {
           message={message}
           scrollRef={scrollRef}
           sendEmojis={sendEmojis}
-          ImageSend= {ImageSend}
+          ImageSend={ImageSend}
           activeUser={activeUser}
         />
       ) : (

@@ -1,4 +1,4 @@
-import { FRIEND_GET_SUCCESS, MESSAGE_GET_SUCCESS, MESSAGE_SEND_SUCCESS } from "../types/messangerType.js";
+import { FRIEND_GET_SUCCESS, MESSAGE_GET_SUCCESS, MESSAGE_SEND_SUCCESS, SOCKET_MESSAGE } from "../types/messangerType.js";
 
 // the friends array in the state object will be updated with 
 // the new data provided in the payload property
@@ -37,6 +37,13 @@ export const messengerReducer = (state = messengerState, action) => {
          // The new message array contains all the elements of the previous message array, 
          // as well as the new payload.message object added to the end of the array
          message : [...state.message,  payload.message]
+    }
+  }
+
+  if(type === SOCKET_MESSAGE){
+    return {
+         ...state,
+         message : [...state.message, payload.message]
     }
   }
 
