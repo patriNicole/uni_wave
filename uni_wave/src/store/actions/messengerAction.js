@@ -73,7 +73,7 @@ export const imageSend = (data) => async (dispatch) => {
       data,
       { withCredentials: true }
     );
-    console.log(response.data);
+    //console.log(response.data);
     dispatch({
       type: MESSAGE_SEND_SUCCESS,
       payload : {

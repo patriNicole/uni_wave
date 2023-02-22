@@ -9,13 +9,13 @@ export default function MessageFriend({ message, currentfriend, scrollRef }) {
   return (
     <div className="messageCenter">
       {message && message.length > 0 ? (
-        message.map((m) => (
-          <div key={m._id}>
+        message.map((m, index) => (
+          <div key={index}>
             {m.senderId === userInfo.id ? (
               <div className="my-message" ref={scrollRef}>
                 <div className="my-image-and-message">
                   <div className="my-message-text">
-                    <p className='message-text'> {m.message.text === '' ? <img src={`${m.message.image}`} />  : m.message.text } </p>
+                    <p className='message-text'> {m.message?.text === '' ? <img src={`${m.message.image}`} />  : m.message?.text } </p>
                   </div>
                 </div>
                 <div className="time">2 Jan 2022</div>
@@ -28,7 +28,7 @@ export default function MessageFriend({ message, currentfriend, scrollRef }) {
                   </div>
                   <div className="friend-message-time">
                     <div className="friend-message-text">
-                      <p className='message-text'> {m.message.text === '' ? <img src={`${m.message.image}`} />  : m.message.text } </p>
+                      <p className='message-text'> {m.message?.text === '' ? <img src={`${m.message.image}`} />  : m.message?.text } </p>
                     </div>
                     <div className="time">3 Jan 2022</div>
                   </div>
@@ -38,7 +38,7 @@ export default function MessageFriend({ message, currentfriend, scrollRef }) {
           </div>
         ))
       ) : (
-        <div>No messages yet</div>
+        null
       )}
     </div>
   );

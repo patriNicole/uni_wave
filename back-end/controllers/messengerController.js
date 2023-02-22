@@ -98,7 +98,8 @@ cloudinary.config({
 });
 
 module.exports.ImageSend = (req, res) => {
-  const myId = req.myId;
+  // req.myId from authMiddleware
+  const senderId = req.myId;
   const form = formidable();
 
   form.parse(req, (err, fields, files) => {
@@ -121,7 +122,7 @@ module.exports.ImageSend = (req, res) => {
           } else {
             //console.log(result.url);
             const insertMessage = messageModel.create({
-              senderId: myId,
+              senderId: senderId,
               senderName: senderName,
               receiverId: receiverId,
               message: {
