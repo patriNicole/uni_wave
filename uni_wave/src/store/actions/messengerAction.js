@@ -66,7 +66,27 @@ export const getMessage = (id) => {
   };
 };
 
-export const imageSend = (data) => async (dispatch) => {
+export const imageSend = async (data) => {
+  try {
+    const response = await axios.post(
+      "http://localhost:8000/api/uniwave/send-image-message",
+      data,
+      { withCredentials: true }
+    );
+    //console.log(response.data);
+    /*dispatch({
+      type: MESSAGE_SEND_SUCCESS,
+      payload : {
+           message : response.data.message
+      }
+    });*/
+    return response.data.message
+  } catch (error) {
+    console.log(error.response.data);
+  }
+};
+ 
+export const imageSendDispach = (data) => async (dispatch) => {
   try {
     const response = await axios.post(
       "http://localhost:8000/api/uniwave/send-image-message",

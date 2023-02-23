@@ -12,6 +12,7 @@ import {
   messageSend,
   getMessage,
   imageSend,
+  imageSendDispach
 } from "../../../store/actions/messengerAction.js";
 
 import { io } from "socket.io-client";
@@ -39,10 +40,10 @@ export default function GroupComponent() {
     // Socket is running on 8080
     socket.current = io("ws://localhost:8080");
     // Geat all the data to socket message
-    socket.current.on("getMessage", (data) => {
+    socket.current.on("patiMessage", (data) => {
       // User 2 will get all the data when User 1 will send a message
-      //console.log(data);
       // Load all the data from socket into socketMessage
+      console.log(data)
       setSocketMessage(data);
     });
     // Typing Socket
@@ -151,7 +152,7 @@ export default function GroupComponent() {
     socket.current.emit("typingMessage", {
       senderId: userInfo.id,
       receiverId: currentfriend._id,
-      message: e.target.value,
+      message: "",
     });
 
     dispatch(messageSend(data));
@@ -162,9 +163,15 @@ export default function GroupComponent() {
 
   const sendEmojis = (emoji) => {
     setNewMessage(`${newMessage}` + emoji);
+    /* When typing show User Typing ... */
+    socket.current.emit("typingMessage", {
+      senderId: userInfo.id,
+      receiverId: currentfriend._id,
+      message: emoji,
+    });
   };
 
-  const ImageSend = (image) => {
+  const ImageSend = async (image) => {
     try {
       if (
         image &&
@@ -175,17 +182,6 @@ export default function GroupComponent() {
         const imagename = image.target.files[0].name;
         const newImageName = Date.now() + imagename;
 
-        socket.current.emit("sendMessage", {
-          senderId: userInfo.id,
-          senderName: userInfo.username,
-          receiverId: currentfriend._id,
-          time: new Date(),
-          message: {
-            text: "",
-            image: newImageName,
-          },
-        });
-
         const formData = new FormData();
 
         formData.append("senderName", userInfo.username);
@@ -193,7 +189,19 @@ export default function GroupComponent() {
         formData.append("receiverId", currentfriend._id);
         formData.append("image", image.target.files[0]);
 
-        dispatch(imageSend(formData));
+        dispatch(imageSendDispach(formData));
+        const resp = await imageSend(formData)
+
+        socket.current.emit("sendMessage", {
+          senderId: userInfo.id,
+          senderName: userInfo.username,
+          receiverId: currentfriend._id,
+          time: new Date(),
+          message: {
+            text: "",
+            image: resp.message.image,
+          },
+        });
       }
     } catch (e) {
       console.log(e);

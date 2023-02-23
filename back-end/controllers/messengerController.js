@@ -97,47 +97,35 @@ cloudinary.config({
   api_secret: process.env.Api_Secret,
 });
 
-module.exports.ImageSend = (req, res) => {
+module.exports.ImageSend = async (req, res) => {
   // req.myId from authMiddleware
   const senderId = req.myId;
   const form = formidable();
 
-  form.parse(req, (err, fields, files) => {
+  form.parse(req, async (err, fields, files) => {
     const { senderName, receiverId, imagename } = fields;
 
     try {
       /* Upload Image on Cloudinary */
-      cloudinary.uploader.upload(
-        files.image.filepath,
-        {
-          resource_type: "auto",
+      const { url } = await cloudinary.uploader.upload(files.image.filepath, {
+        resource_type: "auto",
+      });
+
+      const insertMessage = await messageModel.create({
+        senderId: senderId,
+        senderName: senderName,
+        receiverId: receiverId,
+        message: {
+          text: "",
+          image: url,
         },
-        function (error, result) {
-          if (error) {
-            res.status(500).json({
-              error: {
-                errorMessage: "Image upload fail",
-              },
-            });
-          } else {
-            //console.log(result.url);
-            const insertMessage = messageModel.create({
-              senderId: senderId,
-              senderName: senderName,
-              receiverId: receiverId,
-              message: {
-                text: "",
-                image: result.url,
-              },
-            });
-            res.status(201).json({
-              success: true,
-              message: insertMessage,
-            });
-          }
-        }
-      );
-    } catch {
+      });
+
+      res.status(201).json({
+        success: true,
+        message: insertMessage,
+      });
+    } catch (error) {
       res.status(500).json({
         error: {
           errorMessage: "Internal Sever Error",

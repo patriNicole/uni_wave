@@ -74,12 +74,12 @@ module.exports = {
               {
                 resource_type: "auto",
               },
-              function (error, result) {
+              async function (error, result) {
                 if (error) throw error;
                 //console.log(result.url);
 
                 /* CREATE THE USER */
-                signupModel
+                await signupModel
                   .create({
                     username,
                     email,

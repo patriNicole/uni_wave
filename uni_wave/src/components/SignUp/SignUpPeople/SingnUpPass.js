@@ -93,7 +93,8 @@ export default function SignUpPass() {
   useEffect(()=>{
     if(authenticate){
       setAlertSuccessRegister(true);
-      navigate('/home');
+      navigate('/');
+      window.location.reload(false);
       //setAlertSuccessRegister(false);
     }
     if(successMessage){

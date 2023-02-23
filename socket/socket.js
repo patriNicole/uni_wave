@@ -45,10 +45,10 @@ io.on("connection", (socket) => {
   /* --------------- Send Message Real Time --------------- */
   socket.on("sendMessage", (data) => {
     const user = findFriend(data.receiverId);
-    //console.log(user);
+    //console.log(data.message);
     if (user !== undefined) {
       // All these data will be passed to the second user who receives the message.
-      socket.to(user.socketId).emit("getMessage", {
+      socket.to(user.socketId).emit("patiMessage", {
         senderId: data.senderId,
         senderName: data.senderName,
         receiverId: data.receiverId,
