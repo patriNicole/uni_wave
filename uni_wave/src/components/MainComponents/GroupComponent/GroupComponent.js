@@ -32,17 +32,23 @@ export default function GroupComponent() {
   /* --------------------------------------- SOCKET --------------------------------------- */
   const [activeUser, setActiveUser] = useState([]);
   const [socketMessage, setSocketMessage] = useState("");
+  const [typingMessage, setTypingMessage] = useState("");
 
   const socket = useRef();
   useEffect(() => {
     // Socket is running on 8080
     socket.current = io("ws://localhost:8080");
     // Geat all the data to socket message
-    socket.current.on('getMessage', (data) => {
+    socket.current.on("getMessage", (data) => {
       // User 2 will get all the data when User 1 will send a message
       //console.log(data);
       // Load all the data from socket into socketMessage
       setSocketMessage(data);
+    });
+    // Typing Socket
+    socket.current.on("getTypingMessage", (data) => {
+      setTypingMessage(data);
+      //console.log(data);
     });
   }, []);
 
@@ -110,6 +116,13 @@ export default function GroupComponent() {
   /* --------------------------------------- INPUT MESSAGES FROM USER --------------------------------------- */
   const inputMessageHendle = (e) => {
     setNewMessage(e.target.value);
+    // When new message set, set the typing state
+    // Pass the e.target.value to socket
+    socket.current.emit("typingMessage", {
+      senderId: userInfo.id,
+      receiverId: currentfriend._id,
+      message: e.target.value,
+    });
   };
 
   const sendMessage = (e) => {
@@ -134,10 +147,17 @@ export default function GroupComponent() {
       },
     });
 
+    // Once message sent, typing resets to empty
+    socket.current.emit("typingMessage", {
+      senderId: userInfo.id,
+      receiverId: currentfriend._id,
+      message: e.target.value,
+    });
+
     dispatch(messageSend(data));
 
     // Set socket new message back to empty after upload to db
-    setNewMessage('');
+    setNewMessage("");
   };
 
   const sendEmojis = (emoji) => {
@@ -154,6 +174,17 @@ export default function GroupComponent() {
       ) {
         const imagename = image.target.files[0].name;
         const newImageName = Date.now() + imagename;
+
+        socket.current.emit("sendMessage", {
+          senderId: userInfo.id,
+          senderName: userInfo.username,
+          receiverId: currentfriend._id,
+          time: new Date(),
+          message: {
+            text: "",
+            image: newImageName,
+          },
+        });
 
         const formData = new FormData();
 
@@ -193,6 +224,7 @@ export default function GroupComponent() {
           sendEmojis={sendEmojis}
           ImageSend={ImageSend}
           activeUser={activeUser}
+          typingMessage={typingMessage}
         />
       ) : (
         ""

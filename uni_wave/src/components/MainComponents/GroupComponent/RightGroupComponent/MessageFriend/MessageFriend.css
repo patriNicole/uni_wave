@@ -95,3 +95,19 @@
   margin-top: 40px;
 }
 
+/* TYPING */
+.friend-message-typing {
+  float: left;
+  margin-left: 10px;
+  border-radius: 10px;
+  display: flex;
+  align-items: flex-end;
+  padding-top: 5%;
+}
+
+.typing {
+  padding: 0px 0px;
+  color: #ffffffd9;
+  font-size: 15px;
+  text-align: end;
+}

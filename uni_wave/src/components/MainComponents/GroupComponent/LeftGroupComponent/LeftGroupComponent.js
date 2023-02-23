@@ -15,7 +15,7 @@ export default function LeftGroupComponent({
 }) {
   return (
     <>
-      <div className="leftGroupChat">
+      <div className="leftGroupChat" key={userInfo._id}>
         <div className="leftGroupChatContainer">
           <div className="userHeader" key={userInfo._id}>
             <div className="userImage">
@@ -43,6 +43,7 @@ export default function LeftGroupComponent({
           {activeUser && activeUser.length > 0
             ? activeUser.map((users) => (
                 <ActiveFriends
+                  key={users.userInfo.id}
                   user={users}
                   setCurrentFriend={setCurrentFriend}
                 />

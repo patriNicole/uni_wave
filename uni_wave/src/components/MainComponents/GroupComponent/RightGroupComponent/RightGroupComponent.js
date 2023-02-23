@@ -28,6 +28,7 @@ export default function RightGroupComponent(props) {
             message={props.message}
             currentfriend={props.currentfriend}
             scrollRef={props.scrollRef}
+            typingMessage = {props.typingMessage}
           />
           <MessageSend
             newMessage={props.newMessage}

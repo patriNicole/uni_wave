@@ -61,6 +61,19 @@ io.on("connection", (socket) => {
     }
   });
 
+  /* --------------- Typing Message --------------- */
+  socket.on("typingMessage", (data) => {
+    //console.log(data);
+    const user = findFriend(data.receiverId);
+    if (user !== undefined) {
+      socket.to(user.socketId).emit("getTypingMessage", {
+        senderId: data.senderId,
+        receiverId: data.receiverId,
+        message: data.message,
+      });
+    }
+  });
+
   /* --------------- Disconnect User --------------- */
   socket.on("disconnect", () => {
     console.log("User is disconnected... ");
