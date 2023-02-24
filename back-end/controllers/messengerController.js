@@ -99,7 +99,7 @@ module.exports.getFriends = async (req, res) => {
 };
 
 module.exports.messageUploadDatabase = async (req, res) => {
-  console.log(req.body);
+  //console.log(req.body);
 
   const { senderName, receiverId, message } = req.body;
   // req.myId from authMiddleware

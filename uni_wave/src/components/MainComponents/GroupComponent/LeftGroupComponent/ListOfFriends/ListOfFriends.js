@@ -37,32 +37,32 @@ export default function ListOfFriends(props) {
               {friend.friendInfo.username}
 
 
-              <div className="time">
+              <div className="time-lastMessage">
                 {friend.messageInfo &&
                 friend.messageInfo.senderId === props.userInfo ? (
-                  <span>You </span>
+                  <span> You </span>
                 ) : (
-                  <span> {friend.friendInfo.username + " "} </span>
+                  <span> {" "} </span>
                 )}
                 {friend.friendInfo &&
                 friend.messageInfo &&
                 friend.messageInfo.message &&
                 friend.messageInfo.message.text ? (
-                  <span>{friend.messageInfo.message.text.slice(0, 10)}</span>
+                  <span>{friend.messageInfo.message.text.slice(0, 7)}</span>
                 ) : friend.friendInfo &&
                   friend.messageInfo &&
                   friend.messageInfo.message &&
                   friend.messageInfo.message.image ? (
-                  <span>Send A image </span>
+                  <span> Send A image </span>
                 ) : (
-                  <span>Connect You </span>
+                  <span>  </span>
                 )}
-                <span>
+                <span className="time-momento">
                   {friend.messageInfo && friend.messageInfo.createdAt
-                    ? moment(friend.messageInfo.createdAt)
+                    ? " " + moment(friend.messageInfo.createdAt)
                         .startOf("mini")
                         .fromNow()
-                    : moment().startOf("mini").fromNow()}
+                    : ""}
                 </span>
               </div>
 

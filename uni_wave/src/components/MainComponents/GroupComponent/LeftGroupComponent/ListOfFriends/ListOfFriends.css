@@ -37,9 +37,25 @@
 }
 
 .userName {
-  padding-left: 30px;
+  padding-left: 10px;
   padding-top: 10px;
   font-weight: 600;
   font-size: 20px !important;
   color: white;
+}
+
+.time-lastMessage {
+  padding: 5px 0px;
+  color: #ffffffd9;
+  font-size: 12px;
+  text-align: start;
+  padding: 10px;
+  margin-top: 5px;
+  margin-left: -25px;
+  margin-top: 5px;
+}
+
+.time-momento {
+  font-weight: 700;
+  color:rgb(77, 47, 198);
 }
