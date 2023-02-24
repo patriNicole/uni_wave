@@ -36,13 +36,13 @@ export default function ListOfFriends(props) {
             <div className="userName">
               {friend.friendInfo.username}
 
-
+              {/* ----------------------------- Last Message --------------------------------------- */}
               <div className="time-lastMessage">
                 {friend.messageInfo &&
                 friend.messageInfo.senderId === props.userInfo ? (
                   <span> You </span>
                 ) : (
-                  <span> {" "} </span>
+                  <span> </span>
                 )}
                 {friend.friendInfo &&
                 friend.messageInfo &&
@@ -55,17 +55,32 @@ export default function ListOfFriends(props) {
                   friend.messageInfo.message.image ? (
                   <span> Send A image </span>
                 ) : (
-                  <span>  </span>
+                  <span> </span>
                 )}
                 <span className="time-momento">
                   {friend.messageInfo && friend.messageInfo.createdAt
-                    ? " " + moment(friend.messageInfo.createdAt)
+                    ? " " +
+                      moment(friend.messageInfo.createdAt)
                         .startOf("mini")
                         .fromNow()
                     : ""}
                 </span>
               </div>
+              
+              {/* -------------------------------- Seen/Unseen ------------------------------------------ */}
 
+              {friend.messageInfo ? (
+              props.userInfo.id === friend.messageInfo?.senderId ? (
+                <div className="seen-unseen-icon">
+                  <img src={`${friend.friendInfo.image}`} alt="" />
+                </div>
+              ) : (
+                <div className="seen-unseen-icon">
+                  <div className="seen-icon"></div>
+                </div>
+              ) ) :  <span> </span> }
+
+              {/* --------------------------------------------------------------------------------------- */}
 
             </div>
           </div>
