@@ -100,7 +100,7 @@ export default function GroupComponent() {
   }, []);
 
   useEffect(() => {
-    if(socketMessage && socketMessage.senderId !== currentfriend._id && socketMessage.receiverId === userInfo.id){
+    if(socketMessage && socketMessage.receiverId === userInfo.id){
       notificationPlay();
       // Toaster is found in TopNav.js, where the message will be displayed.
       toast.success(`${socketMessage.senderName} send a New Message`)
@@ -117,7 +117,7 @@ export default function GroupComponent() {
   /* ------------------------------------ OPEN chat with first user that is in Friend List --------------------------------- */
   useEffect(() => {
     if (friends && friends.length > 0) {
-      setCurrentFriend(friends[0]);
+      setCurrentFriend(friends[0].friendInfo);
     }
   }, [friends]);
 

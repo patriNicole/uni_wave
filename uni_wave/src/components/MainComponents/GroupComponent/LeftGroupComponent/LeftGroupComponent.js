@@ -51,6 +51,7 @@ export default function LeftGroupComponent({
             : ""}
 
           <MessageFriends
+            userInfo={userInfo}
             currentfriend={currentfriend}
             setCurrentFriend={setCurrentFriend}
           />

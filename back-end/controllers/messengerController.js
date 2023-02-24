@@ -4,10 +4,57 @@ const messageModel = require("../model/messageModel.js");
 const formidable = require("formidable");
 const fs = require("fs");
 
+const getFiendLastMessage = async (myId, friendId) => {
+  // Get ONLY ONE MEssage 
+  const message = await messageModel
+    .findOne({
+      $or: [
+        {
+          $and: [
+            {
+              senderId: {
+                $eq: myId,
+              },
+            },
+            // AND
+            {
+              receiverId: {
+                $eq: friendId,
+              },
+            },
+          ],
+        },
+        // OR
+        {
+          $and: [
+            {
+              senderId: {
+                $eq: friendId,
+              },
+            },
+            // AND
+            {
+              receiverId: {
+                $eq: myId,
+              },
+            },
+          ],
+        },
+      ],
+    })
+    // SORT messages descendent order
+    .sort({
+      updatedAt: -1,
+    });
+
+  return message
+};
+
 module.exports.getFriends = async (req, res) => {
   // req.myId from authMiddleware
   const myId = req.myId;
   try {
+    /*
     // get all the users
     const friendGet = await signupModel.find({});
     // filters out the currently logged in user by removing
@@ -16,7 +63,32 @@ module.exports.getFriends = async (req, res) => {
       (userData) => userData.id !== myId
     );
     // send all users EXCEPT himself
-    res.status(200).json({ success: true, friends: filterAllOutAuthUser });
+    res.status(200).json({ success: true, friends: filterAllOutAuthUser }); */
+
+    let friend_messages = [];
+    // Get all User except itself
+    const friendGet = await signupModel.find({
+      _id: {
+        // The query is using the "$ne" (not equal) operator to retrieve
+        // all documents except for the one with the matching "_id"
+        $ne: myId,
+      },
+    });
+
+    for (let i = 0; i < friendGet.length; i++) {
+      // myId -> user logged in
+      // friendGet[i].id -> Get that friend id
+      let lastMessage = await getFiendLastMessage(myId, friendGet[i].id);
+      //console.log(lastMessage)
+      // Append all messages to the frien_messages array
+      friend_messages = [...friend_messages, {
+        friendInfo : friendGet[i],
+        messageInfo : lastMessage
+      }];
+    }
+
+    //console.log(friend_messages);
+    res.status(200).json({ success: true, friends: friend_messages });
   } catch (error) {
     res.status(500).json({
       error: {
@@ -65,12 +137,52 @@ module.exports.getMessage = async (req, res) => {
   try {
     let getAllMessage = await messageModel.find({});
 
+    // MongoDB query language syntax for a logical OR operation between two subqueries
+    // The query checks if either the sender and receiver IDs match the IDs of the
+    // logged-in user and a friend's ID, or vice versa.
+    $or: [
+      {
+        $and: [
+          {
+            senderId: {
+              // If senderId equal to myId
+              $eq: myId,
+            },
+          },
+          // AND If receiverId equal to friendId
+          {
+            receiverId: {
+              $eq: friendId,
+            },
+          },
+        ],
+      },
+      // OR
+      {
+        $and: [
+          {
+            // If senderId equal to friendId
+            senderId: {
+              $eq: friendId,
+            },
+          },
+          // AND
+          {
+            // If receiverId equal to myId
+            receiverId: {
+              $eq: myId,
+            },
+          },
+        ],
+      },
+    ];
+
     /* ONLY MESSAGES THAT ARE BETWEEN THE TWO USERS */
-    getAllMessage = getAllMessage.filter(
+    /*getAllMessage = getAllMessage.filter(
       (message) =>
         (message.senderId === myId && message.receiverId === friendId) ||
         (message.receiverId === myId && message.senderId === friendId)
-    );
+    );*/
 
     //console.log(getAllMessage)
 
