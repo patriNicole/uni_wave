@@ -12,10 +12,18 @@ import {
   messageSend,
   getMessage,
   imageSend,
-  imageSendDispach
+  imageSendDispach,
 } from "../../../store/actions/messengerAction.js";
 
 import { io } from "socket.io-client";
+
+// Message Notification
+import toast from "react-hot-toast";
+
+// Sound Notification
+import useSound from 'use-sound';
+import notificationSound from "./audio/notification.mp3";
+import sendMessageSound from "./audio/send-message.mp3";
 
 export default function GroupComponent() {
   /* Used user info as appears (Redux) when logged in in application */
@@ -34,6 +42,9 @@ export default function GroupComponent() {
   const [activeUser, setActiveUser] = useState([]);
   const [socketMessage, setSocketMessage] = useState("");
   const [typingMessage, setTypingMessage] = useState("");
+  // Notification Sounds
+  const [notificationPlay] = useSound(notificationSound);   
+  const [sendingMessagePlay] = useSound(sendMessageSound);  
 
   const socket = useRef();
   useEffect(() => {
@@ -43,7 +54,7 @@ export default function GroupComponent() {
     socket.current.on("patiMessage", (data) => {
       // User 2 will get all the data when User 1 will send a message
       // Load all the data from socket into socketMessage
-      console.log(data)
+      console.log(data);
       setSocketMessage(data);
     });
     // Typing Socket
@@ -87,6 +98,14 @@ export default function GroupComponent() {
       setActiveUser(filterUser);
     });
   }, []);
+
+  useEffect(() => {
+    if(socketMessage && socketMessage.senderId !== currentfriend._id && socketMessage.receiverId === userInfo.id){
+      notificationPlay();
+      // Toaster is found in TopNav.js, where the message will be displayed.
+      toast.success(`${socketMessage.senderName} send a New Message`)
+    }
+  },[socketMessage]);
   /* -------------------------------------------------------------------------------------- */
 
   const dispatch = useDispatch();
@@ -128,6 +147,8 @@ export default function GroupComponent() {
 
   const sendMessage = (e) => {
     e.preventDefault();
+    // Send Message Sound
+    sendingMessagePlay();
     //console.log(currentfriend, newMessage);
     const data = {
       senderName: userInfo.username,
@@ -179,6 +200,9 @@ export default function GroupComponent() {
         image.target.files &&
         image.target.files.length !== 0
       ) {
+        // Send Image Notification
+        sendingMessagePlay();
+
         const imagename = image.target.files[0].name;
         const newImageName = Date.now() + imagename;
 
@@ -190,7 +214,10 @@ export default function GroupComponent() {
         formData.append("image", image.target.files[0]);
 
         dispatch(imageSendDispach(formData));
-        const resp = await imageSend(formData)
+
+        // Get the Message containing the url of the image and not just the name
+        // So that it will be possible to display to the other user the image right away
+        const resp = await imageSend(formData);
 
         socket.current.emit("sendMessage", {
           senderId: userInfo.id,
@@ -209,34 +236,36 @@ export default function GroupComponent() {
   };
 
   return (
-    <div className="groupComponent">
-      {/* --------------------------------------- LEFT SIDE OF THE CHAT --------------------------------------- */}
-      <LeftGroupComponent
-        currentfriend={currentfriend}
-        setCurrentFriend={setCurrentFriend}
-        userInfo={userInfo}
-        activeUser={activeUser}
-      />
-
-      {/* --------------------------------------- RIGHT SIDE OF THE CHAT --------------------------------------- */}
-      {currentfriend ? (
-        <RightGroupComponent
+    <>
+      <div className="groupComponent">
+        {/* --------------------------------------- LEFT SIDE OF THE CHAT --------------------------------------- */}
+        <LeftGroupComponent
           currentfriend={currentfriend}
           setCurrentFriend={setCurrentFriend}
-          inputMessageHendle={inputMessageHendle}
-          sendMessage={sendMessage}
-          newMessage={newMessage}
-          setNewMessage={setNewMessage}
-          message={message}
-          scrollRef={scrollRef}
-          sendEmojis={sendEmojis}
-          ImageSend={ImageSend}
+          userInfo={userInfo}
           activeUser={activeUser}
-          typingMessage={typingMessage}
         />
-      ) : (
-        ""
-      )}
-    </div>
+
+        {/* --------------------------------------- RIGHT SIDE OF THE CHAT --------------------------------------- */}
+        {currentfriend ? (
+          <RightGroupComponent
+            currentfriend={currentfriend}
+            setCurrentFriend={setCurrentFriend}
+            inputMessageHendle={inputMessageHendle}
+            sendMessage={sendMessage}
+            newMessage={newMessage}
+            setNewMessage={setNewMessage}
+            message={message}
+            scrollRef={scrollRef}
+            sendEmojis={sendEmojis}
+            ImageSend={ImageSend}
+            activeUser={activeUser}
+            typingMessage={typingMessage}
+          />
+        ) : (
+          ""
+        )}
+      </div>
+    </>
   );
 }
