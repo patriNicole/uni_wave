@@ -4,7 +4,8 @@ import { FRIEND_GET_SUCCESS, MESSAGE_GET_SUCCESS, MESSAGE_SEND_SUCCESS, SOCKET_M
 // the new data provided in the payload property
 const messengerState = {
   friends: [],
-  message : []
+  message : [],
+  messageSentSuccessfully : false
 };
 
 export const messengerReducer = (state = messengerState, action) => {
@@ -34,6 +35,7 @@ export const messengerReducer = (state = messengerState, action) => {
   if(type === MESSAGE_SEND_SUCCESS){
     return {
          ...state,
+         messageSentSuccessfully : true,
          // The new message array contains all the elements of the previous message array, 
          // as well as the new payload.message object added to the end of the array
          message : [...state.message,  payload.message]

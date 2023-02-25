@@ -53,7 +53,7 @@ export default function ListOfFriends(props) {
                   friend.messageInfo &&
                   friend.messageInfo.message &&
                   friend.messageInfo.message.image ? (
-                  <span> Send A image </span>
+                  <span> Sent image </span>
                 ) : (
                   <span> </span>
                 )}

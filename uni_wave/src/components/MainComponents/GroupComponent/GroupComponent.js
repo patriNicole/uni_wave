@@ -21,7 +21,7 @@ import { io } from "socket.io-client";
 import toast from "react-hot-toast";
 
 // Sound Notification
-import useSound from 'use-sound';
+import useSound from "use-sound";
 import notificationSound from "./audio/notification.mp3";
 import sendMessageSound from "./audio/send-message.mp3";
 
@@ -36,15 +36,17 @@ export default function GroupComponent() {
   const [newMessage, setNewMessage] = useState("");
 
   //from index.js => state.messenger
-  const { friends, message } = useSelector((state) => state.messenger);
+  const { friends, message, messageSentSuccessfully } = useSelector(
+    (state) => state.messenger
+  );
 
   /* --------------------------------------- SOCKET --------------------------------------- */
   const [activeUser, setActiveUser] = useState([]);
   const [socketMessage, setSocketMessage] = useState("");
   const [typingMessage, setTypingMessage] = useState("");
   // Notification Sounds
-  const [notificationPlay] = useSound(notificationSound);   
-  const [sendingMessagePlay] = useSound(sendMessageSound);  
+  const [notificationPlay] = useSound(notificationSound);
+  const [sendingMessagePlay] = useSound(sendMessageSound);
 
   const socket = useRef();
   useEffect(() => {
@@ -100,12 +102,12 @@ export default function GroupComponent() {
   }, []);
 
   useEffect(() => {
-    if(socketMessage && socketMessage.receiverId === userInfo.id){
+    if (socketMessage && socketMessage.receiverId === userInfo.id) {
       notificationPlay();
       // Toaster is found in TopNav.js, where the message will be displayed.
-      toast.success(`${socketMessage.senderName} send a New Message`)
+      toast.success(`${socketMessage.senderName} send a New Message`);
     }
-  },[socketMessage]);
+  }, [socketMessage]);
   /* -------------------------------------------------------------------------------------- */
 
   const dispatch = useDispatch();
@@ -181,6 +183,23 @@ export default function GroupComponent() {
     // Set socket new message back to empty after upload to db
     setNewMessage("");
   };
+
+  /* GET LAST MESSAGE - SEEN/UNSEEN */
+  /*useEffect(() => {
+    if (messageSentSuccessfully) {
+      
+      socket.current.emit("sendMessage", {
+        senderId: userInfo.id,
+        senderName: userInfo.username,
+        receiverId: currentfriend._id,
+        time: new Date(),
+        message: {
+          text: newMessage ? newMessage : "❤",
+          image: "",
+        },
+      });
+    }
+  }, []);*/
 
   const sendEmojis = (emoji) => {
     setNewMessage(`${newMessage}` + emoji);
