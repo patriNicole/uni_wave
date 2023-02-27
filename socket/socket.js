@@ -48,16 +48,7 @@ io.on("connection", (socket) => {
     //console.log(data.message);
     if (user !== undefined) {
       // All these data will be passed to the second user who receives the message.
-      socket.to(user.socketId).emit("patiMessage", {
-        senderId: data.senderId,
-        senderName: data.senderName,
-        receiverId: data.receiverId,
-        createAt: data.time,
-        message: {
-          text: data.message.text,
-          image: data.message.image,
-        },
-      });
+      socket.to(user.socketId).emit("patiMessage", data);
     }
   });
 

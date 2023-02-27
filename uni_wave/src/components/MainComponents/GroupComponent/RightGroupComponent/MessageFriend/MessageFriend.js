@@ -50,7 +50,7 @@ export default function MessageFriend({
                             )}{" "}
                           </p>
                         </div>
-                        <div className="time">3 Jan 2022</div>
+                        <div className="time-friend">3 Jan 2022</div>
                       </div>
                     </div>
                   </div>

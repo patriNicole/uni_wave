@@ -11,7 +11,16 @@
   color: #ffffffd9;
   font-size: 12px;
   text-align: end;
-  margin-top: 5px;
+  margin-top: 70%;
+  margin-left: 5px;
+}
+
+.time-friend {
+  padding: 5px 0px;
+  color: #ffffffd9;
+  font-size: 12px;
+  text-align: end;
+  margin-top: 5%;
   margin-left: 5px;
 }
 

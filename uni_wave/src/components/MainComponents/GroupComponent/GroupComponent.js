@@ -160,7 +160,7 @@ export default function GroupComponent() {
 
     /* BEFORE ADD TO DB send to socket so that the message will be displayed automatically 
     for both users. */
-    socket.current.emit("sendMessage", {
+    /*socket.current.emit("sendMessage", {
       senderId: userInfo.id,
       senderName: userInfo.username,
       receiverId: currentfriend._id,
@@ -169,7 +169,7 @@ export default function GroupComponent() {
         text: newMessage ? newMessage : "❤",
         image: "",
       },
-    });
+    });*/
 
     // Once message sent, typing resets to empty
     socket.current.emit("typingMessage", {
@@ -185,21 +185,16 @@ export default function GroupComponent() {
   };
 
   /* GET LAST MESSAGE - SEEN/UNSEEN */
-  /*useEffect(() => {
-    if (messageSentSuccessfully) {
-      
-      socket.current.emit("sendMessage", {
-        senderId: userInfo.id,
-        senderName: userInfo.username,
-        receiverId: currentfriend._id,
-        time: new Date(),
-        message: {
-          text: newMessage ? newMessage : "❤",
-          image: "",
-        },
-      });
+  useEffect(() => {
+    if (messageSentSuccessfully) { 
+      socket.current.emit("sendMessage",
+        // GET LAST SEND MESSAGE DATA
+        message[message.length - 1]
+      );
     }
-  }, []);*/
+  // In order for our real-time communication to take place
+  }, [messageSentSuccessfully]);
+  /* -------------------------------- */
 
   const sendEmojis = (emoji) => {
     setNewMessage(`${newMessage}` + emoji);

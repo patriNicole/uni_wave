@@ -135,7 +135,7 @@ module.exports.getMessage = async (req, res) => {
   const friendId = req.params.id;
 
   try {
-    let getAllMessage = await messageModel.find({});
+    let getAllMessage = await messageModel.find({
 
     // MongoDB query language syntax for a logical OR operation between two subqueries
     // The query checks if either the sender and receiver IDs match the IDs of the
@@ -175,7 +175,9 @@ module.exports.getMessage = async (req, res) => {
           },
         ],
       },
-    ];
+    ]
+
+  });
 
     /* ONLY MESSAGES THAT ARE BETWEEN THE TWO USERS */
     /*getAllMessage = getAllMessage.filter(
