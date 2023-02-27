@@ -1,4 +1,4 @@
-import { FRIEND_GET_SUCCESS, MESSAGE_GET_SUCCESS, MESSAGE_SEND_SUCCESS, SOCKET_MESSAGE } from "../types/messangerType.js";
+import { FRIEND_GET_SUCCESS, MESSAGE_GET_SUCCESS, MESSAGE_SEND_SUCCESS, SOCKET_MESSAGE, UPDATE_FRIEND_MESSAGE, MESSAGE_SEND_SUCCESS_CLEAR } from "../types/messangerType.js";
 
 // the friends array in the state object will be updated with 
 // the new data provided in the payload property
@@ -46,6 +46,23 @@ export const messengerReducer = (state = messengerState, action) => {
     return {
          ...state,
          message : [...state.message, payload.message]
+    }
+  }
+
+  // GET ONLY LAST MNESSAGE TO DISPLAY AS NOTIFICATION ON THE LEFT
+  if(type === UPDATE_FRIEND_MESSAGE){
+    // friends from list above
+    const index = state.friends.findIndex(friend => friend.friendInfo._id === payload.messageInfo.receiverId || friend.friendInfo._id === payload.messageInfo.senderId);
+    // In state only remember last message from the user
+    state.friends[index].messageInfo = payload.messageInfo;
+    return state;
+  }
+
+  // CLEAR LAST MESSAGE AFTER SENT TO USER
+  if(type === MESSAGE_SEND_SUCCESS_CLEAR) {
+    return {
+      ...state,
+      messageSentSuccessfully: false
     }
   }
 
