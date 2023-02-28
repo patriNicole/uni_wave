@@ -28,6 +28,11 @@
   background: linear-gradient(to bottom, #c7c5f45c, #766bcc61);
 }
 
+.friendSearch {
+  display: flex;
+  flex-direction: row;
+}
+
 .friendUserImage {
   width: 50px;
   height: 50px;
@@ -36,7 +41,7 @@
   overflow: hidden;
 }
 
-.userName {
+.userNameFriend {
   padding-left: 10px;
   padding-top: 10px;
   font-weight: 600;

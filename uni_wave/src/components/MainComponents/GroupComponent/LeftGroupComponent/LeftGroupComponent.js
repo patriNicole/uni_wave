@@ -13,6 +13,24 @@ export default function LeftGroupComponent({
   setCurrentFriend,
   activeUser,
 }) {
+
+  const search = (e) => {
+    const getFriendClass = document.getElementsByClassName("friendSearch");
+    const frienNameClass = document.getElementsByClassName("userNameFriend");
+    for (var i = 0; i < getFriendClass.length; i++) {
+      let text = frienNameClass[i].innerText.toLowerCase();
+      if (text.indexOf(e.target.value.toLowerCase()) > -1) {
+        if (getFriendClass[i]) {
+          getFriendClass[i].style.display = "";
+        }
+      } else {
+        if (getFriendClass[i]) {
+          getFriendClass[i].style.display = "none";
+        }
+      }
+    }
+  };
+
   return (
     <>
       <div className="leftGroupChat" key={userInfo._id}>
@@ -34,6 +52,7 @@ export default function LeftGroupComponent({
                   type="text"
                   className="input-search-top"
                   placeholder="  Search..."
+                  onChange={search}
                 />
               </div>
             </form>
