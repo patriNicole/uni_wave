@@ -5,6 +5,8 @@ import moment from "moment";
 import "./ListOfFriends.css";
 import "../../GroupComponent.css";
 
+import { FaRegCheckCircle } from "react-icons/fa";
+
 import { useDispatch, useSelector } from "react-redux";
 import { getFriends } from "../../../../../store/actions/messengerAction.js";
 
@@ -72,11 +74,21 @@ export default function ListOfFriends(props) {
               {friend.messageInfo ? (
               props.userInfo.id === friend.messageInfo?.senderId ? (
                 <div className="seen-unseen-icon">
-                  <img src={`${friend.friendInfo.image}`} alt="" />
+                  {/* 
+                    IF THE MESSAGE IS SEEN, display picture of user
+                    Else: -> delivered => add a check 
+                          -> Else: unseen message
+                  */}
+                  {
+                    friend.messageInfo.status === 'seen' ?
+                    <img src={`${friend.friendInfo.image}`} alt="" /> : friend.messageInfo.status === 'delivered' ? <div className='delivared'> <FaRegCheckCircle /> </div> : <div className='unseen'> </div>
+                  }
                 </div>
               ) : (
                 <div className="seen-unseen-icon">
-                  <div className="seen-icon"></div>
+                  {
+                    friend.messageInfo?.status !== undefined && friend.messageInfo?.status !== 'seen'? <div className='seen-icon'> </div> : ''
+                  }
                 </div>
               ) ) :  <span> </span> }
 

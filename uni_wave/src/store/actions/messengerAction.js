@@ -104,3 +104,29 @@ export const imageSendDispach = (data) => async (dispatch) => {
     console.log(error.response.data);
   }
 };
+
+/* FOR RECEIVER USER */
+export const seenMessage = (message) => async(dispach) => {
+  //console.log(message);
+  try {
+    const response = await axios.post("http://localhost:8000/api/uniwave/seen-message",
+    message,
+    { withCredentials: true });
+    //console.log(response.data);
+  } catch (error) {
+    console.log(error.response.data);
+  }
+}
+
+/* FOR DELIVER MESSAGE */
+export const deliverMessage = (message) => async(dispach) => {
+  //console.log(message);
+  try {
+    const response = await axios.post("http://localhost:8000/api/uniwave/deliver-message",
+    message,
+    { withCredentials: true });
+    //console.log(response.data);
+  } catch (error) {
+    console.log(error.response.data);
+  }
+}

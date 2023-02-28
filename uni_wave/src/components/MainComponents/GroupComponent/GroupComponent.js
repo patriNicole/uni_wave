@@ -13,6 +13,8 @@ import {
   getMessage,
   imageSend,
   imageSendDispach,
+  seenMessage,
+  deliverMessage,
 } from "../../../store/actions/messengerAction.js";
 
 import { io } from "socket.io-client";
@@ -64,6 +66,24 @@ export default function GroupComponent() {
       setTypingMessage(data);
       //console.log(data);
     });
+    // Seen Socket - the function called in socket
+    socket.current.on("messageSeenResponse", (message) => {
+      dispatch({
+        type: "SEEN_MESSAGE",
+        payload: {
+          messageInfo: message,
+        },
+      });
+    });
+    // Deliver Socket - the function called in socket
+    socket.current.on("messageDelivaredResponse", (message) => {
+      dispatch({
+        type: "DELIVERED_MESSAGE",
+        payload: {
+          messageInfo: message,
+        },
+      });
+    });
   }, []);
 
   useEffect(() => {
@@ -80,13 +100,18 @@ export default function GroupComponent() {
             message: socketMessage,
           },
         });
+        // MESSAGE SEEN -> THEN DISPLAY ICON - go to messageAction
+        dispatch(seenMessage(socketMessage));
+        // Pass socket Message into socket into function messageSeen
+        socket.current.emit("messageSeen", socketMessage);
         // GET LAST MESSAGE ON LEFT CHAT for the receiver Friend
         dispatch({
-          type: 'UPDATE_FRIEND_MESSAGE',
+          type: "UPDATE_FRIEND_MESSAGE",
           payload: {
             // GET LAST SEND MESSAGE DATA
-            messageInfo: socketMessage
-          }
+            messageInfo: socketMessage,
+            status: "seen",
+          },
         });
       }
     }
@@ -115,6 +140,25 @@ export default function GroupComponent() {
       // Toaster is found in TopNav.js, where the message will be displayed.
       toast.success(`${socketMessage.senderName} send a New Message`);
     }
+    if (
+      socketMessage &&
+      socketMessage.senderId !== currentfriend._id &&
+      socketMessage.receiverId === userInfo.id
+    ) {
+      // MESSAGE DELIVERED - go to messageAction
+      dispatch(deliverMessage(socketMessage));
+      // Pass socket Message into socket into function delivaredMessage
+      socket.current.emit("delivaredMessage", socketMessage);
+      // GET LAST MESSAGE ON LEFT CHAT for the receiver Friend
+      dispatch({
+        type: "UPDATE_FRIEND_MESSAGE",
+        payload: {
+          // GET LAST SEND MESSAGE DATA
+          messageInfo: socketMessage,
+          status: "delivered",
+        },
+      });
+    }
   }, [socketMessage]);
   /* -------------------------------------------------------------------------------------- */
 
@@ -135,6 +179,14 @@ export default function GroupComponent() {
   useEffect(() => {
     dispatch(getMessage(currentfriend._id));
     /* IF ANY CURRENT FRIENT => GET ID */
+    if (friends.length > 0) {
+      dispatch({
+        type: "UPDATE",
+        payload: {
+          id: currentfriend._id,
+        },
+      });
+    }
   }, [currentfriend?._id]);
 
   /* --------------------------------------- AUTOMATICALLY scroll at the last message in chat --------------------------------------- */
@@ -181,26 +233,26 @@ export default function GroupComponent() {
 
   /* GET LAST MESSAGE - SEEN/UNSEEN */
   useEffect(() => {
-    if (messageSentSuccessfully) { 
-      socket.current.emit("sendMessage",
+    if (messageSentSuccessfully) {
+      socket.current.emit(
+        "sendMessage",
         // GET LAST SEND MESSAGE DATA
         message[message.length - 1]
       );
       // Update Last Message On Left Component for the sender friend
       dispatch({
-        type: 'UPDATE_FRIEND_MESSAGE',
+        type: "UPDATE_FRIEND_MESSAGE",
         payload: {
           // GET LAST SEND MESSAGE DATA
-          messageInfo: message[message.length - 1]
-        }
+          messageInfo: message[message.length - 1],
+        },
       });
       // Once the message sent, clear the state
       dispatch({
-        type: 'MESSAGE_SEND_SUCCESS_CLEAR'
+        type: "MESSAGE_SEND_SUCCESS_CLEAR",
       });
-
     }
-  // In order for our real-time communication to take place
+    // In order for our real-time communication to take place
   }, [messageSentSuccessfully]);
   /* -------------------------------- */
 

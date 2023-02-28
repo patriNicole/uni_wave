@@ -4,7 +4,8 @@ import "./MessageSend.css";
 import {
   FaPlusCircle,
   FaFileImage,
-  FaGift
+  FaGift,
+  FaPaperPlane
 } from "react-icons/fa";
 
 import { BsEmojiSunglasses } from 'react-icons/bs';
@@ -49,12 +50,14 @@ export default function MessageSend({ inputMessageHendle, newMessage, sendMessag
 
         <div className="iconMessageFile hover-gift">
           <label htmlFor="emoji">
-            <BsEmojiSunglasses />
+            <BsEmojiSunglasses /> {/*❤*/}
           </label>
         </div>
       </div>
 
-      <div className="iconMessageFile" onClick={ sendMessage } >❤</div>
+      <div className="iconMessageFile" onClick={ sendMessage } >
+        <FaPaperPlane/>
+      </div>
 
       <div className="emoji-section">
         <div className="emoji">

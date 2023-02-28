@@ -1,4 +1,4 @@
-import { FRIEND_GET_SUCCESS, MESSAGE_GET_SUCCESS, MESSAGE_SEND_SUCCESS, SOCKET_MESSAGE, UPDATE_FRIEND_MESSAGE, MESSAGE_SEND_SUCCESS_CLEAR } from "../types/messangerType.js";
+import { FRIEND_GET_SUCCESS, MESSAGE_GET_SUCCESS, MESSAGE_SEND_SUCCESS, SOCKET_MESSAGE, UPDATE_FRIEND_MESSAGE, MESSAGE_SEND_SUCCESS_CLEAR, SEEN_MESSAGE, DELIVERED_MESSAGE, UPDATE } from "../types/messangerType.js";
 
 // the friends array in the state object will be updated with 
 // the new data provided in the payload property
@@ -55,6 +55,8 @@ export const messengerReducer = (state = messengerState, action) => {
     const index = state.friends.findIndex(friend => friend.friendInfo._id === payload.messageInfo.receiverId || friend.friendInfo._id === payload.messageInfo.senderId);
     // In state only remember last message from the user
     state.friends[index].messageInfo = payload.messageInfo;
+    // Update Status Dynamically
+    state.friends[index].messageInfo.status = payload.status;
     return state;
   }
 
@@ -63,6 +65,40 @@ export const messengerReducer = (state = messengerState, action) => {
     return {
       ...state,
       messageSentSuccessfully: false
+    }
+  }
+
+  // SEEN MESSAGE
+  // GET ONLY LAST MNESSAGE TO DISPLAY AS NOTIFICATION ON THE LEFT
+  if(type === SEEN_MESSAGE){
+    // friends from list above
+    const index = state.friends.findIndex(friend => friend.friendInfo._id === payload.messageInfo.receiverId || friend.friendInfo._id === payload.messageInfo.senderId);
+    // In state only remember last message from the user
+    state.friends[index].messageInfo.status = 'seen';
+    return {
+      ...state
+    };
+  }
+
+  // DELIVER MESSAGE
+  // GET ONLY LAST MNESSAGE TO DISPLAY AS NOTIFICATION ON THE LEFT
+  if(type === DELIVERED_MESSAGE){
+    // friends from list above
+    const index = state.friends.findIndex(friend => friend.friendInfo._id === payload.messageInfo.receiverId || friend.friendInfo._id === payload.messageInfo.senderId);
+    // In state only remember last message from the user
+    state.friends[index].messageInfo.status = 'delivered';
+    return {
+      ...state
+    };
+  }
+
+  if(type === UPDATE){
+    const index = state.friends.findIndex(friend => friend.friendInfo._id === payload.id);
+    if(state.friends[index].messageInfo){
+      state.friends[index].messageInfo.status = 'seen';
+    }
+    return {
+         ...state
     }
   }
 

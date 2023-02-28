@@ -52,6 +52,22 @@ io.on("connection", (socket) => {
     }
   });
 
+  /* --------------- Seen Message Real Time --------------- */
+  socket.on('messageSeen', (message) => {
+    const user = findFriend(message.senderId);          
+    if(user !== undefined){
+         socket.to(user.socketId).emit('messageSeenResponse', message);
+    }          
+  });
+
+  /* --------------- Deliver Message Real Time --------------- */
+  socket.on('delivaredMessage', (message) => {
+      const user = findFriend(message.senderId);          
+      if(user !== undefined){
+          socket.to(user.socketId).emit('messageDelivaredResponse', message);
+      }          
+  });
+
   /* --------------- Typing Message --------------- */
   socket.on("typingMessage", (data) => {
     //console.log(data);
