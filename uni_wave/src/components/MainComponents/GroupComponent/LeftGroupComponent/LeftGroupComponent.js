@@ -17,6 +17,7 @@ export default function LeftGroupComponent({
   const search = (e) => {
     const getFriendClass = document.getElementsByClassName("friendSearch");
     const frienNameClass = document.getElementsByClassName("userNameFriend");
+    
     for (var i = 0; i < getFriendClass.length; i++) {
       let text = frienNameClass[i].innerText.toLowerCase();
       if (text.indexOf(e.target.value.toLowerCase()) > -1) {
