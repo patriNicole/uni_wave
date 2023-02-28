@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 module.exports.authMiddleware = async (req, res, next) => {
 
   const { authToken } = req.cookies;
-
+  
   // if user has already been authenticated
   if (authToken) {
     // verify the token's authenticity
@@ -18,7 +18,7 @@ module.exports.authMiddleware = async (req, res, next) => {
 
     res.status(400).json({
       error: {
-        errorMessage: ["Please Loing First"],
+        errorMessage: ["Please Login First"],
       },
     });
 

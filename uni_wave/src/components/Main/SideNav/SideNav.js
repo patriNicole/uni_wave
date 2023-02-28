@@ -32,7 +32,7 @@ import uniwave from "../../../pictures/logo-color.png";
 import logo from "../../../pictures/uniwave.png";
 
 import {useDispatch } from 'react-redux';
-//import {userLogout } from '../../../store/actions/logoutAction.js';
+import { userLogout } from '../../../store/actions/logoutAction.js';
 
 export default function SideBar(props) {
   const [menuCollapse, setMenuCollapse] = useState(true);
@@ -46,8 +46,9 @@ export default function SideBar(props) {
   //working with reducer
   const dispatch = useDispatch();
   
+  // User Logging Out
   const logoutUser = () => {
-    //dispatch(userLogout());
+    dispatch(userLogout({}));
   }
 
   return (
