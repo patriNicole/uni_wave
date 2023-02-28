@@ -38,9 +38,9 @@ export default function GroupComponent() {
   const [newMessage, setNewMessage] = useState("");
 
   //from index.js => state.messenger
-  const { friends, message, messageSentSuccessfully } = useSelector(
-    (state) => state.messenger
-  );
+  // from messageReducer.js we have the messengerState constant
+  const { friends, message, messageSentSuccessfully, message_get_success } =
+    useSelector((state) => state.messenger);
 
   /* --------------------------------------- SOCKET --------------------------------------- */
   const [activeUser, setActiveUser] = useState([]);
@@ -82,6 +82,13 @@ export default function GroupComponent() {
         payload: {
           messageInfo: message,
         },
+      });
+    });
+    // Seen Successfully After Delivered - the function called in socket
+    socket.current.on("seenSuccess", (data) => {
+      dispatch({
+        type: "SEEN_ALL",
+        payload: data,
       });
     });
   }, []);
@@ -179,15 +186,36 @@ export default function GroupComponent() {
   useEffect(() => {
     dispatch(getMessage(currentfriend._id));
     /* IF ANY CURRENT FRIENT => GET ID */
-    if (friends.length > 0) {
-      dispatch({
-        type: "UPDATE",
-        payload: {
-          id: currentfriend._id,
-        },
-      });
-    }
+    //if (friends.length > 0) {}
   }, [currentfriend?._id]);
+
+  /* --------------------------------------- FROM DELIVERED TO SEEN MESSAGE --------------------------------------- */
+  useEffect(() => {
+    if (message.length > 0) {
+      if (
+        message[message.length - 1].senderId !== userInfo.id &&
+        message[message.length - 1].status !== "seen"
+      ) {
+
+        dispatch({
+          type: "UPDATE",
+          payload: {
+            id: currentfriend._id,
+          },
+        });
+
+        socket.current.emit("seenMessageAfterDeliver", {
+          senderId: currentfriend._id,
+          receiverId: userInfo.id,
+        });
+        // Our id will be the last message id
+        dispatch(seenMessage({ _id: message[message.length - 1]._id }));
+      }
+    }
+    dispatch({
+      type: "MESSAGE_GET_SUCCESS_CLEAR",
+    });
+  }, [message_get_success]);
 
   /* --------------------------------------- AUTOMATICALLY scroll at the last message in chat --------------------------------------- */
   const scrollRef = useRef();

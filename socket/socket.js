@@ -68,6 +68,14 @@ io.on("connection", (socket) => {
       }          
   });
 
+  /* --------------- Seen Message after Deliver Message Real Time --------------- */
+  socket.on('seenMessageAfterDeliver', (data) => {
+    const user = findFriend(data.senderId);          
+    if(user !== undefined){
+      socket.to(user.socketId).emit('seenSuccess', data);
+    } 
+  })
+
   /* --------------- Typing Message --------------- */
   socket.on("typingMessage", (data) => {
     //console.log(data);

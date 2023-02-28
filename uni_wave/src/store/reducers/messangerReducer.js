@@ -1,11 +1,13 @@
-import { FRIEND_GET_SUCCESS, MESSAGE_GET_SUCCESS, MESSAGE_SEND_SUCCESS, SOCKET_MESSAGE, UPDATE_FRIEND_MESSAGE, MESSAGE_SEND_SUCCESS_CLEAR, SEEN_MESSAGE, DELIVERED_MESSAGE, UPDATE } from "../types/messangerType.js";
+import { FRIEND_GET_SUCCESS, MESSAGE_GET_SUCCESS, MESSAGE_SEND_SUCCESS, SOCKET_MESSAGE, UPDATE_FRIEND_MESSAGE, MESSAGE_SEND_SUCCESS_CLEAR, SEEN_MESSAGE, DELIVERED_MESSAGE, UPDATE, MESSAGE_GET_SUCCESS_CLEAR, SEEN_ALL } from "../types/messangerType.js";
 
 // the friends array in the state object will be updated with 
 // the new data provided in the payload property
 const messengerState = {
   friends: [],
   message : [],
-  messageSentSuccessfully : false
+  messageSentSuccessfully : false,
+  // From deliver icon to seen icon
+  message_get_success : false
 };
 
 export const messengerReducer = (state = messengerState, action) => {
@@ -28,6 +30,8 @@ export const messengerReducer = (state = messengerState, action) => {
     return {
       //updating the state of the application with the latest message retrieved from the server
          ...state,
+         // From deliver icon to seen icon
+         message_get_success : true,
          message : payload.message
     }
   }
@@ -92,6 +96,7 @@ export const messengerReducer = (state = messengerState, action) => {
     };
   }
 
+  // UPDATE WHEN MESSAGE SEEN -> when user sees message => unseen to seen
   if(type === UPDATE){
     const index = state.friends.findIndex(friend => friend.friendInfo._id === payload.id);
     if(state.friends[index].messageInfo){
@@ -99,6 +104,23 @@ export const messengerReducer = (state = messengerState, action) => {
     }
     return {
          ...state
+    }
+  }
+
+  // UPDATE FROM DELIVERED TO SEEN 
+  if(type === 'SEEN_ALL'){
+    const index = state.friends.findIndex(friend => friend.friendInfo._id === payload.receiverId);
+    state.friends[index].messageInfo.status = 'seen';
+    return {
+         ...state
+    }
+  }
+
+  // MESSAGE GOT SUCCESSFULLY CLEAR
+  if(type === MESSAGE_GET_SUCCESS_CLEAR){
+    return {
+         ...state,
+         message_get_success : false
     }
   }
 
