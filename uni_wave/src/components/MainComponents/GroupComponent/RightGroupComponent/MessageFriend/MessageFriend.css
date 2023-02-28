@@ -11,8 +11,8 @@
   color: #ffffffd9;
   font-size: 12px;
   text-align: end;
-  margin-top: 70%;
-  margin-left: 5px;
+  display: flex;
+  float: right;
 }
 
 .time-friend {
@@ -39,12 +39,16 @@
   margin-right: 10px;
   margin-right: 10px;
   margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  float: right;
 }
 
 .my-image-and-message {
   float: right;
-  display: flex;
-  flex-direction: column;
+  width: 100%;
+  margin-right: 0%;
+  padding-right: 0%;
 }
 
 .my-message-text {
@@ -103,6 +107,20 @@
   padding-bottom: -5px;
   border-radius: 9%;
   margin-top: 40px;
+}
+
+/* DELIVERED/SEEN MESSAGE IN USER CHAT */
+.activeUserCHAT {
+  width: 20px;
+  height: 20px;
+  border-radius: 60%;
+  overflow: hidden;
+  float: right;
+}
+
+.deliveredMessage {
+  float: right;
+  color: #594cbe;
 }
 
 /* TYPING */

@@ -68,32 +68,43 @@ export default function ListOfFriends(props) {
                     : ""}
                 </span>
               </div>
-              
+
               {/* -------------------------------- Seen/Unseen ------------------------------------------ */}
 
               {friend.messageInfo ? (
-              props.userInfo.id === friend.messageInfo?.senderId ? (
-                <div className="seen-unseen-icon">
-                  {/* 
+                props.userInfo.id === friend.messageInfo?.senderId ? (
+                  <div className="seen-unseen-icon">
+                    {/* 
                     IF THE MESSAGE IS SEEN, display picture of user
                     Else: -> delivered => add a check 
                           -> Else: unseen message
                   */}
-                  {
-                    friend.messageInfo.status === 'seen' ?
-                    <img src={`${friend.friendInfo.image}`} alt="" /> : friend.messageInfo.status === 'delivered' ? <div className='delivared'> <FaRegCheckCircle /> </div> : <div className='unseen'> </div>
-                  }
-                </div>
+                    {friend.messageInfo.status === "seen" ? (
+                      <img src={`${friend.friendInfo.image}`} alt="" />
+                    ) : friend.messageInfo.status === "delivered" ? (
+                      <div className="delivared">
+                        {" "}
+                        <FaRegCheckCircle />{" "}
+                      </div>
+                    ) : (
+                      <div className="unseen"> </div>
+                    )}
+                  </div>
+                ) : (
+                  <div className="seen-unseen-icon">
+                    {friend.messageInfo?.status !== undefined &&
+                    friend.messageInfo?.status !== "seen" ? (
+                      <div className="seen-icon"> </div>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                )
               ) : (
-                <div className="seen-unseen-icon">
-                  {
-                    friend.messageInfo?.status !== undefined && friend.messageInfo?.status !== 'seen'? <div className='seen-icon'> </div> : ''
-                  }
-                </div>
-              ) ) :  <span> </span> }
+                <span> </span>
+              )}
 
               {/* --------------------------------------------------------------------------------------- */}
-
             </div>
           </div>
         ))

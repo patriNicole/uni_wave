@@ -1,7 +1,11 @@
 import React, { useEffect } from "react";
 import "./MessageFriend.css";
 
+import moment from "moment";
+
 import { useSelector } from "react-redux";
+
+import { FaRegCheckCircle } from "react-icons/fa";
 
 export default function MessageFriend({
   message,
@@ -31,7 +35,33 @@ export default function MessageFriend({
                         </p>
                       </div>
                     </div>
-                    <div className="time">2 Jan 2022</div>
+                    <div className="time">
+                      {moment(m.createdAt).startOf("mini").fromNow()}{" "}
+                    </div>
+                    {/* INSIDE THE MESSAGE DISPLAY DELIVERED FLAG OR IMAGE IF MESSAGE SEEN */}
+                    {index === message.length - 1 &&
+                      m.senderId === userInfo.id ? (
+                        m.status === "seen" ? (
+                          <img
+                            className="activeUserCHAT"
+                            src={`${currentfriend.image}`}
+                            alt="userPicture"
+                          />
+                        ) : m.status === "delivered" ? (
+                          <span className="deliveredMessage">
+                            {" "}
+                            <FaRegCheckCircle />{" "}
+                          </span>
+                        ) : (
+                          <span>
+                            {" "}
+                            <FaRegCheckCircle />{" "}
+                          </span>
+                        )
+                      ) : (
+                        ""
+                    )}
+                    {/* ---------------------------------------------------------------------- */}
                   </div>
                 ) : (
                   <div className="friend-message" ref={scrollRef}>
@@ -50,7 +80,9 @@ export default function MessageFriend({
                             )}{" "}
                           </p>
                         </div>
-                        <div className="time-friend">3 Jan 2022</div>
+                        <div className="time-friend">
+                          {moment(m.createdAt).startOf("mini").fromNow()}{" "}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -77,8 +109,6 @@ export default function MessageFriend({
         ) : (
           ""
         )}
-
-
       </div>
     </>
   );

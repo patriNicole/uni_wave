@@ -51,7 +51,7 @@ export default function LoginPass() {
   useEffect(()=>{
     if(authenticate){
       setAlertSuccessRegister(true);
-      //navigate('/home');
+      navigate('/home');
       //setAlertSuccessRegister(false);
     }
     if(successMessage){

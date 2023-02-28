@@ -54,6 +54,7 @@ export default function LeftGroupComponent({
             userInfo={userInfo}
             currentfriend={currentfriend}
             setCurrentFriend={setCurrentFriend}
+            activeUser={activeUser}
           />
         </div>
       </div>
