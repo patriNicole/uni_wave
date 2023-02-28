@@ -58,7 +58,7 @@ export default function GroupComponent() {
     socket.current.on("patiMessage", (data) => {
       // User 2 will get all the data when User 1 will send a message
       // Load all the data from socket into socketMessage
-      console.log(data);
+      //console.log(data);
       setSocketMessage(data);
     });
     // Typing Socket

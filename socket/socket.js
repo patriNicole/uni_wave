@@ -30,6 +30,11 @@ const findFriend = (id) => {
   return users.find((userData) => userData.userId === id);
 };
 
+// Logout so that the user will not be displayed as active anymore - real time action
+const userLogout = (userId) => {
+  users = users.filter(user => user.userId !== userId)
+}
+
 io.on("connection", (socket) => {
   console.log("Socket is connecting...");
 
@@ -87,6 +92,11 @@ io.on("connection", (socket) => {
         message: data.message,
       });
     }
+  });
+
+  /* Real Time User Logout so it won't be Active anymore */
+  socket.on('logout', userId => {
+    userLogout(userId);
   });
 
   /* --------------- Disconnect User --------------- */
