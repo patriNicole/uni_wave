@@ -24,18 +24,13 @@ export default function MessageSend({ inputMessageHendle, newMessage, sendMessag
   return (
     <div className="message-send-section">
       <input type="checkbox" id='emoji' />
-      <div className="iconMessageFile hover-attachment">
-        <FaPlusCircle />
-      </div>
 
       <div className="iconMessageFile hover-image">
           <input onChange={ImageSend} type="file" id='pictureSend' className="form-control-message-send" accept="image/*"/>
           <label htmlFor='pictureSend'> <FaFileImage/> </label>
       </div>
 
-      <div className="iconMessageFile hover-gift">
-        <FaGift />
-      </div>
+      <div/>
 
       <div className="message-type">
         <input

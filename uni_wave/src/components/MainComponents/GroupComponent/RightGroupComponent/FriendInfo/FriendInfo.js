@@ -15,31 +15,22 @@ export default function FriendInfo(props) {
           <img src={`${props.currentfriend.image}`} alt="userPicture" />
         </div>
 
-        {
-          props.activeUser &&
-          props.activeUser.length > 0 &&
-          props.activeUser.some(
-            (users) => users.userId === props.currentfriend._id
-          ) ? (
-            <div className="active-user">Active</div>
-          ) : (
-            ""
-          )
-        }
+        {props.activeUser &&
+        props.activeUser.length > 0 &&
+        props.activeUser.some(
+          (users) => users.userId === props.currentfriend._id
+        ) ? (
+          <div className="active-user">Active</div>
+        ) : (
+          ""
+        )}
 
         <div className="nameFriend">{props.currentfriend.username}</div>
       </div>
 
-      <div className="othersFriendInfo">
-        <div className="custom-chat">
-          Coustomise Chat
-          <FaCaretSquareDown />
-        </div>
+      <div className="email-display">{props.currentfriend.email}</div>
 
-        <div className="privacy">
-          Privacy and Support
-          <FaCaretSquareDown />
-        </div>
+      <div className="othersFriendInfo">
 
         <div className="mediaFriend">
           Shared Media
@@ -47,14 +38,20 @@ export default function FriendInfo(props) {
             <FaCaretSquareDown />
           </label>
         </div>
+
       </div>
 
       <div className="galleryUser">
-        <img src={userPicture} alt="userPicture" />
-        <img src={userPicture} alt="userPicture" />
-        <img src={userPicture} alt="userPicture" />
-        <img src={userPicture} alt="userPicture" />
+        {props.message && props.message.length > 0
+          ? props.message.map(
+              (m, index) =>
+                m.message.image && (
+                  <img key={index} src={`${m.message.image}`} />
+                )
+            )
+          : ""}
       </div>
+
     </div>
   );
 }

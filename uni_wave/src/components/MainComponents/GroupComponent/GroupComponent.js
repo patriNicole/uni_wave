@@ -139,6 +139,7 @@ export default function GroupComponent() {
       );
       setActiveUser(filterUser);
     });
+    
   }, []);
 
   useEffect(() => {
@@ -319,16 +320,16 @@ export default function GroupComponent() {
 
         // Get the Message containing the url of the image and not just the name
         // So that it will be possible to display to the other user the image right away
-        const resp = await imageSend(formData);
+        //const resp = await imageSend(formData);
 
-        socket.current.emit("sendMessage", {
+        await socket.current.emit("sendMessage", {
           senderId: userInfo.id,
           senderName: userInfo.username,
           receiverId: currentfriend._id,
           time: new Date(),
           message: {
             text: "",
-            image: resp.message.image,
+            image: newImageName,
           },
         });
       }

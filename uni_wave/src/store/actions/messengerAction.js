@@ -66,7 +66,7 @@ export const getMessage = (id) => {
   };
 };
 
-export const imageSend = async (data) => {
+/*export const imageSend = async (data) => {
   try {
     const response = await axios.post(
       "http://localhost:8000/api/uniwave/send-image-message",
@@ -74,17 +74,11 @@ export const imageSend = async (data) => {
       { withCredentials: true }
     );
     //console.log(response.data);
-    /*dispatch({
-      type: MESSAGE_SEND_SUCCESS,
-      payload : {
-           message : response.data.message
-      }
-    });*/
     return response.data.message
   } catch (error) {
     console.log(error.response.data);
   }
-};
+};*/
  
 export const imageSendDispach = (data) => async (dispatch) => {
   try {
@@ -93,7 +87,7 @@ export const imageSendDispach = (data) => async (dispatch) => {
       data,
       { withCredentials: true }
     );
-    //console.log(response.data);
+    console.log(response.data);
     dispatch({
       type: MESSAGE_SEND_SUCCESS,
       payload : {

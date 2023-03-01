@@ -48,6 +48,7 @@ export default function RightGroupComponent(props) {
             <FriendInfo
               currentfriend={props.currentfriend}
               activeUser={props.activeUser}
+              message={props.message}
             />
           </div>
         </div>

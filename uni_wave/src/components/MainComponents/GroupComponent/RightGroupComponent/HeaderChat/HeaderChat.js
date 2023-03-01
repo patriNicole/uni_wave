@@ -27,13 +27,6 @@ export default function HeaderChat(props) {
           </div>
 
           <div className="iconsUserChat">
-            <div className="iconUserChat">
-              <FaPhoneAlt />
-            </div>
-
-            <div className="iconUserChat">
-              <FaVideo />
-            </div>
 
             <div className="iconUserChat" 
               onClick={() => {
