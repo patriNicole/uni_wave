@@ -79,7 +79,7 @@ export default function SignUpPass() {
     formData.append("image", data.image);
 
     //if the email is in the right format
-    if (data.email.includes("@student.manchester.ac.uk")) {
+    if (data.email.includes("@student.manchester.ac.uk") || data.email.includes("@teacher.manchester.ac.uk") ) {
       setAlertEmail(false);
       dispatch(signupAction(formData)); 
     } else {

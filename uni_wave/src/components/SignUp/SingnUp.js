@@ -12,11 +12,12 @@ export default function LogIn(props) {
 
   return (
     <>
-      {showTeacher && <LoginTeacher />}
+      <LoginPass />
+      {/*{showTeacher && <LoginTeacher />}
       {showStudent && <LoginStudent />}
-      {showPass && <LoginPass />}
+      {showPass && <LoginPass />}*/}
 
-      <label className="switchTeacher">
+      {/*<label className="switchTeacher">
         <input
           type="checkbox"
           checked={showTeacher}
@@ -59,7 +60,7 @@ export default function LogIn(props) {
           }}
         />
         <span className="switch" />
-      </label>
+        </label>*/}
     </>
   );
 }
