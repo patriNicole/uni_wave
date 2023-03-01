@@ -51,7 +51,9 @@ export default function LoginPass() {
   useEffect(()=>{
     if(authenticate){
       setAlertSuccessRegister(true);
-      navigate('/home');
+      setTimeout(() => {
+        navigate('/home');
+      }, 3000); // Wait for 3 seconds before refreshing
       //setAlertSuccessRegister(false);
     }
     if(successMessage){

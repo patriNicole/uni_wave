@@ -91,14 +91,12 @@ export default function SignUpPass() {
   const navigate = useNavigate();
   
   useEffect(()=>{
-    if(authenticate){
-      setAlertSuccessRegister(true);
-      navigate('/');
-      window.location.reload(false);
-      //setAlertSuccessRegister(false);
-    }
     if(successMessage){
       setAlertSuccessRegister(true);
+      setTimeout(() => {
+        window.location.reload();
+        navigate('/');
+      }, 3000); // Wait for 3 seconds before refreshing
       setAlertWarningRegister(false);
       //dispatch({type : SUCCESS_MESSAGE_CLEAR })
     }

@@ -70,7 +70,20 @@ export const authReducer = (state = authState, action) => {
     };
   }
 
-  if (type === REGISTER_SUCCESS || type === USER_LOGIN_SUCCESS) {
+  if(type === REGISTER_SUCCESS) {
+    //the token contains the data of user which needs to be decoded
+    //const userInfo = tokenDecode(payload.token);
+    return {
+      ...state,
+      userInfo: "",
+      successMessage: payload.successMessage,
+      error: "",
+      authenticate: false,
+      loading: false,
+    };
+  }
+
+  if (type === USER_LOGIN_SUCCESS) {
     //the token contains the data of user which needs to be decoded
     const userInfo = tokenDecode(payload.token);
     return {

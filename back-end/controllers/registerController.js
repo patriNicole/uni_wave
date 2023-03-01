@@ -104,7 +104,7 @@ module.exports = {
 
                     /* Pass the data to cookie */
                     //option for cookie to expire (date, min, sec, milisec)
-                    const options = {
+                    /*const options = {
                       expires: new Date(
                         Date.now() +
                           process.env.COOKIE_EXP * 24 * 60 * 60 * 1000
@@ -117,6 +117,9 @@ module.exports = {
                     res.status(201).cookie('authToken', token, options).json({
                       successMessage: " You Registered Successfully ",
                       token,
+                    });*/
+                    res.status(201).json({
+                      successMessage: " You Registered Successfully ",
                     });
                   })
                   .catch((error) => {
