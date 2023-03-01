@@ -79,7 +79,7 @@ export default function SignUpPass() {
     formData.append("image", data.image);
 
     //if the email is in the right format
-    if (data.email.includes("@student.manchester.ac.uk")) {
+    if (data.email.includes("@student.manchester.ac.uk") || data.email.includes("@teacher.manchester.ac.uk") ) {
       setAlertEmail(false);
       dispatch(signupAction(formData)); 
     } else {
@@ -91,13 +91,12 @@ export default function SignUpPass() {
   const navigate = useNavigate();
   
   useEffect(()=>{
-    if(authenticate){
-      setAlertSuccessRegister(true);
-      //navigate('/home');
-      //setAlertSuccessRegister(false);
-    }
     if(successMessage){
       setAlertSuccessRegister(true);
+      setTimeout(() => {
+        window.location.reload();
+        navigate('/');
+      }, 3000); // Wait for 3 seconds before refreshing
       setAlertWarningRegister(false);
       //dispatch({type : SUCCESS_MESSAGE_CLEAR })
     }

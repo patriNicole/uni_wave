@@ -1,8 +1,9 @@
 #uniwaveLogo {
   position: absolute;
-  top: -15%;
+  top: -16.5%;
   left: 0%;
-  width: 60%;
+  width: 170px;
+  height: 120px;
   flex: 1;
   flex-direction: 'row';
   flex-wrap: 'wrap';

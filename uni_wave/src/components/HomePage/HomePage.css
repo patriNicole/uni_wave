@@ -10,6 +10,8 @@
   left: 30%;
   top: 9%;
   width: 40%;
+  flex-direction: row;
+  overflow: scroll;
 }
 
 .font-registration {

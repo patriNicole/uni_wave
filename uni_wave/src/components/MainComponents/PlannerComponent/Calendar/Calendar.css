@@ -2,7 +2,7 @@
   position: absolute;
   top: 65.5%;
   left: 27.5%;
-  height: 55%;
+  height: 70%;
   width: 50%;
   background-color: #04105719;
   position: absolute;
@@ -53,9 +53,9 @@ button {
 .close-event {
   position: absolute;
   right: 5%;
-  top: 5%;
-  width: 8%;
-  height: 8%;
+  top: -120%;
+  width: 10%;
+  height: 95%;
   display: inline-block !important;
   padding: 0.3em 1.2em !important;
   margin: 0 0.1em 0.1em 0 !important;
@@ -63,8 +63,8 @@ button {
   border-radius: 2em !important;
   box-sizing: border-box !important;
   text-decoration: none !important;
-  background-color: #5f43dd !important;
-  border-color: rgb(141, 144, 255) !important;
+  background-color: transparent !important;
+  border-color: none !important;
 }
 
 .close-event:before {
@@ -104,7 +104,7 @@ button {
   background-color: #5f43dd !important;
   border-color: rgb(141, 144, 255) !important;
   position: absolute !important;
-  top: 90% !important;
+  top: 790% !important;
   right: 10%;
 }
 
@@ -114,7 +114,7 @@ button {
   position: absolute;
   top: 50%;
   left: 50%;
-  height: 50%;
+  height: 65%;
   width: 30%;
   background-color: #04105731;
   position: absolute;
@@ -124,6 +124,11 @@ button {
   -webkit-backdrop-filter: blur(5px);
   padding: 50px 35px;
   border-radius: 58px;
+}
+
+.modal-content {
+  background-color: transparent !important;
+  pointer-events: none !important;
 }
 
 .addEventHead {
@@ -138,10 +143,10 @@ button {
 
 .event-content-add {
   position: absolute;
-  top: 50%;
+  top: 450%;
   left: 50%;
-  height: 50%;
-  width: 80%;
+  height: 600%;
+  width: 100%;
   background-color: rgba(201, 182, 252, 0.186);
   position: absolute;
   transform: translate(-50%, -50%);

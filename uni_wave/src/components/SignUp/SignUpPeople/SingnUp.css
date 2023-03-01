@@ -6,11 +6,14 @@ form {
 
 .signup {
   position: absolute;
-  top: 9%;
-  left: 40%;
-  width: 350px;
-  padding: 0px;
-  padding-top: 190px;
+  justify-content: center;
+  align-items: center;
+  top: 14%;
+  left: 38%;
+  width: 30%;
+  height: 70%;
+  padding-top: 10%;
+  overflow: scroll;
 }
 
 .login__field {

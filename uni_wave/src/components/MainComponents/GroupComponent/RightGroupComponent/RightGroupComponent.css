@@ -1,0 +1,38 @@
+.rightGroupChat {
+  border-left: 1px solid white;
+  border-right: 1px solid white;
+  border-radius: 5%;
+  height: 100% !important;
+  display: flex;
+  flex-direction: row;
+}
+
+.centerPart {
+  margin-top: 3%;
+  margin-left: 1%;
+  width: 70%;
+}
+
+.centerHeader {
+  border-bottom: 1px solid white;
+  border-radius: 5%;
+  height: 9% !important;
+  margin-top: 10px;
+}
+
+.centerChat {
+  margin-top: 5%;
+  height: 70%;
+}
+
+.hiddenCenter {
+  margin-top: 5%;
+  width: 30%;
+  border-left: 1px solid white;
+  border-radius: 5%;
+}
+
+.hiddenCenterContent {
+  margin-left: 9%;
+  margin-top: 5%;
+}

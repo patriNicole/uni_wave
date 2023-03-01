@@ -1,4 +1,4 @@
-import { REGISTER_FAIL, REGISTER_SUCCESS, SUCCESS_MESSAGE_CLEAR, ERROR_CLEAR, USER_LOGIN_FAIL, USER_LOGIN_SUCCESS } from "../types/authType.js";
+import { REGISTER_FAIL, REGISTER_SUCCESS, SUCCESS_MESSAGE_CLEAR, ERROR_CLEAR, USER_LOGIN_FAIL, USER_LOGIN_SUCCESS, LOGOUT_SUCCESS } from "../types/authType.js";
 import deCodeToken from "jwt-decode";
 
 //the purpose of this function is to handle changes
@@ -70,7 +70,20 @@ export const authReducer = (state = authState, action) => {
     };
   }
 
-  if (type === REGISTER_SUCCESS || type === USER_LOGIN_SUCCESS) {
+  if(type === REGISTER_SUCCESS) {
+    //the token contains the data of user which needs to be decoded
+    //const userInfo = tokenDecode(payload.token);
+    return {
+      ...state,
+      userInfo: "",
+      successMessage: payload.successMessage,
+      error: "",
+      authenticate: false,
+      loading: false,
+    };
+  }
+
+  if (type === USER_LOGIN_SUCCESS) {
     //the token contains the data of user which needs to be decoded
     const userInfo = tokenDecode(payload.token);
     return {
@@ -95,6 +108,17 @@ export const authReducer = (state = authState, action) => {
       ...state,
       error: "",
     };
+  }
+
+  /* LOGOUT USER */
+  if(type === LOGOUT_SUCCESS) {
+    return {
+      ...state,
+      authenticate : false,
+      userInfo : '',
+      successMessage: 'Logout Successfully',
+
+    }
   }
 
   return state;

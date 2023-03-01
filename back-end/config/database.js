@@ -1,18 +1,19 @@
 const mongoose = require("mongoose");
+const { ServerApiVersion } = require('mongodb');
 
 const mongourl = process.env.DB;
 
-const databaseConnect = () => {
-  mongoose.connect(mongourl, {
+const databaseConnect = async () => {
+  try {
+    await mongoose.connect(mongourl, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-    })
-    .then(() => {
-      console.log("Connected to the database successfully");
-    })
-    .catch((error) => {
-      console.log("Error connecting to the database");
+      serverApi: ServerApiVersion.v1 
     });
+    console.log("Connected to the database successfully");
+  } catch (error) {
+    console.log("Error connecting to the database: ", error.message);
+  }
 };
 
 module.exports = databaseConnect;

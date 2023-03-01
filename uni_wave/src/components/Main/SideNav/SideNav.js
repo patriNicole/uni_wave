@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import {
@@ -31,8 +31,10 @@ import "./SideNav.css";
 import uniwave from "../../../pictures/logo-color.png";
 import logo from "../../../pictures/uniwave.png";
 
-import {useDispatch } from 'react-redux';
-import {userLogout } from '../../../store/actions/logoutAction.js';
+import {useDispatch, useSelector } from 'react-redux';
+import { userLogout } from '../../../store/actions/logoutAction.js';
+
+import { io } from "socket.io-client";
 
 export default function SideBar(props) {
   const [menuCollapse, setMenuCollapse] = useState(true);
@@ -42,13 +44,28 @@ export default function SideBar(props) {
     menuCollapse ? setMenuCollapse(false) : setMenuCollapse(true);
   };
 
+  /* ---------------------------------------------------- USER LOGOUT ---------------------------------------------------- */
+  
+  const socket = useRef();
+  useEffect(() => {
+    // Socket is running on 8080
+    socket.current = io("ws://localhost:8080");
+  });
+
   //dispach the action from the store
   //working with reducer
   const dispatch = useDispatch();
-  
+
+  /* Used user info as appears (Redux) when logged in in application */
+  const { userInfo } = useSelector((state) => state.auth);
+
+  // User Logging Out
   const logoutUser = () => {
-    dispatch(userLogout());
+    dispatch(userLogout({}));
+    socket.current.emit('logout', userInfo.id);
   }
+
+  /* -------------------------------------------------------------------------------------------------------------------------- */
 
   return (
     <>

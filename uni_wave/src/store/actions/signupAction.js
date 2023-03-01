@@ -9,6 +9,7 @@ export default function signupAction(data) {
         headers: {
           "Content-Type": "application/josn",
         },
+        withCredentials: true
       };
       // fetch data from API
       // REGISTRATION
@@ -20,13 +21,13 @@ export default function signupAction(data) {
 
       //after successful registration go to
       //inspect -> application -> Local Storage -> http://localhost:3000/
-      localStorage.setItem("authToken", response.data.token);
+      //localStorage.setItem("authToken", response.data.token);
 
       dispatch({
         type: REGISTER_SUCCESS,
         payload: {
           successMessage: response.data.successMessage,
-          token: response.data.token,
+          //token: response.data.token,
         },
       });
       

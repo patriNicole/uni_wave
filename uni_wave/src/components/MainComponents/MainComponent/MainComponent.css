@@ -1,9 +1,9 @@
 .mainComponentWelcome {
   position: absolute;
-  top: 30%;
+  top: 35%;
   left: 25%;
-  height: 20%;
-  width: 20%;
+  height: 30%;
+  width: 25%;
   background-color: #5e73eb3b;
   position: absolute;
   transform: translate(-50%, -50%);
@@ -18,8 +18,8 @@
   position: absolute;
   top: 70%;
   left: 25%;
-  height: 36%;
-  width: 20%;
+  height: 39%;
+  width: 25%;
   background-color: #5e73eb3b;
   position: absolute;
   transform: translate(-50%, -50%);
@@ -33,9 +33,9 @@
 .mainComponentMap {
   position: absolute;
   top: 35%;
-  left: 49.5%;
+  left: 50.5%;
   height: 30%;
-  width: 20%;
+  width: 25%;
   background-color: #5e73eb3b;
   position: absolute;
   transform: translate(-50%, -50%);
@@ -48,10 +48,10 @@
 
 .mainComponentGroup {
   position: absolute;
-  top: 74%;
-  left: 49.5%;
-  height: 25%;
-  width: 20%;
+  top: 70.5%;
+  left: 50.5%;
+  height: 39.5%;
+  width: 25%;
   background-color: #5e73eb3b;
   position: absolute;
   transform: translate(-50%, -50%);
@@ -64,10 +64,10 @@
 
 .mainComponentTeaching {
   position: absolute;
-  top: 32.5%;
+  top: 37.5%;
   left: 79%;
-  height: 25%;
-  width: 30%;
+  height: 35%;
+  width: 31%;
   background-color: #5e73eb3b;
   position: absolute;
   transform: translate(-50%, -50%);
@@ -80,10 +80,10 @@
 
 .mainComponentInfo {
   position: absolute;
-  top: 72%;
+  top: 73%;
   left: 79%;
-  height: 30%;
-  width: 30%;
+  height: 35%;
+  width: 31%;
   background-color: #5e73eb3b;
   position: absolute;
   transform: translate(-50%, -50%);

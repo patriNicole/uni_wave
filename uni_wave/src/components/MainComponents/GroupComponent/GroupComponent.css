@@ -1,9 +1,10 @@
 .groupComponent {
-  position: absolute;
+  display: flex;
+  flex-direction: row;
   top: 55%;
   left: 55%;
-  height: 70%;
-  width: 80%;
+  height: 80%;
+  width: 84%;
   background-color: #5e73eb3b;
   position: absolute;
   transform: translate(-50%, -50%);
