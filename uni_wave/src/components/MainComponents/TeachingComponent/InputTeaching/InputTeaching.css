@@ -1,0 +1,93 @@
+.inputTeaching {
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  height: 40%;
+  width: 100%;
+  background: #f4f2ff2c !important;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 20%;
+  left: 50%;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 5px solid transparent;
+  padding: 50px 35px;
+  border-radius: 58px;
+}
+
+.inputTeaching:hover {
+  -webkit-box-shadow: 2px -3px 24px 1px rgba(0, 0, 0, 0.48);
+  -moz-box-shadow: 2px -3px 24px 1px rgba(0, 0, 0, 0.48);
+  box-shadow: 2px -3px 24px 1px rgba(0, 0, 0, 0.48);
+}
+
+/* INPUT FORM */
+.formTeachingInput {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  top: -15%;
+  left: 0%;
+}
+
+.formTeachingColumn {
+  display: flex;
+  flex-direction: column;
+  width: 45%;
+}
+
+.formTeachingColumnTwo {
+  display: flex;
+  flex-direction: column;
+  width: 45%;
+}
+
+.inputTeachingTitle {
+  border: none;
+  border-bottom: 2px solid #d1d1d4;
+  background: none;
+  padding: 20px;
+  padding-left: 24px;
+  font-weight: 700;
+  width: 75%;
+  transition: 0.2s;
+  color: rgb(251, 250, 255) !important;
+}
+
+/* TEACHING BUTTON */
+
+.formTeachingButton {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: absolute;
+  top: 100%;
+  left: 45%;
+}
+
+.teachingInput__submit {
+  background: #fff;
+  font-size: 14px;
+  margin-top: 30px;
+  padding: 16px 20px;
+  border-radius: 26px;
+  border: 1px solid #d4d3e8;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  color: #4c489d;
+  box-shadow: 0px 2px 2px #5c5696;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.teachingInput__submit:active,
+.teachingInput__submit:focus,
+.teachingInput__submit:hover {
+  border-color: #6a679e;
+  outline: none;
+}
