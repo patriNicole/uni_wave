@@ -4,19 +4,19 @@ import "./TeachingCourses.css";
 export default function TeachingCourses() {
   return (
     <div className="teachingCourse">
-      <div class="containerTeachingCourses">
+      <div className="containerTeachingCourses">
         
-        <div class="itemCourse">
+        <div className="itemCourse">
           <h1> Course </h1>
-          <div class="detailsCourse">
+          <div className="detailsCourse">
             <h4> Object 1</h4>
             <h4> Object 2</h4>
           </div>
         </div>
 
-        <div class="itemCourse">
+        <div className="itemCourse">
           <h1> Course </h1>
-          <div class="detailsCourse">
+          <div className="detailsCourse">
             <h4> Object 1</h4>
             <h4> Object 2</h4>
             <h4> Object 3</h4>
@@ -24,22 +24,22 @@ export default function TeachingCourses() {
             <h4> Object 5</h4>
           </div>
         </div>
-        <div class="itemCourse">
+        <div className="itemCourse">
           <h1> Course </h1>
-          <div class="detailsCourse">
+          <div className="detailsCourse">
             <h4> Object 1</h4>
           </div>
         </div>
-        <div class="itemCourse">
+        <div className="itemCourse">
           <h1> Course </h1>
-          <div class="detailsCourse">
+          <div className="detailsCourse">
             <h4> Object 1</h4>
             <h4> Object 2</h4>
           </div>
         </div>
-        <div class="itemCourse">
+        <div className="itemCourse">
           <h1> Course </h1>
-          <div class="detailsCourse">
+          <div className="detailsCourse">
             <h4> Object 1</h4>
             <h4> Object 2</h4>
             <h4> Object 3</h4>
@@ -47,18 +47,18 @@ export default function TeachingCourses() {
           </div>
         </div>
 
-      <div class="itemCourse">
+      <div className="itemCourse">
           <h1> Course </h1>
-          <div class="detailsCourse">
+          <div className="detailsCourse">
             <h4> Object 1</h4>
             <h4> Object 2</h4>
             <h4> Object 3</h4>
             <h4> Object 4</h4>
           </div>
         </div>
-        <div class="itemCourse">
+        <div className="itemCourse">
           <h1> Course </h1>
-          <div class="detailsCourse">
+          <div className="detailsCourse">
             <h4> Object 1</h4>
             <h4> Object 2</h4>
             <h4> Object 3</h4>
