@@ -9,12 +9,10 @@
   transform: translate(-50%, -50%);
   top: 71%;
   left: 50%;
-  border-top: 1px solid white;
-  border-left: 1px solid white;
-  border-right: 1px solid white;
-  border-radius: 5%;
+  border-radius: 10px;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(5px);
+  border: 5px solid transparent;
   padding: 50px 35px;
 }
 
@@ -25,4 +23,31 @@
   -webkit-box-shadow: 2px -3px 24px 1px rgba(0, 0, 0, 0.48);
   -moz-box-shadow: 2px -3px 24px 1px rgba(0, 0, 0, 0.48);
   box-shadow: 2px -3px 24px 1px rgba(0, 0, 0, 0.48);
+}
+
+/* CONTENT */
+.containerTeachingCourses {
+  column-count: 2;
+  height: 40vh;
+  overflow-y: scroll;
+}
+
+.itemCourse {
+  padding: 0.5em;
+  margin: 0 0.5em 1em;
+  background: transparent;
+  break-inside: avoid;
+  background: #f4f2ff2c !important;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 5px solid transparent;
+  width: 100%;
+  height: 15vh;
+  overflow: scroll;
+}
+
+h1 {margin:0  ;}
+.itemCourse:nth-child(odd) {
+  background: transparent/* demo see us */
 }
