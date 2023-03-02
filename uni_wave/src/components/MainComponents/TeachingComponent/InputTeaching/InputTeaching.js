@@ -33,9 +33,7 @@ export default function InputTeaching() {
       senderName: userInfo.username,
       senderEmail: userInfo.email,
       senderImage: userInfo.image,
-      teachingTitle: {
-        text: newTitle,
-      },
+      teachingTitle: newTitle,
     };
     dispatch(inputCourse(data));
   };

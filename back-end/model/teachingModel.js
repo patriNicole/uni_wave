@@ -18,8 +18,8 @@ const teachingSchema = new Schema(
       type: String,
       required: true,
     },
-    teachingTitle: {
-      text: {
+    courseDetails: {
+      teachingTitle: {
         type: String,
         default: "",
       },

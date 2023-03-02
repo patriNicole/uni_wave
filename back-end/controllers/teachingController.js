@@ -1,28 +1,29 @@
 const teachingSchema = require("../model/teachingModel.js");
 
 module.exports.inputCourse = async (req, res) => {
-  console.log(req.body);
+  //console.log(req.myId); // req.myId from authMiddleware
+  //console.log(req.body);
 
-  //const { senderName, receiverId, message } = req.body;
-  // req.myId from authMiddleware
-  //const senderId = req.myId;
+  const { senderId, senderName, senderEmail, senderImage, teachingTitle } = req.body;
+  console.log(teachingTitle);
 
   try {
-    /* Insert Data in Messanger Model */
-    /*const insertMessage = await teachingSchema.create({
+
+    /* Insert Data in Teaching Course Model */
+    const insertCourse = await teachingSchema.create({
       senderId: senderId,
       senderName: senderName,
-      teachingTitle: {
-        text: message,
-      },
+      senderEmail: senderEmail,
+      senderImage: senderImage,
+      courseDetails: {
+        teachingTitle: teachingTitle,
+      }
     });
     res.status(201).json({
       success: true,
-      message: insertMessage,
-    });*/
-    res.status(201).json({
-        success: true,
+      message: insertCourse,
     });
+
   } catch (error) {
     res.status(500).json({
       error: {
