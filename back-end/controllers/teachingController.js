@@ -5,7 +5,6 @@ module.exports.inputCourse = async (req, res) => {
   //console.log(req.body);
 
   const { senderId, senderName, senderEmail, senderImage, teachingTitle } = req.body;
-  console.log(teachingTitle);
 
   try {
 
@@ -24,6 +23,33 @@ module.exports.inputCourse = async (req, res) => {
       message: insertCourse,
     });
 
+  } catch (error) {
+    res.status(500).json({
+      error: {
+        errorMessage: "Internal Sever Error",
+      },
+    });
+  }
+};
+
+module.exports.getCourse = async (req, res) => {
+  // req.myId from authMiddleware
+  const myId = req.myId;
+  try {
+    
+    let courses = [];
+    // Get all User except itself
+    const courseGet = await teachingSchema.find({
+      _id: {
+        // The query is using the "$ne" (not equal) operator to retrieve
+        // all documents except for the one with the matching "_id"
+        $ne: myId,
+      },
+    });
+
+    courses = [...courseGet]
+
+    res.status(200).json({ success: true, courses: courses });
   } catch (error) {
     res.status(500).json({
       error: {

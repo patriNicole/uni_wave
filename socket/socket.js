@@ -35,8 +35,11 @@ const userLogout = (userId) => {
   users = users.filter(user => user.userId !== userId)
 }
 
+
 io.on("connection", (socket) => {
   console.log("Socket is connecting...");
+
+  /* CHAT PAGE */
 
   /* --------------- Get from front-end get all user data --------------- */
   socket.on("addUser", (userId, userInfo) => {

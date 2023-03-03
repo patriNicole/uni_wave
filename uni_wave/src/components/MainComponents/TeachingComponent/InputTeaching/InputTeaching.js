@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./InputTeaching.css";
 
 import { HiOutlineLink } from "react-icons/hi";
@@ -8,6 +8,8 @@ import { MdAttachFile } from "react-icons/md";
 
 import { useDispatch, useSelector } from "react-redux";
 import { inputCourse } from "../../../../store/actions/teachingAction.js";
+
+import { io } from "socket.io-client";
 
 export default function InputTeaching() {
   //style for the icons
@@ -21,22 +23,33 @@ export default function InputTeaching() {
   //dispach the action from the store
   //working with reducer
   const dispatch = useDispatch();
+
+  const socket = useRef();
+  useEffect(() => {
+    // Socket is running on 8080
+    socket.current = io("ws://localhost:8080");
+  });
+
   /* Used user info as appears (Redux) when logged in in application */
   const { userInfo } = useSelector((state) => state.auth);
 
   /* ------- User Input New Course ------- */
   const inputTeachingForm = (e) => {
-    e.preventDefault();
+    //e.preventDefault();
     //console.log(userInfo)
-    const data = {
-      senderId: userInfo.id,
-      senderName: userInfo.username,
-      senderEmail: userInfo.email,
-      senderImage: userInfo.image,
-      teachingTitle: newTitle,
-    };
-    dispatch(inputCourse(data));
+    if( newTitle !== undefined) {
+      const data = {
+        senderId: userInfo.id,
+        senderName: userInfo.username,
+        senderEmail: userInfo.email,
+        senderImage: userInfo.image,
+        teachingTitle: newTitle,
+      };
+      dispatch(inputCourse(data));
+    }
   };
+
+  const { courses } = useSelector((state) => state.teaching);
 
   const inputTeachingTitle = (e) => {
     setNewTitle(e.target.value);
@@ -57,6 +70,7 @@ export default function InputTeaching() {
               placeholder="Course Title"
               onChange={inputTeachingTitle}
               value={newTitle}
+              required
             />
           </label>
           <label htmlFor="lname">
