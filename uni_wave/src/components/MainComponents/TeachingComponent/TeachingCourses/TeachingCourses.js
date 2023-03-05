@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./TeachingCourses.css";
 
-import { io } from "socket.io-client";
-
 import { useDispatch, useSelector } from "react-redux";
 import { getCourse } from "../../../../store/actions/teachingAction.js";
 
