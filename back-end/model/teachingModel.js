@@ -18,11 +18,9 @@ const teachingSchema = new Schema(
       type: String,
       required: true,
     },
-    courseDetails: {
-      teachingTitle: {
-        type: String,
-        default: "",
-      },
+    teachingTitle: {
+      type: String,
+      default: "",
     },
   },
   { timestamps: true }

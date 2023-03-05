@@ -11,7 +11,7 @@ import { inputCourse } from "../../../../store/actions/teachingAction.js";
 
 import { io } from "socket.io-client";
 
-export default function InputTeaching({ coursePosts, setCoursePosts }) {
+export default function InputTeaching({ setCoursePosts }) {
   //style for the icons
   const style = { color: "white", fontSize: "1.5em" };
   const styleTwo = { color: "white", fontSize: "1em" };

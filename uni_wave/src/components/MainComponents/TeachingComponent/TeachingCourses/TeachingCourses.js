@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./TeachingCourses.css";
 
+// Increse refresh rate
+import { FixedSizeList } from "react-window";
+
 import { useDispatch, useSelector } from "react-redux";
 import { getCourse } from "../../../../store/actions/teachingAction.js";
 
-export default function TeachingCourses({ coursePosts }) {
-
+export default function TeachingCourses({ coursePosts, setCoursePosts }) {
   const dispatch = useDispatch();
 
   const { courses } = useSelector((state) => state.teaching);
@@ -15,39 +17,45 @@ export default function TeachingCourses({ coursePosts }) {
     if (courses !== undefined && coursePosts !== undefined) {
       const filteredCourses = courses.filter((course) => course !== undefined);
       const filteredPosts = coursePosts.filter((post) => post !== undefined);
+
       setAllCourses(filteredCourses.concat(filteredPosts));
     } else {
       setAllCourses([]);
     }
   }, [courses, coursePosts]);
 
-  console.log(allCourses)
+  console.log(allCourses);
 
   useEffect(() => {
     dispatch(getCourse());
   }, []);
 
   return (
-    <div className="teachingCourse">
-      {allCourses && allCourses.length > 0
-          ? allCourses.map((course, index) => (
-            <div key={index}>
-      <div className="containerTeachingCourses">
-        
-        <div className="itemCourse">
-          <div className="detailsCourse">
-            <h1> {course.teachingTitle} </h1>
-            <div className="teachingCourseHeader">
-              <img className="activeUser" src={`${course.senderImage}`} alt="userPicture"/>
-              <h4> {course.senderName}</h4>
+    <FixedSizeList
+      height={400}
+      width={"100%"}
+      itemCount={allCourses.length}
+      itemSize={140}
+      className="teachingCourse"
+    >
+      {({ index, style }) => (
+        <div className="itemCourse" style={{ ...style, overflow: "scroll", marginBottom: "10px", padding: "10px" }}>
+          <div className="containerTeachingCourses">
+              <div className="detailsCourse">
+                <h1> {allCourses[index].teachingTitle} </h1>
+                <div className="teachingCourseHeader">
+                  <img
+                    className="activeUser"
+                    src={`${allCourses[index].senderImage}`}
+                    alt="userPicture"
+                  />
+                  <h4> {allCourses[index].senderName}</h4>
+                </div>
+                <h4> {allCourses[index].senderEmail}</h4>
+              </div>
             </div>
-            <h4> {course.senderEmail}</h4>
-          </div>
         </div>
-        </div>
-        </div>
-      ))
-      : null}
-    </div>
+      )}
+    </FixedSizeList>
   );
 }

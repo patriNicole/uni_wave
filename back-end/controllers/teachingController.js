@@ -14,9 +14,7 @@ module.exports.inputCourse = async (req, res) => {
       senderName: senderName,
       senderEmail: senderEmail,
       senderImage: senderImage,
-      courseDetails: {
-        teachingTitle: teachingTitle,
-      }
+      teachingTitle: teachingTitle,
     });
     res.status(201).json({
       success: true,
