@@ -11,7 +11,7 @@ import { inputCourse } from "../../../../store/actions/teachingAction.js";
 
 import { io } from "socket.io-client";
 
-export default function InputTeaching() {
+export default function InputTeaching({ coursePosts, setCoursePosts }) {
   //style for the icons
   const style = { color: "white", fontSize: "1.5em" };
   const styleTwo = { color: "white", fontSize: "1em" };
@@ -30,26 +30,36 @@ export default function InputTeaching() {
     socket.current = io("ws://localhost:8080");
   });
 
+  useEffect(() => {
+    socket.current.on('newCourse', (postData) => {
+      // Add the new post to the posts state
+      setCoursePosts((prevState) => [...prevState, postData]);
+    });
+  }, []);
+
   /* Used user info as appears (Redux) when logged in in application */
   const { userInfo } = useSelector((state) => state.auth);
 
   /* ------- User Input New Course ------- */
   const inputTeachingForm = (e) => {
-    //e.preventDefault();
+    e.preventDefault();
     //console.log(userInfo)
     if( newTitle !== undefined) {
-      const data = {
+      const newCourse = {
         senderId: userInfo.id,
         senderName: userInfo.username,
         senderEmail: userInfo.email,
         senderImage: userInfo.image,
         teachingTitle: newTitle,
       };
-      dispatch(inputCourse(data));
+      if (socket.current && socket.current.emit) {
+        socket.current.emit("newCourse", newCourse);
+      } else {
+        console.log("Socket not available");
+      }
+      dispatch(inputCourse(newCourse));
     }
   };
-
-  const { courses } = useSelector((state) => state.teaching);
 
   const inputTeachingTitle = (e) => {
     setNewTitle(e.target.value);

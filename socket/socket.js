@@ -97,6 +97,13 @@ io.on("connection", (socket) => {
     }
   });
 
+  /* --------------- New Courses Added --------------- */
+  socket.on('newCourse', (postData) => {
+    // Broadcast the new post to all connected clients
+    //console.log(postData)
+    io.emit('newCourse', postData);
+  });
+
   /* Real Time User Logout so it won't be Active anymore */
   socket.on('logout', userId => {
     userLogout(userId);
