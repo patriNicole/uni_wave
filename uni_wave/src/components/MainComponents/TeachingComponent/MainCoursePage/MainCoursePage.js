@@ -30,7 +30,7 @@ export default function TeachingCourses() {
   const handleEditCourse = (e) => {
     e.preventDefault();
     //dispatch(editCourse(course._id));
-  };
+  }; 
 
   return (
     <div className="courseComponent">
@@ -57,6 +57,17 @@ export default function TeachingCourses() {
               </div>
             </div>
           </div>
+          <div className="overviewCourseComponent">
+          {course.senderName === userInfo.username ? (
+              <div className="editTitleCourse">
+                <p className="overviewCourse">{course.teachingOverview}</p>
+                <button className="editCourse" onClick={handleEditCourse}>
+                  Edit
+                </button>
+              </div>
+            ): (<p className="overviewCourse">{course.teachingOverview}</p>)} 
+          </div>
+          
           {/* If user logged in same as the one who posted
       then he/she will be able to edit the post */}
           {course.senderName === userInfo.username && (

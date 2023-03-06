@@ -4,7 +4,7 @@ module.exports.inputCourse = async (req, res) => {
   //console.log(req.myId); // req.myId from authMiddleware
   //console.log(req.body);
 
-  const { senderId, senderName, senderEmail, senderImage, teachingTitle } = req.body;
+  const { senderId, senderName, senderEmail, senderImage, teachingTitle, teachingOverview } = req.body;
 
   try {
 
@@ -15,6 +15,7 @@ module.exports.inputCourse = async (req, res) => {
       senderEmail: senderEmail,
       senderImage: senderImage,
       teachingTitle: teachingTitle,
+      teachingOverview: teachingOverview
     });
     res.status(201).json({
       success: true,

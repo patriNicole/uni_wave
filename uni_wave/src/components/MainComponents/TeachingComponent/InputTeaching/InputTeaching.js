@@ -18,7 +18,9 @@ export default function InputTeaching({ setCoursePosts }) {
 
   /* INPUT FIELDS */
   /* NEW Title from user */
-  const [newTitle, setNewTitle] = useState("");
+  const [newTitle, setNewTitle] = useState(""); 
+  /* Course Overview */
+  const [newOverview, setNewOverview] = useState("");
 
   //dispach the action from the store
   //working with reducer
@@ -51,6 +53,7 @@ export default function InputTeaching({ setCoursePosts }) {
         senderEmail: userInfo.email,
         senderImage: userInfo.image,
         teachingTitle: newTitle,
+        teachingOverview: newOverview
       };
       if (socket.current && socket.current.emit) {
         socket.current.emit("newCourse", newCourse);
@@ -63,6 +66,10 @@ export default function InputTeaching({ setCoursePosts }) {
 
   const inputTeachingTitle = (e) => {
     setNewTitle(e.target.value);
+  }
+
+  const inputTeachingOverview = (e) => {
+    setNewOverview(e.target.value);
   }
 
   return (
@@ -92,6 +99,8 @@ export default function InputTeaching({ setCoursePosts }) {
               name="lname"
               style={{ marginBottom: "1rem" }}
               placeholder="Overview"
+              onChange={inputTeachingOverview}
+              value={newOverview}
             />
           </label>
         </div>

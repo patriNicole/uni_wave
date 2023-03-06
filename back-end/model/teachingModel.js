@@ -22,6 +22,10 @@ const teachingSchema = new Schema(
       type: String,
       default: "",
     },
+    teachingOverview: {
+      type: String,
+      default: "",
+    },
   },
   { timestamps: true }
 );

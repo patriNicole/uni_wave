@@ -41,6 +41,30 @@
   font-weight: 700;
 }
 
+.overviewCourseComponent {
+  color: white;
+  padding-left: 10px;
+  margin-top: 5vh;
+}
+
+.overviewCourse {
+  font-size: 18px;
+  font-weight: 700;
+  width: 90vh;
+  height: 15vh;
+  padding: 15px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 5px solid transparent;
+  overflow: scroll;
+}
+
+.overviewCourse:hover {
+  -webkit-box-shadow: 2px -3px 24px 1px rgba(0, 0, 0, 0.48);
+  -moz-box-shadow: 2px -3px 24px 1px rgba(0, 0, 0, 0.48);
+  box-shadow: 2px -3px 24px 1px rgba(0, 0, 0, 0.48);
+}
+
 /* EDIT COMPONENTS */
 .editTitleCourse {
   display: flex;
@@ -89,7 +113,7 @@
   transition: 0.2s;
   padding: 10px 15px;
   margin-left: 10px;
-  margin-top: 50vh;
+  margin-top: 30vh;
 }
 
 .editCourse:active,
