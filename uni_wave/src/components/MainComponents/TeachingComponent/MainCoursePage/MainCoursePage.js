@@ -58,6 +58,7 @@ export default function TeachingCourses() {
             </div>
           </div>
           <div className="overviewCourseComponent">
+          <p className="titleCourseOverview">Overview</p>
           {course.senderName === userInfo.username ? (
               <div className="editTitleCourse">
                 <p className="overviewCourse">{course.teachingOverview}</p>
