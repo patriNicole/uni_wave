@@ -71,7 +71,7 @@ module.exports.deleteCourse = async (req, res) => {
     res.status(200).json({ success: true, courses: courses });
 
   } catch (error) {
-    console.log(error);
+    //console.log(error);
     res.status(500).json({ success: false, error: 'Unable to delete course' });
   }
 };
