@@ -69,7 +69,7 @@ export default function TeachingCourses() {
           </div>
           
           {/* If user logged in same as the one who posted
-      then he/she will be able to edit the post */}
+          then he/she will be able to edit the post */}
           {course.senderName === userInfo.username && (
             <button className="deleteCourse" onClick={handleDeleteCourse}>
                 Delete Entire Course
