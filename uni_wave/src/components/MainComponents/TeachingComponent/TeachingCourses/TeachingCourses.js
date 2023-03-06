@@ -26,7 +26,7 @@ export default function TeachingCourses({ coursePosts, setCoursePosts }) {
     }
   }, [courses, coursePosts]);
 
-  console.log(allCourses);
+  //console.log(allCourses);
 
   useEffect(() => {
     dispatch(getCourse());
@@ -41,10 +41,24 @@ export default function TeachingCourses({ coursePosts, setCoursePosts }) {
       className="teachingCourse"
     >
       {({ index, style }) => (
-        <div className="itemCourse" style={{ ...style, overflow: "scroll", marginBottom: "10px", padding: "10px" }}>
-          <Link exact="true" to="/course" className="link-no-style">
+        <div
+          className="itemCourse"
+          style={{
+            ...style,
+            overflow: "scroll",
+            marginBottom: "10px",
+            padding: "10px",
+          }}
+        >
           <div className="containerTeachingCourses">
-              <div className="detailsCourse">
+            <div className="detailsCourse">
+              <Link
+                exact="true"
+                to="/course"
+                // Pass the course details which was selected
+                state={{ course: allCourses[index] }}
+                className="link-no-style"
+              >
                 <h1> {allCourses[index].teachingTitle} </h1>
                 <div className="teachingCourseHeader">
                   <img
@@ -55,12 +69,10 @@ export default function TeachingCourses({ coursePosts, setCoursePosts }) {
                   <h4> {allCourses[index].senderName}</h4>
                 </div>
                 <h4> {allCourses[index].senderEmail}</h4>
-              </div>
-              <div className="detailsCourseOverview">
-                Overview
-              </div>
+              </Link>
             </div>
-            </Link>
+            <div className="detailsCourseOverview">Overview</div>
+          </div>
         </div>
       )}
     </FixedSizeList>
