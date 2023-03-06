@@ -1,4 +1,4 @@
-import { TEACHING_INPUT_SUCCESS, TEACHING_GET_SUCCESS } from "../types/teachingType.js";
+import { TEACHING_INPUT_SUCCESS, TEACHING_GET_SUCCESS, DELETE_COURSE_SUCCESS } from "../types/teachingType.js";
 
 // the friends array in the state object will be updated with
 // the new data provided in the payload property
@@ -25,6 +25,14 @@ export const teachingReducer = (state = teachingState, action) => {
       //updating the state of the application with the latest message retrieved from the server
       ...state,
       courses: payload.courses,
+    };
+  }
+
+  if (type === DELETE_COURSE_SUCCESS) {
+    const filteredCourses= state.courses.filter(post => post._id !== action.payload);
+    return {
+      ...state,
+      courses: filteredCourses
     };
   }
 

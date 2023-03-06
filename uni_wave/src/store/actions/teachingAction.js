@@ -1,5 +1,5 @@
 import axios from "axios";
-import { TEACHING_INPUT_SUCCESS, TEACHING_GET_SUCCESS } from "../types/teachingType.js";
+import { TEACHING_INPUT_SUCCESS, TEACHING_GET_SUCCESS, DELETE_COURSE_SUCCESS } from "../types/teachingType.js";
 
 export const inputCourse = (data) => async (dispatch) => {
   try {
@@ -37,6 +37,24 @@ export const getCourse = () => {
         payload: {
             courses: response.data.courses,
         },
+      });
+    } catch (error) {
+      console.log(error.response.data);
+    }
+  };
+};
+
+/* DELETE THE COURSE */
+export const deleteCourse = ( courseId ) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:8000/api/uniwave/delete-course/${courseId}`,
+        { withCredentials: true }
+      )
+      dispatch({
+        type: DELETE_COURSE_SUCCESS,
+        payload: courseId
       });
     } catch (error) {
       console.log(error.response.data);

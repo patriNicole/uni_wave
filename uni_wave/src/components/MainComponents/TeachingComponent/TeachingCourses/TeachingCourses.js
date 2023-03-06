@@ -10,7 +10,7 @@ import { getCourse } from "../../../../store/actions/teachingAction.js";
 import { Link } from "react-router-dom";
 
 export default function TeachingCourses({ coursePosts, setCoursePosts }) {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); 
 
   const { courses } = useSelector((state) => state.teaching);
   const [allCourses, setAllCourses] = useState([]);
@@ -19,7 +19,7 @@ export default function TeachingCourses({ coursePosts, setCoursePosts }) {
     if (courses !== undefined && coursePosts !== undefined) {
       const filteredCourses = courses.filter((course) => course !== undefined);
       const filteredPosts = coursePosts.filter((post) => post !== undefined);
-
+      
       setAllCourses(filteredCourses.concat(filteredPosts));
     } else {
       setAllCourses([]);

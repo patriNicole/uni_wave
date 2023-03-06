@@ -55,4 +55,23 @@ module.exports.getCourse = async (req, res) => {
       },
     });
   }
+}; 
+
+module.exports.deleteCourse = async (req, res) => {
+  const { courseId } = req.params;
+  //console.log(courseId)
+  try {
+    // Delete the course with the specified courseId
+    await teachingSchema.findByIdAndDelete(courseId);
+
+    // Get all remaining courses
+    const courses = await teachingSchema.find();
+
+    // Send the remaining courses as a response to frontend
+    res.status(200).json({ success: true, courses: courses });
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, error: 'Unable to delete course' });
+  }
 };
