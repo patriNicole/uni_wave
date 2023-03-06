@@ -10,7 +10,7 @@ import { getCourse } from "../../../../store/actions/teachingAction.js";
 import { Link } from "react-router-dom";
 
 export default function TeachingCourses({ coursePosts, setCoursePosts }) {
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
 
   const { courses } = useSelector((state) => state.teaching);
   const [allCourses, setAllCourses] = useState([]);
@@ -59,19 +59,37 @@ export default function TeachingCourses({ coursePosts, setCoursePosts }) {
                 state={{ course: allCourses[index] }}
                 className="link-no-style"
               >
-                <div className="titleCourse"> {allCourses[index].teachingTitle} </div>
+                <div className="titleCourse">
+                  {" "}
+                  {allCourses[index].teachingTitle}{" "}
+                </div>
                 <div className="teachingCourseHeader">
                   <img
                     className="activeUser"
                     src={`${allCourses[index].senderImage}`}
                     alt="userPicture"
                   />
-                  <div className="userNameCourse"> {allCourses[index].senderName}</div>
+                  <div className="userNameCourse">
+                    {" "}
+                    {allCourses[index].senderName}
+                  </div>
                 </div>
-                <div className="userNameCourse"> {allCourses[index].senderEmail}</div>
+                <div className="userNameCourse">
+                  {" "}
+                  {allCourses[index].senderEmail}
+                </div>
               </Link>
             </div>
-            <div className="detailsCourseOverview">Overview</div>
+            {allCourses[index].teachingOverview ? (
+              <div className="detailsCourseOverview">
+                <p className="overviewCourseTitle">Overview</p>
+                <p className="overviewCourseUser">
+                  {allCourses[index].teachingOverview}
+                </p>
+              </div>
+            ) : (
+              ""
+            )}
           </div>
         </div>
       )}
