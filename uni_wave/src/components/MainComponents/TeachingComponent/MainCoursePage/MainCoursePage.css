@@ -12,6 +12,39 @@
   -webkit-backdrop-filter: blur(5px);
   padding: 50px 35px;
   border-radius: 58px;
+  overflow: scroll;
+}
+
+.coursePageTitle {
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+  padding-left: 10px;
+  padding-top: 0px;
+  color: rgba(255, 255, 255, 0.471);
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.userCourseInfo {
+  margin-left: 30%;
+  display: flex;
+  flex-direction: row;
+}
+
+.allUserCourseInfo {
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+/* EDIT COMPONENTS */
+.editTitleCourse {
+  display: flex;
+  flex-direction: row;
 }
 
 /* BUTTONS COURSE */
@@ -20,13 +53,7 @@
   flex: 1;
 }
 
-.buttonCourses {
-  display: flex;
-  flex: 1;
-}
-
 .editCourse {
-  flex: 1;
   background: #fff;
   font-size: 14px;
   padding: 16px 20px;
@@ -40,11 +67,12 @@
   box-shadow: 0px 2px 2px #5c5696;
   cursor: pointer;
   transition: 0.2s;
+  padding: 10px 15px;
+  margin-left: 40px;
+  height: 50px;
 }
 
 .deleteCourse {
-  flex: 1;
-  margin-left: 50px;
   margin-right: 10px;
   background: #fff;
   font-size: 14px;
@@ -59,6 +87,9 @@
   box-shadow: 0px 2px 2px #5c5696;
   cursor: pointer;
   transition: 0.2s;
+  padding: 10px 15px;
+  margin-left: 10px;
+  margin-top: 50vh;
 }
 
 .editCourse:active,

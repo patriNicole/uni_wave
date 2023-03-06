@@ -24,28 +24,45 @@ export default function TeachingCourses() {
   const handleDeleteCourse = (e) => {
     e.preventDefault();
     dispatch(deleteCourse(course._id));
-    navigate('/teaching');
-  }
+    navigate("/teaching");
+  };
+
+  const handleEditCourse = (e) => {
+    e.preventDefault();
+    //dispatch(editCourse(course._id));
+  };
 
   return (
     <div className="courseComponent">
       {course && (
         <>
-          <p>{course.teachingTitle}</p>
-          <p>{course.senderName}</p>
-          <p>{course.senderEmail}</p>
-          <img
-            className="activeUser"
-            src={`${course.senderImage}`}
-            alt="userPicture"
-          />
+          <div className="coursePageTitle">
+            {course.senderName === userInfo.username ? (
+              <div className="editTitleCourse">
+                <p>{course.teachingTitle}</p>
+                <button className="editCourse" onClick={handleEditCourse}>
+                  Edit
+                </button>
+              </div>
+            ): (<p>{course.teachingTitle}</p>)} 
+            <div className="userCourseInfo">
+              <img
+                className="userImageTop"
+                src={`${course.senderImage}`}
+                alt="userPicture"
+              />
+              <div className="allUserCourseInfo">
+                <p>{course.senderName}</p>
+                <p>{course.senderEmail}</p>
+              </div>
+            </div>
+          </div>
           {/* If user logged in same as the one who posted
       then he/she will be able to edit the post */}
           {course.senderName === userInfo.username && (
-            <div className="buttonCourses">
-              <button className="editCourse">Edit</button>
-              <button className="deleteCourse" onClick={handleDeleteCourse}>Delete</button>
-            </div>
+            <button className="deleteCourse" onClick={handleDeleteCourse}>
+                Delete Entire Course
+              </button>
           )}
         </>
       )}

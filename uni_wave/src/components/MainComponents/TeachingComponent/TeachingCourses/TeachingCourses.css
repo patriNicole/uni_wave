@@ -48,10 +48,22 @@
   margin: 10px;
 }
 
-h1 {
+.titleCourse {
   margin: 0;
   padding-bottom: 10px;
   padding-top: 0px;
+  color: white;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.userNameCourse {
+  margin: 0;
+  padding-left: 10px;
+  padding-top: 0px;
+  color: rgba(255, 255, 255, 0.471);
+  font-size: 25px;
+  font-weight: 700;
 }
 
 .itemCourse:nth-child(even) {
@@ -73,6 +85,12 @@ h1 {
 
 .detailsCourseOverview {
   flex: 1;
+  margin: 0;
+  padding-left: 10px;
+  padding-top: 0px;
+  color: white;
+  font-size: 25px;
+  font-weight: 700;
 }
 
 /* LINK TO COURSE */

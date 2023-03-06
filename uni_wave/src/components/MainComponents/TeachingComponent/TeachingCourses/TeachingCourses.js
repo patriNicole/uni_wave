@@ -19,7 +19,7 @@ export default function TeachingCourses({ coursePosts, setCoursePosts }) {
     if (courses !== undefined && coursePosts !== undefined) {
       const filteredCourses = courses.filter((course) => course !== undefined);
       const filteredPosts = coursePosts.filter((post) => post !== undefined);
-      
+
       setAllCourses(filteredCourses.concat(filteredPosts));
     } else {
       setAllCourses([]);
@@ -59,16 +59,16 @@ export default function TeachingCourses({ coursePosts, setCoursePosts }) {
                 state={{ course: allCourses[index] }}
                 className="link-no-style"
               >
-                <h1> {allCourses[index].teachingTitle} </h1>
+                <div className="titleCourse"> {allCourses[index].teachingTitle} </div>
                 <div className="teachingCourseHeader">
                   <img
                     className="activeUser"
                     src={`${allCourses[index].senderImage}`}
                     alt="userPicture"
                   />
-                  <h4> {allCourses[index].senderName}</h4>
+                  <div className="userNameCourse"> {allCourses[index].senderName}</div>
                 </div>
-                <h4> {allCourses[index].senderEmail}</h4>
+                <div className="userNameCourse"> {allCourses[index].senderEmail}</div>
               </Link>
             </div>
             <div className="detailsCourseOverview">Overview</div>
