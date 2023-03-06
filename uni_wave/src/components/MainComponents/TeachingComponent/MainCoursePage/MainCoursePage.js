@@ -1,13 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
-import "./TeachingCourses.css";
+import "./MainCoursePage.css";
 
 // Increse refresh rate
 import { FixedSizeList } from "react-window";
 
 import { useDispatch, useSelector } from "react-redux";
 import { getCourse } from "../../../../store/actions/teachingAction.js";
-
-import { Link } from "react-router-dom";
 
 export default function TeachingCourses({ coursePosts, setCoursePosts }) {
   const dispatch = useDispatch();
@@ -33,6 +31,7 @@ export default function TeachingCourses({ coursePosts, setCoursePosts }) {
   }, []);
 
   return (
+    <div className="courseComponent">
     <FixedSizeList
       height={400}
       width={"100%"}
@@ -42,7 +41,6 @@ export default function TeachingCourses({ coursePosts, setCoursePosts }) {
     >
       {({ index, style }) => (
         <div className="itemCourse" style={{ ...style, overflow: "scroll", marginBottom: "10px", padding: "10px" }}>
-          <Link exact="true" to="/course" className="link-no-style">
           <div className="containerTeachingCourses">
               <div className="detailsCourse">
                 <h1> {allCourses[index].teachingTitle} </h1>
@@ -56,13 +54,14 @@ export default function TeachingCourses({ coursePosts, setCoursePosts }) {
                 </div>
                 <h4> {allCourses[index].senderEmail}</h4>
               </div>
-              <div className="detailsCourseOverview">
-                Overview
+              <div className="buttonCourses">
+                <button className="editCourse">Edit</button>
+                <button className="deleteCourse">Delete</button>
               </div>
             </div>
-            </Link>
         </div>
       )}
     </FixedSizeList>
+    </div>
   );
 }

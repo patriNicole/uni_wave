@@ -10,6 +10,7 @@ import MainGroups from "../components/Main/MainGroups.js";
 import MainTeaching from "../components/Main/MainTeaching.js";
 import MainInfo from "../components/Main/MainInfo.js";
 import MainSettings from "../components/Main/MainSettings.js";
+import MainCourse from "../components/Main/MainCourse";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 // Protect Route if user not logged in
@@ -30,6 +31,7 @@ export default function PageRoutes() {
         <Route path="/planner" element={<ProtectRoute><MainPlanner pageColor={pageColor} setPageColor={setPageColor}/></ProtectRoute>} />
         <Route path="/groups" element={<ProtectRoute><MainGroups pageColor={pageColor} setPageColor={setPageColor}/></ProtectRoute>} />
         <Route path="/teaching" element={<ProtectRoute><MainTeaching pageColor={pageColor} setPageColor={setPageColor}/></ProtectRoute>} />
+        <Route path="/course" element={<ProtectRoute><MainCourse pageColor={pageColor} setPageColor={setPageColor}/></ProtectRoute>} />
         <Route path="/info" element={<ProtectRoute><MainInfo pageColor={pageColor} setPageColor={setPageColor}/></ProtectRoute>} />  
         <Route path="/settings" element={<ProtectRoute><MainSettings pageColor={pageColor} setPageColor={setPageColor}/></ProtectRoute>} />
         <Route path="/map" element={<ProtectRoute><MainMap pageColor={pageColor} setPageColor={setPageColor}/></ProtectRoute>} />
