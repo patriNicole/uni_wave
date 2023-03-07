@@ -84,7 +84,7 @@ export default function TeachingCourses({ coursePosts, setCoursePosts }) {
               <div className="detailsCourseOverview">
                 <p className="overviewCourseTitle">Overview</p>
                 <p className="overviewCourseUser">
-                  {allCourses[index].teachingOverview.split(". ").slice(0, 2).join(". ") + "..."}
+                  {allCourses[index].teachingOverview.split(". ").slice(0, 1).join(". ") + "..."}
                 </p>
               </div>
             ) : (

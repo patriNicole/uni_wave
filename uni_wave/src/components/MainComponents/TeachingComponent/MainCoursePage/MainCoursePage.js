@@ -10,6 +10,8 @@ import {
   deleteCourse,
 } from "../../../../store/actions/teachingAction.js";
 
+import AlertWarningMissingTitleTeaching from "../../../Alerts/AlertWarningMissingTitleTeaching.js";
+
 export default function TeachingCourses() {
   /* Used user info as appears (Redux) when logged in in application */
   const { userInfo } = useSelector((state) => state.auth);
@@ -20,6 +22,7 @@ export default function TeachingCourses() {
   //console.log(course);
 
   /* EDIT MODE */
+  const [shouldUpdate, setShouldUpdate] = useState(true);
   const [editMode, setEditMode] = useState(false);
   const [updatedTitle, setUpdatedTitle] = useState(course.teachingTitle);
   const [updatedOverview, setUpdatedOverview] = useState(
@@ -34,29 +37,35 @@ export default function TeachingCourses() {
   //working with reducer
   const dispatch = useDispatch();
 
+  // Delete a course entirely
   const handleDeleteCourse = (e) => {
     e.preventDefault();
     dispatch(deleteCourse(course._id));
     navigate("/teaching");
   };
 
+  // Set the Edit Mode On
   const handleEditCourse = (e) => {
     e.preventDefault();
     setEditMode(true);
   };
 
+  // Course Updated and Saved
   const handleSaveChanges = (e) => {
     e.preventDefault();
+    // Update the overview value - can be set to empty
     const updatedOverviewValue =
       textareaRefOverview?.current?.value || '';
     const updatedTitleValue = textareaRefTitle?.current?.value.trim();
     //console.log(`updatedTitleValue: '${updatedTitleValue}'`);
-    let shouldUpdate = true;
+    // // Update the title value - cannot be set to empty
+    // If title not provided cannot update course
     if (!updatedTitleValue) {
-      alert('Title cannot be empty');
-      shouldUpdate = false;
+      setShouldUpdate(false);
     }
-    if (shouldUpdate) {
+    // Update course
+    if (updatedTitleValue) {
+      setShouldUpdate(true);
       const updatedCourse = {
         ...course,
         teachingTitle: updatedTitleValue || course.teachingTitle,
@@ -64,14 +73,18 @@ export default function TeachingCourses() {
       };
       setUpdatedOverview(updatedOverviewValue);
       setUpdatedTitle(updatedTitleValue);
+      // Edit Mode Off
       setEditMode(false);
+      // Dispach Result in Redux
       dispatch(updateCourse(updatedCourse));
+      // Link to Teaching Home Page
       navigate("/teaching");
     }
   };  
 
   return (
     <div className="courseComponent">
+      {!shouldUpdate && <AlertWarningMissingTitleTeaching/>}
       {course && (
         <>
           <div className="coursePageTitle">
