@@ -53,19 +53,19 @@ export default function TeachingCourses() {
 
   const handleSaveChanges = (e) => {
     e.preventDefault();
-    const updatedOverviewValue = textareaRefOverview.current.value;
-    const updatedTitleValue = textareaRefTitle.current.value;
+    const updatedOverviewValue = textareaRefOverview?.current?.value || updatedOverview;
+    const updatedTitleValue = textareaRefTitle?.current?.value || updatedTitle;
     const updatedCourse = {
       ...course,
       teachingTitle: updatedTitleValue,
       teachingOverview: updatedOverviewValue,
     };
-    console.log(updatedCourse);
+    //console.log(updatedCourse);
     setUpdatedOverview(updatedOverviewValue);
     setUpdatedTitle(updatedTitleValue);
     setEditModeOverview(false);
     setEditModeTitle(false);
-    //dispatch(updateCourse(updatedCourse));
+    dispatch(updateCourse(updatedCourse));
   };
 
   return (

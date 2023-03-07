@@ -1,4 +1,4 @@
-import { TEACHING_INPUT_SUCCESS, TEACHING_GET_SUCCESS, DELETE_COURSE_SUCCESS } from "../types/teachingType.js";
+import { TEACHING_INPUT_SUCCESS, TEACHING_GET_SUCCESS, DELETE_COURSE_SUCCESS, UPDATE_COURSE } from "../types/teachingType.js";
 
 // the friends array in the state object will be updated with
 // the new data provided in the payload property
@@ -33,6 +33,19 @@ export const teachingReducer = (state = teachingState, action) => {
     return {
       ...state,
       courses: filteredCourses
+    };
+  }
+
+  if (type === UPDATE_COURSE) {
+    // Find the course index which we want to change
+    const updatedCourseIndex = state.courses.findIndex((course) => course._id === payload._id);
+    // Get the updated course state
+    const updatedCourses = [...state.courses];
+    // Equal it with the new state from payload
+    updatedCourses[updatedCourseIndex] = payload;
+    return {
+      ...state,
+      courses: updatedCourses,
     };
   }
 

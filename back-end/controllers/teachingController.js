@@ -75,4 +75,22 @@ module.exports.deleteCourse = async (req, res) => {
     //console.log(error);
     res.status(500).json({ success: false, error: 'Unable to delete course' });
   }
+}; 
+
+module.exports.updateCourse = async (req, res) => {
+  const courseId = req.params.id;
+  const updatedCourse = req.body;
+  //console.log(courseId, updatedCourse)
+  
+  try {
+    // Find the course with the specified courseId and update its properties
+    const course = await teachingSchema.findByIdAndUpdate(courseId, updatedCourse, { new: true });
+
+    // Send the updated course as a response to frontend
+    res.status(200).json({ success: true, course: course });
+
+  } catch (error) {
+    //console.log(error);
+    res.status(500).json({ success: false, error: 'Unable to update course' });
+  }
 };
