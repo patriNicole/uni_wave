@@ -84,9 +84,15 @@
   flex-direction: row;
 }
 
+.updateCourseButtons {
+  display: flex;
+  flex-direction: row;
+  margin-top: 28vh;
+}
+
 .editSaveCancel {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 }
 
 .myTextareaClassTitle {
@@ -126,7 +132,6 @@
 }
 
 .deleteCourse {
-  margin-right: 10px;
   background: #fff;
   font-size: 14px;
   padding: 16px 20px;
@@ -141,8 +146,9 @@
   cursor: pointer;
   transition: 0.2s;
   padding: 10px 15px;
-  margin-left: 10px;
-  margin-top: 30vh;
+  margin-left: 40px;
+  margin-bottom: 40px;
+  height: 50px;
 }
 
 .editCourse:active,

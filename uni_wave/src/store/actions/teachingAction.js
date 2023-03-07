@@ -71,7 +71,7 @@ export const updateCourse = (updatedCourse) => {
         updatedCourse,
         { withCredentials: true }
       )
-      console.log(response.data);
+      //console.log(response.data);
       dispatch({
         type: UPDATE_COURSE,
         payload: updatedCourse,

@@ -20,8 +20,7 @@ export default function TeachingCourses() {
   //console.log(course);
 
   /* EDIT MODE */
-  const [editModeOverview, setEditModeOverview] = useState(false);
-  const [editModeTitle, setEditModeTitle] = useState(false);
+  const [editMode, setEditMode] = useState(false);
   const [updatedTitle, setUpdatedTitle] = useState(course.teachingTitle);
   const [updatedOverview, setUpdatedOverview] = useState(
     course.teachingOverview
@@ -41,19 +40,15 @@ export default function TeachingCourses() {
     navigate("/teaching");
   };
 
-  const handleEditCourseOverview = (e) => {
+  const handleEditCourse = (e) => {
     e.preventDefault();
-    setEditModeOverview(true);
-  };
-
-  const handleEditCourseTitle = (e) => {
-    e.preventDefault();
-    setEditModeTitle(true);
+    setEditMode(true);
   };
 
   const handleSaveChanges = (e) => {
     e.preventDefault();
-    const updatedOverviewValue = textareaRefOverview?.current?.value || updatedOverview;
+    const updatedOverviewValue =
+      textareaRefOverview?.current?.value || updatedOverview;
     const updatedTitleValue = textareaRefTitle?.current?.value || updatedTitle;
     const updatedCourse = {
       ...course,
@@ -63,9 +58,9 @@ export default function TeachingCourses() {
     //console.log(updatedCourse);
     setUpdatedOverview(updatedOverviewValue);
     setUpdatedTitle(updatedTitleValue);
-    setEditModeOverview(false);
-    setEditModeTitle(false);
+    setEditMode(false);
     dispatch(updateCourse(updatedCourse));
+    navigate("/teaching");
   };
 
   return (
@@ -74,7 +69,7 @@ export default function TeachingCourses() {
         <>
           <div className="coursePageTitle">
             {course.senderName === userInfo.username ? (
-              editModeTitle === true ? (
+              editMode === true ? (
                 <div className="editTitleCourse">
                   <textarea
                     defaultValue={course.teachingTitle}
@@ -82,29 +77,10 @@ export default function TeachingCourses() {
                     className="myTextareaClassTitle"
                     style={{ color: "white", backgroundColor: "transparent" }}
                   ></textarea>
-                  <div className="editSaveCancel">
-                    <button className="editCourse" onClick={handleSaveChanges}>
-                      Save
-                    </button>
-                    <button
-                      className="editCourse"
-                      onClick={(e) => {
-                        setEditModeTitle(false);
-                      }}
-                    >
-                      Cancel
-                    </button>
-                  </div>
                 </div>
               ) : (
                 <div className="editTitleCourse">
                   <p>{course.teachingTitle}</p>
-                  <button
-                    className="editCourse"
-                    onClick={handleEditCourseTitle}
-                  >
-                    Edit
-                  </button>
                 </div>
               )
             ) : (
@@ -126,7 +102,7 @@ export default function TeachingCourses() {
           <div className="overviewCourseComponent">
             <p className="titleCourseOverview">Overview</p>
             {course.senderName === userInfo.username ? (
-              editModeOverview === true ? (
+              editMode === true ? (
                 <div className="editTitleCourse">
                   <textarea
                     className="overviewCourse"
@@ -134,29 +110,10 @@ export default function TeachingCourses() {
                     ref={textareaRefOverview}
                     style={{ color: "white", backgroundColor: "transparent" }}
                   ></textarea>
-                  <div className="editSaveCancel">
-                    <button className="editCourse" onClick={handleSaveChanges}>
-                      Save
-                    </button>
-                    <button
-                      className="editCourse"
-                      onClick={(e) => {
-                        setEditModeOverview(false);
-                      }}
-                    >
-                      Cancel
-                    </button>
-                  </div>
                 </div>
               ) : (
                 <div className="editTitleCourse">
                   <p className="overviewCourse">{course.teachingOverview}</p>
-                  <button
-                    className="editCourse"
-                    onClick={handleEditCourseOverview}
-                  >
-                    Edit
-                  </button>
                 </div>
               )
             ) : (
@@ -164,6 +121,7 @@ export default function TeachingCourses() {
             )}
           </div>
 
+<div className="updateCourseButtons">
           {/* If user logged in same as the one who posted
           then he/she will be able to edit the post */}
           {course.senderName === userInfo.username && (
@@ -171,6 +129,26 @@ export default function TeachingCourses() {
               Delete Entire Course
             </button>
           )}
+          {editMode ? (
+            <div className="editSaveCancel">
+              <button className="editCourse" onClick={handleSaveChanges}>
+                Save
+              </button>
+              <button
+                className="editCourse"
+                onClick={(e) => {
+                  setEditMode(false);
+                }}
+              >
+                Cancel
+              </button>
+            </div>
+          ) : (
+            <button className="editCourse" onClick={handleEditCourse}>
+              Edit
+            </button>
+          )}
+          </div>
         </>
       )}
     </div>
