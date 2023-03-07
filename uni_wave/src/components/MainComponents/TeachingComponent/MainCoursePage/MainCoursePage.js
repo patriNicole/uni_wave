@@ -121,33 +121,37 @@ export default function TeachingCourses() {
             )}
           </div>
 
-<div className="updateCourseButtons">
-          {/* If user logged in same as the one who posted
+          <div className="updateCourseButtons">
+            {/* If user logged in same as the one who posted
           then he/she will be able to edit the post */}
-          {course.senderName === userInfo.username && (
-            <button className="deleteCourse" onClick={handleDeleteCourse}>
-              Delete Entire Course
-            </button>
-          )}
-          {editMode ? (
-            <div className="editSaveCancel">
-              <button className="editCourse" onClick={handleSaveChanges}>
-                Save
+            {course.senderName === userInfo.username && (
+              <button className="deleteCourse" onClick={handleDeleteCourse}>
+                Delete Entire Course
               </button>
-              <button
-                className="editCourse"
-                onClick={(e) => {
-                  setEditMode(false);
-                }}
-              >
-                Cancel
-              </button>
-            </div>
-          ) : (
-            <button className="editCourse" onClick={handleEditCourse}>
-              Edit
-            </button>
-          )}
+            )}
+            {course.senderName === userInfo.username ? (
+              editMode ? (
+                <div className="editSaveCancel">
+                  <button className="editCourse" onClick={handleSaveChanges}>
+                    Save
+                  </button>
+                  <button
+                    className="editCourse"
+                    onClick={(e) => {
+                      setEditMode(false);
+                    }}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              ) : (
+                <button className="editCourse" onClick={handleEditCourse}>
+                  Edit
+                </button>
+              )
+            ) : (
+              ""
+            )}
           </div>
         </>
       )}
