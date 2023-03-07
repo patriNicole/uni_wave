@@ -48,20 +48,27 @@ export default function TeachingCourses() {
   const handleSaveChanges = (e) => {
     e.preventDefault();
     const updatedOverviewValue =
-      textareaRefOverview?.current?.value || updatedOverview;
-    const updatedTitleValue = textareaRefTitle?.current?.value || updatedTitle;
-    const updatedCourse = {
-      ...course,
-      teachingTitle: updatedTitleValue,
-      teachingOverview: updatedOverviewValue,
-    };
-    //console.log(updatedCourse);
-    setUpdatedOverview(updatedOverviewValue);
-    setUpdatedTitle(updatedTitleValue);
-    setEditMode(false);
-    dispatch(updateCourse(updatedCourse));
-    navigate("/teaching");
-  };
+      textareaRefOverview?.current?.value || '';
+    const updatedTitleValue = textareaRefTitle?.current?.value.trim();
+    //console.log(`updatedTitleValue: '${updatedTitleValue}'`);
+    let shouldUpdate = true;
+    if (!updatedTitleValue) {
+      alert('Title cannot be empty');
+      shouldUpdate = false;
+    }
+    if (shouldUpdate) {
+      const updatedCourse = {
+        ...course,
+        teachingTitle: updatedTitleValue || course.teachingTitle,
+        teachingOverview: updatedOverviewValue,
+      };
+      setUpdatedOverview(updatedOverviewValue);
+      setUpdatedTitle(updatedTitleValue);
+      setEditMode(false);
+      dispatch(updateCourse(updatedCourse));
+      navigate("/teaching");
+    }
+  };  
 
   return (
     <div className="courseComponent">
