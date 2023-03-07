@@ -5,7 +5,10 @@ import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
-import { deleteCourse } from "../../../../store/actions/teachingAction.js";
+import {
+  updateCourse,
+  deleteCourse,
+} from "../../../../store/actions/teachingAction.js";
 
 export default function TeachingCourses() {
   /* Used user info as appears (Redux) when logged in in application */
@@ -15,6 +18,17 @@ export default function TeachingCourses() {
   const location = useLocation();
   const course = location.state.course;
   //console.log(course);
+
+  /* EDIT MODE */
+  const [editModeOverview, setEditModeOverview] = useState(false);
+  const [editModeTitle, setEditModeTitle] = useState(false);
+  const [updatedTitle, setUpdatedTitle] = useState(course.teachingTitle);
+  const [updatedOverview, setUpdatedOverview] = useState(
+    course.teachingOverview
+  );
+  // Use The input text to refer to it
+  const textareaRefOverview = useRef();
+  const textareaRefTitle = useRef();
 
   const navigate = useNavigate();
   //dispach the action from the store
@@ -27,10 +41,32 @@ export default function TeachingCourses() {
     navigate("/teaching");
   };
 
-  const handleEditCourse = (e) => {
+  const handleEditCourseOverview = (e) => {
     e.preventDefault();
-    //dispatch(editCourse(course._id));
-  }; 
+    setEditModeOverview(true);
+  };
+
+  const handleEditCourseTitle = (e) => {
+    e.preventDefault();
+    setEditModeTitle(true);
+  };
+
+  const handleSaveChanges = (e) => {
+    e.preventDefault();
+    const updatedOverviewValue = textareaRefOverview.current.value;
+    const updatedTitleValue = textareaRefTitle.current.value;
+    const updatedCourse = {
+      ...course,
+      teachingTitle: updatedTitleValue,
+      teachingOverview: updatedOverviewValue,
+    };
+    console.log(updatedCourse);
+    setUpdatedOverview(updatedOverviewValue);
+    setUpdatedTitle(updatedTitleValue);
+    setEditModeOverview(false);
+    setEditModeTitle(false);
+    //dispatch(updateCourse(updatedCourse));
+  };
 
   return (
     <div className="courseComponent">
@@ -38,13 +74,43 @@ export default function TeachingCourses() {
         <>
           <div className="coursePageTitle">
             {course.senderName === userInfo.username ? (
-              <div className="editTitleCourse">
-                <p>{course.teachingTitle}</p>
-                <button className="editCourse" onClick={handleEditCourse}>
-                  Edit
-                </button>
-              </div>
-            ): (<p>{course.teachingTitle}</p>)} 
+              editModeTitle === true ? (
+                <div className="editTitleCourse">
+                  <textarea
+                    defaultValue={course.teachingTitle}
+                    ref={textareaRefTitle}
+                    className="myTextareaClassTitle"
+                    style={{ color: "white", backgroundColor: "transparent" }}
+                  ></textarea>
+                  <div className="editSaveCancel">
+                    <button className="editCourse" onClick={handleSaveChanges}>
+                      Save
+                    </button>
+                    <button
+                      className="editCourse"
+                      onClick={(e) => {
+                        setEditModeTitle(false);
+                      }}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div className="editTitleCourse">
+                  <p>{course.teachingTitle}</p>
+                  <button
+                    className="editCourse"
+                    onClick={handleEditCourseTitle}
+                  >
+                    Edit
+                  </button>
+                </div>
+              )
+            ) : (
+              <p>{course.teachingTitle}</p>
+            )}
+
             <div className="userCourseInfo">
               <img
                 className="userImageTop"
@@ -58,23 +124,52 @@ export default function TeachingCourses() {
             </div>
           </div>
           <div className="overviewCourseComponent">
-          <p className="titleCourseOverview">Overview</p>
-          {course.senderName === userInfo.username ? (
-              <div className="editTitleCourse">
-                <p className="overviewCourse">{course.teachingOverview}</p>
-                <button className="editCourse" onClick={handleEditCourse}>
-                  Edit
-                </button>
-              </div>
-            ): (<p className="overviewCourse">{course.teachingOverview}</p>)} 
+            <p className="titleCourseOverview">Overview</p>
+            {course.senderName === userInfo.username ? (
+              editModeOverview === true ? (
+                <div className="editTitleCourse">
+                  <textarea
+                    className="overviewCourse"
+                    defaultValue={course.teachingOverview}
+                    ref={textareaRefOverview}
+                    style={{ color: "white", backgroundColor: "transparent" }}
+                  ></textarea>
+                  <div className="editSaveCancel">
+                    <button className="editCourse" onClick={handleSaveChanges}>
+                      Save
+                    </button>
+                    <button
+                      className="editCourse"
+                      onClick={(e) => {
+                        setEditModeOverview(false);
+                      }}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div className="editTitleCourse">
+                  <p className="overviewCourse">{course.teachingOverview}</p>
+                  <button
+                    className="editCourse"
+                    onClick={handleEditCourseOverview}
+                  >
+                    Edit
+                  </button>
+                </div>
+              )
+            ) : (
+              <p className="overviewCourse">{course.teachingOverview}</p>
+            )}
           </div>
-          
+
           {/* If user logged in same as the one who posted
           then he/she will be able to edit the post */}
           {course.senderName === userInfo.username && (
             <button className="deleteCourse" onClick={handleDeleteCourse}>
-                Delete Entire Course
-              </button>
+              Delete Entire Course
+            </button>
           )}
         </>
       )}
