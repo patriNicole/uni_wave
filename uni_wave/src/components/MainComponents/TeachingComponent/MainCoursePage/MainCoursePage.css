@@ -63,6 +63,7 @@
   -webkit-box-shadow: 2px -3px 24px 1px rgba(0, 0, 0, 0.48);
   -moz-box-shadow: 2px -3px 24px 1px rgba(0, 0, 0, 0.48);
   box-shadow: 2px -3px 24px 1px rgba(0, 0, 0, 0.48);
+  height: auto !important;
 }
 
 .titleCourseOverview {
