@@ -41,7 +41,7 @@ export const teachingReducer = (state = teachingState, action) => {
       if (course._id === action.payload) {
         return {
           ...course,
-          pdfLink: null // or whatever value you want to set the pdfLink to
+          pdfLink: "" // or whatever value you want to set the pdfLink to
         };
       }
       return course;
