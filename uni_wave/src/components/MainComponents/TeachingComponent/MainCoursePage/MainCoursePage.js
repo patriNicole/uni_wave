@@ -19,7 +19,7 @@ export default function TeachingCourses() {
   // Get the State passed through the link from TeachingCourse
   const location = useLocation();
   const course = location.state.course;
-  //console.log(course);
+  console.log(course);
 
   /* EDIT MODE */
   const [shouldUpdate, setShouldUpdate] = useState(true);
@@ -142,11 +142,19 @@ export default function TeachingCourses() {
           </div>
 
 
-
-          <video width="320" height="240" controls>
-            <source src={course.teachingVideos.teachingVideo} type="video/mp4" />
+{course.teachingVideo && 
+  <video width="320" height="240" controls>
+            <source src={course.teachingVideo} type="video/mp4" />
           </video>
-
+}
+          
+{course.teachingFile && 
+          <img
+                className="userImageTop"
+                src={`${course.teachingFile}`}
+                alt="userPicture"
+          />
+}
 
 
           <div className="updateCourseButtons">

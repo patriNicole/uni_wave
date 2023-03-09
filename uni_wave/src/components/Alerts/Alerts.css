@@ -19,3 +19,8 @@
 .alert.success-registered {
   background-color: #04aa6d5e;
 }
+.alert.success-video-uploaded {
+  top: -20%;
+  margin-bottom: 0%;
+  background-color: #04aa6d5e;
+}

@@ -11,6 +11,8 @@ import { inputCourse } from "../../../../store/actions/teachingAction.js";
 
 import { io } from "socket.io-client";
 
+import AlertSuccessVideoUploaded from "../../../Alerts/AlertSuccessVideoUploaded.js";
+
 export default function InputTeaching({ setCoursePosts }) {
   //style for the icons
   const style = { color: "white", fontSize: "1.5em" };
@@ -45,6 +47,8 @@ export default function InputTeaching({ setCoursePosts }) {
     teachingVideo: "",
     teachingVideoText: "",
   });
+  // In order to display image/pdf/video in real-time
+  const [teachingFileSocket, setTeachingFileSocket] = useState(null);
 
   const handleChangeCourse = ({ currentTarget: input }) => {
     //each input has a name
@@ -58,13 +62,27 @@ export default function InputTeaching({ setCoursePosts }) {
         [input.name]: input.files[0],
       });
     }
-
+    // In order to display image/pdf/video in real-time
     const reader = new FileReader();
+    reader.onload = () => {
+      setTeachingFileSocket(reader.result);
+    };
     reader.readAsDataURL(input.files[0]);
   };
 
+  const [videoUploade, setVideoUploaded] = useState(false);
+  const videoHandle = ({ currentTarget: input }) => {
+    if (input.files.length !== 0) {
+      setNewCourse({
+        ...course,
+        [input.name]: input.files[0],
+      });
+    }
+  };
+
   /* ------- User Input New Course ------- */
-  const inputTeachingForm = (e) => {
+  const inputTeachingForm = async (e) => {
+    setVideoUploaded(false);
     e.preventDefault();
     //console.log(userInfo)
     const newCourse = new FormData();
@@ -76,24 +94,39 @@ export default function InputTeaching({ setCoursePosts }) {
       newCourse.append("senderImage", userInfo.image);
       newCourse.append("teachingTitle", course.teachingTitle);
       newCourse.append("teachingOverview", course.teachingOverview);
-      newCourse.append("teachingFile", course.teachingFile);
+
       newCourse.append("teachingFileText", course.teachingFileText);
-      newCourse.append("teachingVideo", course.teachingVideo);
       newCourse.append("teachingVideoText", course.teachingVideoText);
+
       if (socket.current && socket.current.emit) {
         // Get the entries in an object
-        const plainObject = Object.fromEntries(newCourse.entries());
-        //console.log(plainObject)
+        let plainObject = Object.fromEntries(newCourse.entries());
+        // In order to display image/pdf/video in real-time
+        //plainObject.teachingVideo = teachingVideoSocket;
+        plainObject.teachingFile = teachingFileSocket;
+        plainObject.teachingVideo = "";
         socket.current.emit("newCourse", plainObject);
       } else {
         console.log("Socket not available");
       }
-      dispatch(inputCourse(newCourse));
+      newCourse.append("teachingFile", course.teachingFile);
+      newCourse.append("teachingVideo", course.teachingVideo);
+
+      if(course.teachingVideo) {
+        setVideoUploaded(true);
+      }
+
+      await dispatch(inputCourse(newCourse));
+
+      if(course.teachingVideo) {
+        window.location.reload(false);
+      }
     }
   };
 
   return (
     <div className="inputTeaching">
+      {videoUploade && <AlertSuccessVideoUploaded/>}
       <form className="formTeachingInput" onSubmit={inputTeachingForm}>
         <div className="formTeachingColumn">
           <label htmlFor="teachingTitle">
@@ -156,7 +189,7 @@ export default function InputTeaching({ setCoursePosts }) {
               id="videoInput"
               name="teachingVideo"
               style={{ marginBottom: "1rem" }}
-              onChange={fileHandle}
+              onChange={videoHandle}
               accept="video/*"
             />
             <input

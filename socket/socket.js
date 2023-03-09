@@ -99,8 +99,7 @@ io.on("connection", (socket) => {
 
   /* --------------- New Courses Added --------------- */
   socket.on('newCourse', (postData) => {
-    // Broadcast the new post to all connected clients
-    //console.log(postData)
+    console.log(postData)
     io.emit('newCourse', postData);
   });
 

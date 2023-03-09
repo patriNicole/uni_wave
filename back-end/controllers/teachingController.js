@@ -25,24 +25,36 @@ module.exports.inputCourse = async (req, res) => {
       teachingTitle,
       teachingOverview,
       teachingFileText,
-      teachingVideoText
+      teachingVideoText,
     } = fields;
 
-    const {
-      teachingFile,
-      teachingVideo
-    } = files;
+    const { teachingFile, teachingVideo } = files;
 
     try {
-      /* Upload Image on Cloudinary */
-      const { url: fileUrl } = await cloudinary.uploader.upload(teachingFile.filepath, {
-        resource_type: "auto",
-        folder: "teaching-files",
-      });
-      const { url: videoUrl } = await cloudinary.uploader.upload(teachingVideo.filepath, {
-        resource_type: "auto",
-        folder: "teaching-videos",
-      });
+      /* Upload Image and/or Video on Cloudinary */
+      let fileUrl, videoUrl;
+
+      if (teachingFile) {
+        const { url } = await cloudinary.uploader.upload(
+          teachingFile.filepath,
+          {
+            resource_type: "auto",
+            folder: "teaching-files",
+          }
+        );
+        fileUrl = url;
+      }
+
+      if (teachingVideo) {
+        const { url } = await cloudinary.uploader.upload(
+          teachingVideo.filepath,
+          {
+            resource_type: "auto",
+            folder: "teaching-videos",
+          }
+        );
+        videoUrl = url;
+      }
 
       /* Insert Data in Teaching Course Model */
       const insertCourse = await teachingSchema.create({
@@ -52,14 +64,10 @@ module.exports.inputCourse = async (req, res) => {
         senderImage: senderImage,
         teachingTitle: teachingTitle,
         teachingOverview: teachingOverview,
-        teachingFiles: {
-          teachingFile: fileUrl,
-          teachingFileText: teachingFileText
-        },
-        teachingVideos: {
-          teachingVideo: videoUrl,
-          teachingVideoText: teachingVideoText
-        }
+        teachingFile: fileUrl,
+        teachingFileText: teachingFileText,
+        teachingVideo: videoUrl,
+        teachingVideoText: teachingVideoText,
       });
       res.status(201).json({
         success: true,
