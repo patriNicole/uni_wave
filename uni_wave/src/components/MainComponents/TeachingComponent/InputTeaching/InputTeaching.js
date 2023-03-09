@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./InputTeaching.css";
 
-import { HiOutlineLink } from "react-icons/hi";
+//import { MdAddCircleOutline } from "react-icons/md";
 import { FaChalkboardTeacher, FaFileVideo } from "react-icons/fa";
 import { GiTeacher } from "react-icons/gi";
 import { MdAttachFile } from "react-icons/md";
@@ -18,9 +18,12 @@ export default function InputTeaching({ setCoursePosts }) {
 
   /* INPUT FIELDS */
   /* NEW Title from user */
-  const [newTitle, setNewTitle] = useState(""); 
+  const [newTitle, setNewTitle] = useState("");
   /* Course Overview */
   const [newOverview, setNewOverview] = useState("");
+  /* NEW File and Text from user */
+  const [newFile, setNewFile] = useState("");
+  const [newFileText, setNewFileText] = useState("");
 
   //dispach the action from the store
   //working with reducer
@@ -33,7 +36,7 @@ export default function InputTeaching({ setCoursePosts }) {
   });
 
   useEffect(() => {
-    socket.current.on('newCourse', (postData) => {
+    socket.current.on("newCourse", (postData) => {
       // Add the new post to the posts state
       setCoursePosts((prevState) => [...prevState, postData]);
     });
@@ -46,17 +49,19 @@ export default function InputTeaching({ setCoursePosts }) {
   const inputTeachingForm = (e) => {
     e.preventDefault();
     //console.log(userInfo)
-    if( newTitle !== undefined) {
-      const newCourse = {
-        senderId: userInfo.id,
-        senderName: userInfo.username,
-        senderEmail: userInfo.email,
-        senderImage: userInfo.image,
-        teachingTitle: newTitle,
-        teachingOverview: newOverview
-      };
+    const newCourse = new FormData(); 
+
+    if (newTitle !== undefined) {
+        newCourse.append("senderId", userInfo.id);
+        newCourse.append("senderName", userInfo.username);
+        newCourse.append("senderEmail", userInfo.email);
+        newCourse.append("senderImage", userInfo.image);
+        newCourse.append("teachingTitle", newTitle);
+        newCourse.append("teachingOverview", newOverview);
       if (socket.current && socket.current.emit) {
-        socket.current.emit("newCourse", newCourse);
+        // Get the entries in an object
+        const plainObject = Object.fromEntries(newCourse.entries());
+        socket.current.emit("newCourse", plainObject);
       } else {
         console.log("Socket not available");
       }
@@ -66,11 +71,16 @@ export default function InputTeaching({ setCoursePosts }) {
 
   const inputTeachingTitle = (e) => {
     setNewTitle(e.target.value);
-  }
+  };
 
   const inputTeachingOverview = (e) => {
     setNewOverview(e.target.value);
-  }
+  };
+
+  const [inputRefs, setInputRefs] = useState([React.createRef()]);
+  const handleAddInput = () => {
+    setInputRefs([...inputRefs, React.createRef()]);
+  };
 
   return (
     <div className="inputTeaching">
@@ -105,6 +115,16 @@ export default function InputTeaching({ setCoursePosts }) {
           </label>
         </div>
         <div className="formTeachingColumnTwo">
+          {/* ------------ Input File ------------ */}
+          {/*
+          {inputRefs.map((ref, index) => (
+            <div key={index}>
+            </div>
+          ))}
+          <button type="button" onClick={handleAddInput}>
+            <MdAddCircleOutline size={30} style={styleTwo} />
+          </button>
+          */}
           <label htmlFor="myfile" style={styleTwo}>
             <MdAttachFile size={30} /> Select File
             <input
@@ -113,24 +133,37 @@ export default function InputTeaching({ setCoursePosts }) {
               name="myfile"
               style={{ marginBottom: "1rem" }}
             />
-          </label>
-          <label htmlFor="homepage">
-            <HiOutlineLink size={30} style={style} />
             <input
               className="inputTeachingTitle"
-              type="url"
-              id="homepage"
-              name="homepage"
+              type="text"
+              id="myfile"
+              name="myfile"
               style={{ marginBottom: "1rem" }}
-              placeholder="Add Link"
+              placeholder="Overview"
+              onChange={inputTeachingOverview}
+              value={newOverview}
+              //ref={ref}
             />
           </label>
+
+          {/* ------------------------------------ */}
           <label htmlFor="videoInput" style={styleTwo}>
-            <FaFileVideo size={30} /> Add your videos
+            <FaFileVideo size={30} /> Add your video
             <input
               type="file"
               id="videoInput"
               accept="video/mp4,video/x-m4v,video/*"
+              style={{ marginBottom: "1rem" }}
+            />
+            <input
+              className="inputTeachingTitle"
+              type="text"
+              id="videoInput"
+              name="videoInput"
+              style={{ marginBottom: "1rem" }}
+              placeholder="Overview"
+              onChange={inputTeachingOverview}
+              value={newOverview}
             />
           </label>
         </div>
