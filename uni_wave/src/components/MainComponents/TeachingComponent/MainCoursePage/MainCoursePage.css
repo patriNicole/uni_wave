@@ -87,7 +87,7 @@
 .updateCourseButtons {
   display: flex;
   flex-direction: row;
-  margin-top: 28vh;
+  margin-top: 5vh;
 }
 
 .editSaveCancel {
