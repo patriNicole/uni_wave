@@ -1,4 +1,4 @@
-import { TEACHING_INPUT_SUCCESS, TEACHING_GET_SUCCESS, DELETE_COURSE_SUCCESS, UPDATE_COURSE, DELETE_PDF_SUCCESS } from "../types/teachingType.js";
+import { TEACHING_INPUT_SUCCESS, TEACHING_GET_SUCCESS, DELETE_COURSE_SUCCESS, UPDATE_COURSE, DELETE_PDF_SUCCESS, DELETE_VIDEO_SUCCESS, DELETE_FILE_SUCCESS } from "../types/teachingType.js";
 
 // the friends array in the state object will be updated with
 // the new data provided in the payload property
@@ -41,7 +41,45 @@ export const teachingReducer = (state = teachingState, action) => {
       if (course._id === action.payload) {
         return {
           ...course,
-          pdfLink: "" // or whatever value you want to set the pdfLink to
+          pdfLink: "" 
+        };
+      }
+      return course;
+    });
+    
+    return {
+      ...state,
+      courses: filteredCourses
+    }
+  }
+
+  if (type === DELETE_FILE_SUCCESS) {
+    const filteredCourses = state.courses.map(course => {
+      if (course._id === action.payload) {
+        return {
+          ...course,
+          teachingFile: "",
+          teachingFileText: ""
+
+        };
+      }
+      return course;
+    });
+    
+    return {
+      ...state,
+      courses: filteredCourses
+    }
+  }
+
+  if (type === DELETE_VIDEO_SUCCESS) {
+    const filteredCourses = state.courses.map(course => {
+      if (course._id === action.payload) {
+        return {
+          ...course,
+          teachingVideo: "",
+          teachingVideoText: ""
+
         };
       }
       return course;

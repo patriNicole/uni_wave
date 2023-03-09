@@ -8,7 +8,9 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   updateCourse,
   deleteCourse,
-  deletePDF
+  deletePDF,
+  deleteFile,
+  deleteVideo
 } from "../../../../store/actions/teachingAction.js";
 
 import AlertWarningMissingTitleTeaching from "../../../Alerts/AlertWarningMissingTitleTeaching.js";
@@ -49,6 +51,20 @@ export default function TeachingCourses() {
   const handleDeletePDF = (e) => {
     e.preventDefault();
     dispatch(deletePDF(course._id));
+    navigate("/teaching");
+  };
+
+  // Delete Entire File (Image + Text)  
+  const handleDeleteFile = (e) => {
+    e.preventDefault();
+    dispatch(deleteFile(course._id));
+    navigate("/teaching");
+  };
+
+  // Delete Entire Video (Video + Text)
+  const handleDeleteVideo = (e) => {
+    e.preventDefault();
+    dispatch(deleteVideo(course._id));
     navigate("/teaching");
   };
 
@@ -157,7 +173,7 @@ export default function TeachingCourses() {
                 </video>
                 <p className="overviewVideo">{course.teachingVideoText}</p>
                 {editMode && (
-                  <button className="editCourse" onClick={handleSaveChanges}>
+                  <button className="editCourse" onClick={handleDeleteVideo}>
                     Delete
                   </button>
                 )}
@@ -199,7 +215,7 @@ export default function TeachingCourses() {
                 )}
                 <p className="overviewVideo">{course.teachingFileText}</p>
                 {editMode && (
-                  <button className="editCourse" onClick={handleSaveChanges}>
+                  <button className="editCourse" onClick={handleDeleteFile}>
                     Delete
                   </button>
                 )}

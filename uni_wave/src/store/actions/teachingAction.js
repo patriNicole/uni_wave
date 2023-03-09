@@ -1,5 +1,5 @@
 import axios from "axios";
-import { TEACHING_INPUT_SUCCESS, TEACHING_GET_SUCCESS, DELETE_COURSE_SUCCESS, UPDATE_COURSE, DELETE_PDF_SUCCESS } from "../types/teachingType.js";
+import { TEACHING_INPUT_SUCCESS, TEACHING_GET_SUCCESS, DELETE_COURSE_SUCCESS, UPDATE_COURSE, DELETE_PDF_SUCCESS, DELETE_FILE_SUCCESS, DELETE_VIDEO_SUCCESS } from "../types/teachingType.js";
 
 export const inputCourse = (data) => async (dispatch) => {
   try {
@@ -62,7 +62,7 @@ export const deleteCourse = ( courseId ) => {
   };
 };
 
-/* DELETE THE COURSE */
+/* DELETE THE PDF from Course */
 export const deletePDF = ( courseId ) => {
   return async (dispatch) => {
     try {
@@ -72,6 +72,42 @@ export const deletePDF = ( courseId ) => {
       )
       dispatch({
         type: DELETE_PDF_SUCCESS,
+        payload: courseId
+      });
+    } catch (error) {
+      console.log(error.response.data);
+    }
+  };
+};
+
+/* DELETE THE File Image + Text from Course */  
+export const deleteFile = ( courseId ) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:8000/api/uniwave/delete-file/${courseId}`,
+        { withCredentials: true }
+      )
+      dispatch({
+        type: DELETE_FILE_SUCCESS,
+        payload: courseId
+      });
+    } catch (error) {
+      console.log(error.response.data);
+    }
+  };
+};
+
+/* DELETE THE Video + Text from Course */  
+export const deleteVideo = ( courseId ) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:8000/api/uniwave/delete-video/${courseId}`,
+        { withCredentials: true }
+      )
+      dispatch({
+        type: DELETE_VIDEO_SUCCESS,
         payload: courseId
       });
     } catch (error) {

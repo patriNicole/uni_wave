@@ -156,6 +156,58 @@ module.exports.deletePDF = async (req, res) => {
   }
 };
 
+module.exports.deleteFile = async (req, res) => {
+  const { courseId } = req.params;
+  //console.log(courseId)
+
+  try {
+    // Find the course with the specified courseId
+    let course = await teachingSchema.findById(courseId);
+
+    // Delete the pdfLink property of the course
+    course.teachingFile = "";
+    course.teachingFileText = "";
+
+    // Save the updated course
+    await course.save();
+
+    // Get all remaining courses
+    const courses = await teachingSchema.find();
+
+    // Send the remaining courses as a response to frontend
+    res.status(200).json({ success: true, courses: courses });
+  } catch (error) {
+    //console.log(error);
+    res.status(500).json({ success: false, error: "Unable to delete course" });
+  }
+};
+
+module.exports.deleteVideo = async (req, res) => {
+  const { courseId } = req.params;
+  //console.log(courseId)
+
+  try {
+    // Find the course with the specified courseId
+    let course = await teachingSchema.findById(courseId);
+
+    // Delete the pdfLink property of the course
+    course.teachingVideo = "";
+    course.teachingVideoText = "";
+
+    // Save the updated course
+    await course.save();
+
+    // Get all remaining courses
+    const courses = await teachingSchema.find();
+
+    // Send the remaining courses as a response to frontend
+    res.status(200).json({ success: true, courses: courses });
+  } catch (error) {
+    //console.log(error);
+    res.status(500).json({ success: false, error: "Unable to delete course" });
+  }
+};
+
 module.exports.updateCourse = async (req, res) => {
   const courseId = req.params.id;
   const updatedCourse = req.body;
