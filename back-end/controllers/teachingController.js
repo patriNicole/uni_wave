@@ -1,6 +1,16 @@
 const teachingSchema = require("../model/teachingModel.js");
 const formidable = require("formidable");
 
+//used for uploading the picture
+const cloudinary = require("cloudinary").v2;
+
+// Configuration
+cloudinary.config({
+  cloud_name: process.env.Cloud_Name,
+  api_key: process.env.Api_Key,
+  api_secret: process.env.Api_Secret,
+});
+
 module.exports.inputCourse = async (req, res) => {
   //console.log(req.myId); // req.myId from authMiddleware
   //console.log(req.body);
@@ -24,6 +34,16 @@ module.exports.inputCourse = async (req, res) => {
     } = files;
 
     try {
+      /* Upload Image on Cloudinary */
+      const { url: fileUrl } = await cloudinary.uploader.upload(teachingFile.filepath, {
+        resource_type: "auto",
+        folder: "teaching-files",
+      });
+      const { url: videoUrl } = await cloudinary.uploader.upload(teachingVideo.filepath, {
+        resource_type: "auto",
+        folder: "teaching-videos",
+      });
+
       /* Insert Data in Teaching Course Model */
       const insertCourse = await teachingSchema.create({
         senderId: senderId,
@@ -33,11 +53,11 @@ module.exports.inputCourse = async (req, res) => {
         teachingTitle: teachingTitle,
         teachingOverview: teachingOverview,
         teachingFiles: {
-          teachingFile: teachingFile,
+          teachingFile: fileUrl,
           teachingFileText: teachingFileText
         },
         teachingVideos: {
-          teachingVideo: teachingVideo,
+          teachingVideo: videoUrl,
           teachingVideoText: teachingVideoText
         }
       });

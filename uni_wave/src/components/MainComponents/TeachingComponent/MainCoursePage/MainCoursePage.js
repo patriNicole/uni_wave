@@ -141,6 +141,14 @@ export default function TeachingCourses() {
             )}
           </div>
 
+
+
+          <video width="320" height="240" controls>
+            <source src={course.teachingVideos.teachingVideo} type="video/mp4" />
+          </video>
+
+
+
           <div className="updateCourseButtons">
             {/* If user logged in same as the one who posted
           then he/she will be able to edit the post */}

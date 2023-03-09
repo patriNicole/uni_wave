@@ -37,13 +37,13 @@
 .formTeachingColumn {
   display: flex;
   flex-direction: column;
-  width: 45%;
+  width: 40%;
 }
 
 .formTeachingColumnTwo {
   display: flex;
   flex-direction: column;
-  width: 45%;
+  width: 50%;
 }
 
 .inputTeachingTitle {

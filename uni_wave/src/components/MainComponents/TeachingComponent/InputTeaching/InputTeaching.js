@@ -43,7 +43,7 @@ export default function InputTeaching({ setCoursePosts }) {
     teachingFile: "",
     teachingFileText: "",
     teachingVideo: "",
-    teachingVideoText: ""
+    teachingVideoText: "",
   });
 
   const handleChangeCourse = ({ currentTarget: input }) => {
@@ -51,24 +51,39 @@ export default function InputTeaching({ setCoursePosts }) {
     setNewCourse({ ...course, [input.name]: input.value });
   };
 
+  const fileHandle = ({ currentTarget: input }) => {
+    if (input.files.length !== 0) {
+      setNewCourse({
+        ...course,
+        [input.name]: input.files[0],
+      });
+    }
+
+    const reader = new FileReader();
+    reader.readAsDataURL(input.files[0]);
+  };
+
   /* ------- User Input New Course ------- */
   const inputTeachingForm = (e) => {
     e.preventDefault();
     //console.log(userInfo)
-    const newCourse = new FormData(); 
+    const newCourse = new FormData();
 
     if (course.teachingTitle !== undefined) {
-        newCourse.append("senderId", userInfo.id);
-        newCourse.append("senderName", userInfo.username);
-        newCourse.append("senderEmail", userInfo.email);
-        newCourse.append("senderImage", userInfo.image);
-        newCourse.append("teachingTitle", course.teachingTitle);
-        newCourse.append("teachingOverview", course.teachingOverview); 
-        newCourse.append("teachingFileText", course.teachingFileText);
-        newCourse.append("teachingVideoText", course.teachingVideoText);
+      newCourse.append("senderId", userInfo.id);
+      newCourse.append("senderName", userInfo.username);
+      newCourse.append("senderEmail", userInfo.email);
+      newCourse.append("senderImage", userInfo.image);
+      newCourse.append("teachingTitle", course.teachingTitle);
+      newCourse.append("teachingOverview", course.teachingOverview);
+      newCourse.append("teachingFile", course.teachingFile);
+      newCourse.append("teachingFileText", course.teachingFileText);
+      newCourse.append("teachingVideo", course.teachingVideo);
+      newCourse.append("teachingVideoText", course.teachingVideoText);
       if (socket.current && socket.current.emit) {
         // Get the entries in an object
         const plainObject = Object.fromEntries(newCourse.entries());
+        //console.log(plainObject)
         socket.current.emit("newCourse", plainObject);
       } else {
         console.log("Socket not available");
@@ -111,14 +126,14 @@ export default function InputTeaching({ setCoursePosts }) {
         </div>
         <div className="formTeachingColumnTwo">
           <label htmlFor="myfile" style={styleTwo}>
-            <MdAttachFile size={30} /> Select File
+            <MdAttachFile size={30} /> Image/PDF
             <input
               type="file"
               id="myfile"
-              name="myfile"
+              name="teachingFile"
               style={{ marginBottom: "1rem" }}
-              //onChange={inputTeachingOverview}
-              //value={newOverview}
+              onChange={fileHandle}
+              accept="image/*,application/pdf"
             />
             <input
               className="inputTeachingTitle"
@@ -135,12 +150,14 @@ export default function InputTeaching({ setCoursePosts }) {
 
           {/* ------------------------------------ */}
           <label htmlFor="videoInput" style={styleTwo}>
-            <FaFileVideo size={30} /> Add video
+            <FaFileVideo size={30} /> Video
             <input
               type="file"
               id="videoInput"
-              accept="video/mp4,video/x-m4v,video/*"
+              name="teachingVideo"
               style={{ marginBottom: "1rem" }}
+              onChange={fileHandle}
+              accept="video/*"
             />
             <input
               className="inputTeachingTitle"
