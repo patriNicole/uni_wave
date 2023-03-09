@@ -39,7 +39,7 @@ export default function SignUpPass() {
   const [alertWarningRegister, setAlertWarningRegister] = useState(false);
   const [alertSuccessRegister, setAlertSuccessRegister] = useState(false);
 
-  const { loading, authenticate, error, successMessage, userInfo } = useSelector(state => state.auth);
+  const { error, successMessage} = useSelector(state => state.auth);
 
   //redirect to home page
   //const navigate = useNavigate();

@@ -16,14 +16,8 @@ export default function InputTeaching({ setCoursePosts }) {
   const style = { color: "white", fontSize: "1.5em" };
   const styleTwo = { color: "white", fontSize: "1em" };
 
-  /* INPUT FIELDS */
-  /* NEW Title from user */
-  const [newTitle, setNewTitle] = useState("");
-  /* Course Overview */
-  const [newOverview, setNewOverview] = useState("");
-  /* NEW File and Text from user */
-  const [newFile, setNewFile] = useState("");
-  const [newFileText, setNewFileText] = useState("");
+  /* Used user info as appears (Redux) when logged in in application */
+  const { userInfo } = useSelector((state) => state.auth);
 
   //dispach the action from the store
   //working with reducer
@@ -42,8 +36,20 @@ export default function InputTeaching({ setCoursePosts }) {
     });
   }, []);
 
-  /* Used user info as appears (Redux) when logged in in application */
-  const { userInfo } = useSelector((state) => state.auth);
+  /* INPUT FIELDS */
+  const [course, setNewCourse] = useState({
+    teachingTitle: "",
+    teachingOverview: "",
+    teachingFile: "",
+    teachingFileText: "",
+    teachingVideo: "",
+    teachingVideoText: ""
+  });
+
+  const handleChangeCourse = ({ currentTarget: input }) => {
+    //each input has a name
+    setNewCourse({ ...course, [input.name]: input.value });
+  };
 
   /* ------- User Input New Course ------- */
   const inputTeachingForm = (e) => {
@@ -51,13 +57,15 @@ export default function InputTeaching({ setCoursePosts }) {
     //console.log(userInfo)
     const newCourse = new FormData(); 
 
-    if (newTitle !== undefined) {
+    if (course.teachingTitle !== undefined) {
         newCourse.append("senderId", userInfo.id);
         newCourse.append("senderName", userInfo.username);
         newCourse.append("senderEmail", userInfo.email);
         newCourse.append("senderImage", userInfo.image);
-        newCourse.append("teachingTitle", newTitle);
-        newCourse.append("teachingOverview", newOverview);
+        newCourse.append("teachingTitle", course.teachingTitle);
+        newCourse.append("teachingOverview", course.teachingOverview); 
+        newCourse.append("teachingFileText", course.teachingFileText);
+        newCourse.append("teachingVideoText", course.teachingVideoText);
       if (socket.current && socket.current.emit) {
         // Get the entries in an object
         const plainObject = Object.fromEntries(newCourse.entries());
@@ -69,62 +77,39 @@ export default function InputTeaching({ setCoursePosts }) {
     }
   };
 
-  const inputTeachingTitle = (e) => {
-    setNewTitle(e.target.value);
-  };
-
-  const inputTeachingOverview = (e) => {
-    setNewOverview(e.target.value);
-  };
-
-  const [inputRefs, setInputRefs] = useState([React.createRef()]);
-  const handleAddInput = () => {
-    setInputRefs([...inputRefs, React.createRef()]);
-  };
-
   return (
     <div className="inputTeaching">
       <form className="formTeachingInput" onSubmit={inputTeachingForm}>
         <div className="formTeachingColumn">
-          <label htmlFor="title">
+          <label htmlFor="teachingTitle">
             <FaChalkboardTeacher size={30} style={style} />
             <input
               className="inputTeachingTitle"
               type="text"
-              id="title"
-              name="title"
+              id="teachingTitle"
+              name="teachingTitle"
               style={{ marginBottom: "1rem" }}
               placeholder="Course Title"
-              onChange={inputTeachingTitle}
-              value={newTitle}
+              onChange={handleChangeCourse}
+              value={course.teachingTitle}
               required
             />
           </label>
-          <label htmlFor="lname">
+          <label htmlFor="teachingOverview">
             <GiTeacher size={30} style={style} />
             <input
               className="inputTeachingTitle"
               type="text"
-              id="lname"
-              name="lname"
+              id="teachingOverview"
+              name="teachingOverview"
               style={{ marginBottom: "1rem" }}
               placeholder="Overview"
-              onChange={inputTeachingOverview}
-              value={newOverview}
+              onChange={handleChangeCourse}
+              value={course.teachingOverview}
             />
           </label>
         </div>
         <div className="formTeachingColumnTwo">
-          {/* ------------ Input File ------------ */}
-          {/*
-          {inputRefs.map((ref, index) => (
-            <div key={index}>
-            </div>
-          ))}
-          <button type="button" onClick={handleAddInput}>
-            <MdAddCircleOutline size={30} style={styleTwo} />
-          </button>
-          */}
           <label htmlFor="myfile" style={styleTwo}>
             <MdAttachFile size={30} /> Select File
             <input
@@ -132,23 +117,25 @@ export default function InputTeaching({ setCoursePosts }) {
               id="myfile"
               name="myfile"
               style={{ marginBottom: "1rem" }}
+              //onChange={inputTeachingOverview}
+              //value={newOverview}
             />
             <input
               className="inputTeachingTitle"
               type="text"
               id="myfile"
-              name="myfile"
+              name="teachingFileText"
               style={{ marginBottom: "1rem" }}
-              placeholder="Overview"
-              onChange={inputTeachingOverview}
-              value={newOverview}
+              placeholder="File Description"
+              onChange={handleChangeCourse}
+              value={course.teachingFileText}
               //ref={ref}
             />
           </label>
 
           {/* ------------------------------------ */}
           <label htmlFor="videoInput" style={styleTwo}>
-            <FaFileVideo size={30} /> Add your video
+            <FaFileVideo size={30} /> Add video
             <input
               type="file"
               id="videoInput"
@@ -159,11 +146,11 @@ export default function InputTeaching({ setCoursePosts }) {
               className="inputTeachingTitle"
               type="text"
               id="videoInput"
-              name="videoInput"
+              name="teachingVideoText"
               style={{ marginBottom: "1rem" }}
-              placeholder="Overview"
-              onChange={inputTeachingOverview}
-              value={newOverview}
+              placeholder="Video Description"
+              onChange={handleChangeCourse}
+              value={course.teachingVideoText}
             />
           </label>
         </div>

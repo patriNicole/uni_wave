@@ -26,6 +26,26 @@ const teachingSchema = new Schema(
       type: String,
       default: "",
     },
+    teachingFiles: {
+      teachingFile: {
+        type: String,
+        default: "",
+      },
+      teachingFileText: {
+        type: String,
+        default: "",
+      },
+    },
+    teachingVideos: {
+      teachingVideo: {
+        type: String,
+        default: "",
+      },
+      teachingVideoText: {
+        type: String,
+        default: "",
+      },
+    },
   },
   { timestamps: true }
 );

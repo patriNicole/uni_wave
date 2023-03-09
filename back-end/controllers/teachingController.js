@@ -14,7 +14,14 @@ module.exports.inputCourse = async (req, res) => {
       senderImage,
       teachingTitle,
       teachingOverview,
+      teachingFileText,
+      teachingVideoText
     } = fields;
+
+    const {
+      teachingFile,
+      teachingVideo
+    } = files;
 
     try {
       /* Insert Data in Teaching Course Model */
@@ -25,6 +32,14 @@ module.exports.inputCourse = async (req, res) => {
         senderImage: senderImage,
         teachingTitle: teachingTitle,
         teachingOverview: teachingOverview,
+        teachingFiles: {
+          teachingFile: teachingFile,
+          teachingFileText: teachingFileText
+        },
+        teachingVideos: {
+          teachingVideo: teachingVideo,
+          teachingVideoText: teachingVideoText
+        }
       });
       res.status(201).json({
         success: true,
