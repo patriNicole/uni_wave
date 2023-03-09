@@ -4,6 +4,7 @@ import "./InputTeaching.css";
 //import { MdAddCircleOutline } from "react-icons/md";
 import { FaChalkboardTeacher, FaFileVideo } from "react-icons/fa";
 import { GiTeacher } from "react-icons/gi";
+import { VscFilePdf } from "react-icons/vsc";
 import { MdAttachFile } from "react-icons/md";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -47,6 +48,7 @@ export default function InputTeaching({ setCoursePosts }) {
     teachingFileText: "",
     teachingVideo: "",
     teachingVideoText: "",
+    pdfLink: ""
   });
   // In order to display image/pdf/video in real-time
   const [teachingFileSocket, setTeachingFileSocket] = useState(null);
@@ -99,6 +101,7 @@ export default function InputTeaching({ setCoursePosts }) {
       newCourse.append("senderImage", userInfo.image);
       newCourse.append("teachingTitle", course.teachingTitle);
       newCourse.append("teachingOverview", course.teachingOverview);
+      newCourse.append("pdfLink", course.pdfLink);
 
       // Cannot Input Text without Video/PDF/Image
       if(course.teachingFile && course.teachingFileText) {
@@ -176,17 +179,30 @@ export default function InputTeaching({ setCoursePosts }) {
               value={course.teachingOverview}
             />
           </label>
+          <label htmlFor="pdfLink" style={styleTwo}>
+            <VscFilePdf size={30} style={style}/> 
+            <input
+              className="inputTeachingTitle"
+              type="text"
+              id="pdfLink"
+              name="pdfLink"
+              style={{ marginBottom: "1rem" }}
+              placeholder="PDF Link"
+              onChange={handleChangeCourse}
+              value={course.pdfLink}
+            />
+          </label>
         </div>
         <div className="formTeachingColumnTwo">
           <label htmlFor="myfile" style={styleTwo}>
-            <MdAttachFile size={30} /> Image/PDF
+            <MdAttachFile size={30} /> Image
             <input
               type="file"
               id="myfile"
               name="teachingFile"
               style={{ marginBottom: "1rem" }}
               onChange={fileHandle}
-              accept="image/*,application/pdf"
+              accept="image/*"
             />
             <input
               className="inputTeachingTitle"

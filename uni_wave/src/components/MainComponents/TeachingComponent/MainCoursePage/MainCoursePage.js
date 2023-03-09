@@ -19,7 +19,7 @@ export default function TeachingCourses() {
   // Get the State passed through the link from TeachingCourse
   const location = useLocation();
   const course = location.state.course;
-  console.log(course);
+  console.log(course.teachingFile);
 
   /* EDIT MODE */
   const [shouldUpdate, setShouldUpdate] = useState(true);
@@ -54,8 +54,7 @@ export default function TeachingCourses() {
   const handleSaveChanges = (e) => {
     e.preventDefault();
     // Update the overview value - can be set to empty
-    const updatedOverviewValue =
-      textareaRefOverview?.current?.value || '';
+    const updatedOverviewValue = textareaRefOverview?.current?.value || "";
     const updatedTitleValue = textareaRefTitle?.current?.value.trim();
     //console.log(`updatedTitleValue: '${updatedTitleValue}'`);
     // // Update the title value - cannot be set to empty
@@ -80,11 +79,11 @@ export default function TeachingCourses() {
       // Link to Teaching Home Page
       navigate("/teaching");
     }
-  };  
+  };
 
   return (
     <div className="courseComponent">
-      {!shouldUpdate && <AlertWarningMissingTitleTeaching/>}
+      {!shouldUpdate && <AlertWarningMissingTitleTeaching />}
       {course && (
         <>
           <div className="coursePageTitle">
@@ -140,23 +139,50 @@ export default function TeachingCourses() {
               <p className="overviewCourse">{course.teachingOverview}</p>
             )}
           </div>
-
-
-{course.teachingVideo && 
-  <video width="320" height="240" controls>
-            <source src={course.teachingVideo} type="video/mp4" />
-          </video>
-}
-          
-{course.teachingFile && 
-          <img
-                className="userImageTop"
-                src={`${course.teachingFile}`}
-                alt="userPicture"
-          />
-}
-
-
+          {/* ------------ VIDEO ------------ */}
+          {course.teachingVideo && (
+            <>
+              <p className="titleCourseVideos">Video</p>
+              <div className="videoTextComponent">
+                <video width="700" height="400" controls>
+                  <source src={course.teachingVideo} type="video/mp4" />
+                </video>
+                <p className="overviewVideo">{course.teachingVideoText}</p>
+              </div>
+            </>
+          )}
+          {/* ------------ PDF LINK ------------ */}
+          {course.pdfLink && (
+            <>
+              <p className="titleCourseVideos">PDF</p>
+              <div className="videoTextComponent">
+                <iframe
+                  src={course.pdfLink}
+                  title="PDF"
+                  width="100%"
+                  height="500px"
+                ></iframe>
+              </div>
+            </>
+          )}
+          {/* ------------ IMAGE ------------ */}
+          {course.teachingFile && (
+            <>
+              <p className="titleCourseVideos">Image</p>
+              <div className="videoTextComponent">
+                {course.teachingFile ? (
+                  <img
+                    className="imageFile"
+                    src={`${course.teachingFile}`}
+                    alt="userPicture"
+                  />
+                ) : (
+                  ""
+                )}
+                <p className="overviewVideo">{course.teachingFileText}</p>
+              </div>
+            </>
+          )}
           <div className="updateCourseButtons">
             {/* If user logged in same as the one who posted
           then he/she will be able to edit the post */}

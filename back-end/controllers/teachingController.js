@@ -26,6 +26,7 @@ module.exports.inputCourse = async (req, res) => {
       teachingOverview,
       teachingFileText,
       teachingVideoText,
+      pdfLink
     } = fields;
 
     const { teachingFile, teachingVideo } = files;
@@ -64,6 +65,7 @@ module.exports.inputCourse = async (req, res) => {
         senderImage: senderImage,
         teachingTitle: teachingTitle,
         teachingOverview: teachingOverview,
+        pdfLink: pdfLink,
         teachingFile: fileUrl,
         teachingFileText: teachingFileText,
         teachingVideo: videoUrl,

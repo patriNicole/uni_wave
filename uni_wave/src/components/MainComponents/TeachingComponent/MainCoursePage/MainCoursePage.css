@@ -50,7 +50,7 @@
 .overviewCourse {
   font-size: 18px;
   font-weight: 700;
-  width: 90vh;
+  width: 190vh;
   height: 15vh;
   padding: 15px;
   backdrop-filter: blur(10px);
@@ -76,6 +76,49 @@
   color: rgba(255, 255, 255, 0.471);
   font-size: 25px;
   font-weight: 700;
+}
+
+.videoTextComponent {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+}
+
+.overviewVideo {
+  margin-left: 10%;
+  font-size: 18px;
+  font-weight: 700;
+  width: 70vh;
+  height: 40vh !important;
+  padding: 25px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 5px solid transparent;
+  -webkit-box-shadow: 2px -3px 24px 1px rgba(0, 0, 0, 0.48);
+  -moz-box-shadow: 2px -3px 24px 1px rgba(0, 0, 0, 0.48);
+  box-shadow: 2px -3px 24px 1px rgba(0, 0, 0, 0.48);
+  overflow: scroll;
+  color: white;
+}
+
+.titleCourseVideos {
+  margin: 0;
+  padding-left: 10px;
+  margin-top: 20px;
+  padding-bottom: 10px;
+  color: rgba(255, 255, 255, 0.471);
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.imageFile {
+  margin-left: 10%;
+  font-size: 18px;
+  font-weight: 700;
+  width: 50vh;
+  height: 40vh !important;
+  padding: 25px;
+  backdrop-filter: blur(10px);
 }
 
 /* EDIT COMPONENTS */

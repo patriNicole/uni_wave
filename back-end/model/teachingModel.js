@@ -34,7 +34,10 @@ const teachingSchema = new Schema(
       type: String,
       default: "",
     },
-
+    pdfLink: {
+      type: String,
+      default: "",
+    },
     teachingVideo: {
       type: String,
       default: "",
