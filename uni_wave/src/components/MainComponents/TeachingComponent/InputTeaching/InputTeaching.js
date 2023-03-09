@@ -187,7 +187,7 @@ export default function InputTeaching({ setCoursePosts }) {
               id="pdfLink"
               name="pdfLink"
               style={{ marginBottom: "1rem" }}
-              placeholder="PDF Link"
+              placeholder="PDF or Website Link"
               onChange={handleChangeCourse}
               value={course.pdfLink}
             />

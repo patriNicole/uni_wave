@@ -183,7 +183,7 @@ export default function TeachingCourses() {
           {/* ------------ PDF LINK ------------ */}
           {course.pdfLink && (
             <>
-              <p className="titleCourseVideos">PDF</p>
+              <p className="titleCourseVideos">Link</p>
               <div className="videoTextComponent">
                 <iframe
                   src={course.pdfLink}
