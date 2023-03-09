@@ -114,9 +114,36 @@ module.exports.getCourse = async (req, res) => {
 module.exports.deleteCourse = async (req, res) => {
   const { courseId } = req.params;
   //console.log(courseId)
+  //let course = await teachingSchema.find()
+  //console.log(course)
   try {
     // Delete the course with the specified courseId
     await teachingSchema.findByIdAndDelete(courseId);
+
+    // Get all remaining courses
+    const courses = await teachingSchema.find();
+
+    // Send the remaining courses as a response to frontend
+    res.status(200).json({ success: true, courses: courses });
+  } catch (error) {
+    //console.log(error);
+    res.status(500).json({ success: false, error: "Unable to delete course" });
+  }
+};
+
+module.exports.deletePDF = async (req, res) => {
+  const { courseId } = req.params;
+  //console.log(courseId)
+
+  try {
+    // Find the course with the specified courseId
+    let course = await teachingSchema.findById(courseId);
+
+    // Delete the pdfLink property of the course
+    course.pdfLink = "";
+
+    // Save the updated course
+    await course.save();
 
     // Get all remaining courses
     const courses = await teachingSchema.find();

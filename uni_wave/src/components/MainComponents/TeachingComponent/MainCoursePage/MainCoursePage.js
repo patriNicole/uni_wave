@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   updateCourse,
   deleteCourse,
+  deletePDF
 } from "../../../../store/actions/teachingAction.js";
 
 import AlertWarningMissingTitleTeaching from "../../../Alerts/AlertWarningMissingTitleTeaching.js";
@@ -19,7 +20,7 @@ export default function TeachingCourses() {
   // Get the State passed through the link from TeachingCourse
   const location = useLocation();
   const course = location.state.course;
-  console.log(course.teachingFile);
+  //console.log(course.teachingFile);
 
   /* EDIT MODE */
   const [shouldUpdate, setShouldUpdate] = useState(true);
@@ -41,6 +42,13 @@ export default function TeachingCourses() {
   const handleDeleteCourse = (e) => {
     e.preventDefault();
     dispatch(deleteCourse(course._id));
+    navigate("/teaching");
+  };
+
+  // Delete PDF
+  const handleDeletePDF = (e) => {
+    e.preventDefault();
+    dispatch(deletePDF(course._id));
     navigate("/teaching");
   };
 
@@ -148,6 +156,11 @@ export default function TeachingCourses() {
                   <source src={course.teachingVideo} type="video/mp4" />
                 </video>
                 <p className="overviewVideo">{course.teachingVideoText}</p>
+                {editMode && (
+                  <button className="editCourse" onClick={handleSaveChanges}>
+                    Delete
+                  </button>
+                )}
               </div>
             </>
           )}
@@ -162,6 +175,11 @@ export default function TeachingCourses() {
                   width="100%"
                   height="500px"
                 ></iframe>
+                {editMode && (
+                  <button className="editCourse" onClick={handleDeletePDF}>
+                    Delete
+                  </button>
+                )}
               </div>
             </>
           )}
@@ -180,6 +198,11 @@ export default function TeachingCourses() {
                   ""
                 )}
                 <p className="overviewVideo">{course.teachingFileText}</p>
+                {editMode && (
+                  <button className="editCourse" onClick={handleSaveChanges}>
+                    Delete
+                  </button>
+                )}
               </div>
             </>
           )}
