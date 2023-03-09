@@ -12,6 +12,7 @@ import { inputCourse } from "../../../../store/actions/teachingAction.js";
 import { io } from "socket.io-client";
 
 import AlertSuccessVideoUploaded from "../../../Alerts/AlertSuccessVideoUploaded.js";
+import AlertNoTextWithoutVideo from "../../../Alerts/AlertNoTextWithoutVideo.js";
 
 export default function InputTeaching({ setCoursePosts }) {
   //style for the icons
@@ -55,6 +56,9 @@ export default function InputTeaching({ setCoursePosts }) {
     setNewCourse({ ...course, [input.name]: input.value });
   };
 
+  // Cannot Input Text without Video/PDF/Image
+  const [textVideoFile, setTextVideoFile] = useState(false);
+
   const fileHandle = ({ currentTarget: input }) => {
     if (input.files.length !== 0) {
       setNewCourse({
@@ -83,6 +87,7 @@ export default function InputTeaching({ setCoursePosts }) {
   /* ------- User Input New Course ------- */
   const inputTeachingForm = async (e) => {
     setVideoUploaded(false);
+    setTextVideoFile(false);
     e.preventDefault();
     //console.log(userInfo)
     const newCourse = new FormData();
@@ -95,10 +100,22 @@ export default function InputTeaching({ setCoursePosts }) {
       newCourse.append("teachingTitle", course.teachingTitle);
       newCourse.append("teachingOverview", course.teachingOverview);
 
-      newCourse.append("teachingFileText", course.teachingFileText);
-      newCourse.append("teachingVideoText", course.teachingVideoText);
+      // Cannot Input Text without Video/PDF/Image
+      if(course.teachingFile && course.teachingFileText) {
+        newCourse.append("teachingFileText", course.teachingFileText);
+      } else if(!course.teachingFile && course.teachingFileText) {
+        setTextVideoFile(true);
+        return
+      }
+      
+      if(course.teachingVideo && course.teachingVideoText) {
+        newCourse.append("teachingVideoText", course.teachingVideoText);
+      } else if(!course.teachingVideo && course.teachingVideoText) {
+        setTextVideoFile(true);
+        return
+      }
 
-      if (socket.current && socket.current.emit) {
+      if (socket.current && socket.current.emit && textVideoFile === false) {
         // Get the entries in an object
         let plainObject = Object.fromEntries(newCourse.entries());
         // In order to display image/pdf/video in real-time
@@ -116,7 +133,9 @@ export default function InputTeaching({ setCoursePosts }) {
         setVideoUploaded(true);
       }
 
-      await dispatch(inputCourse(newCourse));
+      if(textVideoFile === false) {
+        await dispatch(inputCourse(newCourse));
+      }
 
       if(course.teachingVideo) {
         window.location.reload(false);
@@ -126,7 +145,8 @@ export default function InputTeaching({ setCoursePosts }) {
 
   return (
     <div className="inputTeaching">
-      {videoUploade && <AlertSuccessVideoUploaded/>}
+      { videoUploade && <AlertSuccessVideoUploaded/> }
+      { textVideoFile && <AlertNoTextWithoutVideo/> }
       <form className="formTeachingInput" onSubmit={inputTeachingForm}>
         <div className="formTeachingColumn">
           <label htmlFor="teachingTitle">

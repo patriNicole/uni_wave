@@ -24,3 +24,8 @@
   margin-bottom: 0%;
   background-color: #04aa6d5e;
 }
+.alert.warning-video {
+  top: -20%;
+  margin-bottom: 0%;
+  background-color: #9faa045e;
+}
