@@ -31,9 +31,17 @@ export default function TeachingCourses() {
   const [updatedOverview, setUpdatedOverview] = useState(
     course.teachingOverview
   );
+  const [updatedImageText, setUpdatedImageText] = useState(
+    course.teachingFileText
+  );
+  const [updatedVideoText, setUpdatedVideoText] = useState(
+    course.teachingVideoText
+  );
   // Use The input text to refer to it
   const textareaRefOverview = useRef();
-  const textareaRefTitle = useRef();
+  const textareaRefTitle = useRef(); 
+  const textareaRefImageText = useRef();
+  const textareaRefVideoText = useRef();
 
   const navigate = useNavigate();
   //dispach the action from the store
@@ -75,10 +83,12 @@ export default function TeachingCourses() {
   };
 
   // Course Updated and Saved
-  const handleSaveChanges = (e) => {
-    e.preventDefault();
+  const handleSaveChanges = (e) => { 
+    e.preventDefault(); 
     // Update the overview value - can be set to empty
     const updatedOverviewValue = textareaRefOverview?.current?.value || "";
+    const updatedImageTextValue = textareaRefImageText?.current?.value || "";
+    const updatedVideoTextValue = textareaRefVideoText?.current?.value || "";
     const updatedTitleValue = textareaRefTitle?.current?.value.trim();
     //console.log(`updatedTitleValue: '${updatedTitleValue}'`);
     // // Update the title value - cannot be set to empty
@@ -93,9 +103,13 @@ export default function TeachingCourses() {
         ...course,
         teachingTitle: updatedTitleValue || course.teachingTitle,
         teachingOverview: updatedOverviewValue,
+        teachingFileText: updatedImageTextValue,
+        teachingVideoText: updatedVideoTextValue,
       };
       setUpdatedOverview(updatedOverviewValue);
       setUpdatedTitle(updatedTitleValue);
+      setUpdatedImageText(updatedImageTextValue);
+      setUpdatedVideoText(updatedVideoTextValue);
       // Edit Mode Off
       setEditMode(false);
       // Dispach Result in Redux
@@ -171,12 +185,19 @@ export default function TeachingCourses() {
                 <video width="700" height="400" controls>
                   <source src={course.teachingVideo} type="video/mp4" />
                 </video>
-                <p className="overviewVideo">{course.teachingVideoText}</p>
-                {editMode && (
+                {editMode ? (
+                  <>
+                  <textarea
+                  className="overviewCourse"
+                  defaultValue={course.teachingVideoText}
+                  ref={textareaRefVideoText}
+                  style={{ color: "white", backgroundColor: "transparent" }}
+                  ></textarea>
                   <button className="editCourse" onClick={handleDeleteVideo}>
                     Delete
                   </button>
-                )}
+                  </>
+                ): <p className="overviewVideo">{course.teachingVideoText}</p>}
               </div>
             </>
           )}
@@ -213,12 +234,20 @@ export default function TeachingCourses() {
                 ) : (
                   ""
                 )}
-                <p className="overviewVideo">{course.teachingFileText}</p>
-                {editMode && (
-                  <button className="editCourse" onClick={handleDeleteFile}>
-                    Delete
-                  </button>
-                )}
+                {editMode ? (
+                  <>
+                  <textarea
+                  className="overviewCourse"
+                  defaultValue={course.teachingFileText}
+                  ref={textareaRefImageText}
+                  style={{ color: "white", backgroundColor: "transparent" }}
+                  ></textarea>
+                    <button className="editCourse" onClick={handleDeleteFile}>
+                      Delete
+                    </button>
+                  </>
+                ): 
+                <p className="overviewVideo">{course.teachingFileText}</p>}
               </div>
             </>
           )}

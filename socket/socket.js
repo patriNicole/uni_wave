@@ -99,7 +99,7 @@ io.on("connection", (socket) => {
 
   /* --------------- New Courses Added --------------- */
   socket.on('newCourse', (postData) => {
-    console.log(postData)
+    //console.log(postData)
     io.emit('newCourse', postData);
   });
 
