@@ -14,6 +14,8 @@ import {
 } from "../../../../store/actions/teachingAction.js";
 
 import AlertWarningMissingTitleTeaching from "../../../Alerts/AlertWarningMissingTitleTeaching.js";
+import AlertSuccessCourseUpdated from "../../../Alerts/AlertSuccessCourseUpdated.js";
+import AlertSuccessCourseUpdatedDelete from "../../../Alerts/AlertSuccessCourseUpdatedDelete.js";
 
 export default function TeachingCourses() {
   /* Used user info as appears (Redux) when logged in in application */
@@ -26,6 +28,8 @@ export default function TeachingCourses() {
 
   /* EDIT MODE */
   const [shouldUpdate, setShouldUpdate] = useState(true);
+  const [courseUpdated, setCourseUpdated] = useState(false);
+  const [courseUpdatedDeleted, setCourseUpdatedDeleted] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [updatedTitle, setUpdatedTitle] = useState(course.teachingTitle);
   const [updatedOverview, setUpdatedOverview] = useState(course.teachingOverview);
@@ -48,28 +52,44 @@ export default function TeachingCourses() {
   const handleDeleteCourse = (e) => {
     e.preventDefault();
     dispatch(deleteCourse(course._id));
-    navigate("/teaching");
+    setCourseUpdatedDeleted(true);
+    setTimeout(() => {
+      // Link to Teaching Home Page
+      navigate("/teaching");
+    }, 5000);
   };
 
   // Delete PDF
   const handleDeletePDF = (e) => {
     e.preventDefault();
     dispatch(deletePDF(course._id));
-    navigate("/teaching");
+    setCourseUpdatedDeleted(true);
+    setTimeout(() => {
+      // Link to Teaching Home Page
+      navigate("/teaching");
+    }, 5000);
   };
 
   // Delete Entire File (Image + Text)
   const handleDeleteFile = (e) => {
     e.preventDefault();
     dispatch(deleteFile(course._id));
-    navigate("/teaching");
+    setCourseUpdatedDeleted(true);
+    setTimeout(() => {
+      // Link to Teaching Home Page
+      navigate("/teaching");
+    }, 5000);
   };
 
   // Delete Entire Video (Video + Text)
   const handleDeleteVideo = (e) => {
     e.preventDefault();
     dispatch(deleteVideo(course._id));
-    navigate("/teaching");
+    setCourseUpdatedDeleted(true);
+    setTimeout(() => {
+      // Link to Teaching Home Page
+      navigate("/teaching");
+    }, 5000);
   };
 
   // Set the Edit Mode On
@@ -80,6 +100,7 @@ export default function TeachingCourses() {
 
   // Course Updated and Saved
   const handleSaveChanges = (e) => {
+    setCourseUpdated(false);
     e.preventDefault();
     // Update the overview value - can be set to empty
     const updatedOverviewValue = textareaRefOverview?.current?.value || "";
@@ -110,18 +131,26 @@ export default function TeachingCourses() {
       setUpdatedImageText(updatedImageTextValue);
       setUpdatedVideoText(updatedVideoTextValue);
       
+      setCourseUpdated(true);
+      setTimeout(() => {
+        // Link to Teaching Home Page
+        navigate("/teaching");
+      }, 5000);
+
       // Edit Mode Off
       setEditMode(false);
       // Dispach Result in Redux
       dispatch(updateCourse(updatedCourse));
-      // Link to Teaching Home Page
-      navigate("/teaching");
+
     }
   };
 
   return (
     <div className="courseComponent">
+      {courseUpdated && <AlertSuccessCourseUpdated/>}
       {!shouldUpdate && <AlertWarningMissingTitleTeaching />}
+      {courseUpdatedDeleted && <AlertSuccessCourseUpdatedDelete/>}
+
       {course && (
         <>
           <div className="coursePageTitle">
