@@ -148,6 +148,27 @@
   border: 5px solid transparent;
 }
 
+.addNewPDF {
+  display: flex;
+  flex-direction: row;
+  margin-top: 3%;
+}
+
+.overviewAddNewPDF {
+  font-size: 18px;
+  font-weight: 700;
+  width: 90vh;
+  height: 15vh;
+  padding: 15px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 5px solid transparent;
+  overflow: scroll;
+  -webkit-box-shadow: 2px -3px 24px 1px rgba(0, 0, 0, 0.48);
+  -moz-box-shadow: 2px -3px 24px 1px rgba(0, 0, 0, 0.48);
+  box-shadow: 2px -3px 24px 1px rgba(0, 0, 0, 0.48);
+}
+
 /* BUTTONS COURSE */
 
 .detailsCourse {
@@ -194,6 +215,28 @@
   height: 50px;
 }
 
+.editCourseNewPDF {
+  background: #fff;
+  font-size: 14px;
+  padding: 16px 20px;
+  border-radius: 26px;
+  border: 1px solid #d4d3e8;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  color: #4c489d;
+  box-shadow: 0px 2px 2px #5c5696;
+  cursor: pointer;
+  transition: 0.2s;
+  padding: 10px 15px;
+  margin-left: 40px;
+  margin-bottom: 40px;
+  height: 50px;
+  margin-top: 40px;
+  margin-right: 40px;
+}
+
 .editCourse:active,
 .editCourse:focus,
 .editCourse:hover {
@@ -204,6 +247,13 @@
 .deleteCourse:active,
 .deleteCourse:focus,
 .deleteCourse:hover {
+  border-color: #6a679e;
+  outline: none;
+}
+
+.editCourseNewPDF:active,
+.editCourseNewPDF:focus,
+.editCourseNewPDF:hover {
   border-color: #6a679e;
   outline: none;
 }
