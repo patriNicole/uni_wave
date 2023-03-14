@@ -42,10 +42,12 @@ const PORT = process.env.PORT || 8000
 /* USER AUTHENTIFICATION */
 const authRoutes = require("./routes/authRoute.js");
 const messengerRoute = require('./routes/messengerRouter.js');
+const teachingRoute = require('./routes/teachingRoute.js');
 
 //middlewares
 app.use('/api/uniwave', authRoutes);
 app.use('/api/uniwave', messengerRoute);
+app.use('/api/uniwave', teachingRoute);
 
 //start server
 app.listen(PORT, () => {

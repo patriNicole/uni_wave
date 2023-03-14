@@ -8,10 +8,10 @@ form {
   position: absolute;
   justify-content: center;
   align-items: center;
-  top: 14%;
+  top: 5%;
   left: 38%;
   width: 30%;
-  height: 70%;
+  height: 75%;
   padding-top: 10%;
   overflow: scroll;
 }

@@ -35,8 +35,11 @@ const userLogout = (userId) => {
   users = users.filter(user => user.userId !== userId)
 }
 
+
 io.on("connection", (socket) => {
   console.log("Socket is connecting...");
+
+  /* CHAT PAGE */
 
   /* --------------- Get from front-end get all user data --------------- */
   socket.on("addUser", (userId, userInfo) => {
@@ -92,6 +95,12 @@ io.on("connection", (socket) => {
         message: data.message,
       });
     }
+  });
+
+  /* --------------- New Courses Added --------------- */
+  socket.on('newCourse', (postData) => {
+    //console.log(postData)
+    io.emit('newCourse', postData);
   });
 
   /* Real Time User Logout so it won't be Active anymore */

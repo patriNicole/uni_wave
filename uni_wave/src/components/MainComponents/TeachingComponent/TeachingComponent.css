@@ -1,15 +1,23 @@
 .teachingComponent {
+  display: flex;
+  flex-direction: column;
   position: absolute;
   top: 55%;
   left: 55%;
   height: 80%;
   width: 84%;
-  background-color: #5e73eb3b;
-  position: absolute;
   transform: translate(-50%, -50%);
   border-radius: 10px;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(5px);
   padding: 50px 35px;
   border-radius: 58px;
+}
+
+.inputTeachingClass {
+  flex: 1;
+}
+
+.coursesTeachingClass {
+  flex: 1;
 }

@@ -223,6 +223,7 @@ module.exports.ImageSend = async (req, res) => {
       /* Upload Image on Cloudinary */
       const { url } = await cloudinary.uploader.upload(files.image.filepath, {
         resource_type: "auto",
+        folder: "messanger",
       });
 
       const insertMessage = await messageModel.create({

@@ -17,9 +17,11 @@
   flex-direction: 'row';
   flex-wrap: 'wrap';
 }
+
 #menu .pro-sidebar {
   height: 80vh;
 }
+
 #menu .closemenu {
   display: flex;
   align-items: center;
@@ -62,7 +64,7 @@
   background-color: #ffffff00;
 }
 #menu .pro-sidebar-inner .pro-sidebar-layout {
-  overflow-y: hidden;
+  overflow-y: scroll;
 }
 
 #menu .pro-sidebar-inner .pro-sidebar-layout ul {

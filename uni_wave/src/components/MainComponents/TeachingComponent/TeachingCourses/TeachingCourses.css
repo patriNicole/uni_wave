@@ -1,0 +1,128 @@
+.teachingCourse {
+  display: flex;
+  height: 58%;
+  width: 100%;
+  background: transparent !important;
+  position: relative;
+  transform: translate(-50%, -50%);
+  top: 68%;
+  left: 50%;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 5px solid transparent;
+  column-count: 2;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 20px;
+  overflow: scroll;
+  padding: 10px;
+}
+
+.teachingCourse:hover {
+  /*-webkit-box-shadow: inset 2px -3px 24px 1px rgba(0, 0, 0, 0.48);
+  -moz-box-shadow: inset 2px -3px 24px 1px rgba(0, 0, 0, 0.48);
+  box-shadow: inset 2px -3px 24px 1px rgba(0, 0, 0, 0.48);*/
+  -webkit-box-shadow: 2px -3px 24px 1px rgba(0, 0, 0, 0.48);
+  -moz-box-shadow: 2px -3px 24px 1px rgba(0, 0, 0, 0.48);
+  box-shadow: 2px -3px 24px 1px rgba(0, 0, 0, 0.48);
+}
+
+/* CONTENT */
+.containerTeachingCourses {
+  overflow: scroll;
+  display: flex;
+}
+
+.itemCourse {
+  width: 95% !important;
+  background: transparent;
+  background: #f4f2ff2c !important;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 5px solid transparent;
+  /* remove height property to use the flexbox height */
+  overflow: scroll;
+  padding: 20px;
+  height: 30% !important;
+  margin-bottom: 10px !important;
+}
+
+.titleCourse {
+  margin: 0;
+  padding-bottom: 10px;
+  padding-top: 0px;
+  color: white;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.userNameCourse {
+  margin: 0;
+  padding-left: 10px;
+  padding-top: 0px;
+  color: rgba(255, 255, 255, 0.471);
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.itemCourse:nth-child(even) {
+  background: transparent;/* demo see us */
+}
+
+.teachingCourseHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+}
+
+/* Details of the course */
+
+.detailsCourse {
+  flex: 1;
+}
+
+.detailsCourseOverview {
+  flex: 1;
+  margin: 0;
+  padding-left: 10px;
+  padding-top: 0px;
+  color: white;
+  font-size: 25px;
+  font-weight: 700;
+} 
+
+.overviewCourseTitle {
+  margin: 0;
+  padding-top: 0px;
+  color: rgba(255, 255, 255, 0.471);
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.overviewCourseUser {
+  margin: 0;
+  margin-left: 20px;
+  padding-top: 0px;
+  color: white;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* LINK TO COURSE */
+
+.link-no-style {
+  text-decoration: none;
+  color: inherit;
+}
+
+.link-no-style:hover {
+  text-decoration: none;
+  color: inherit;
+}
+
+.itemCourse:hover {
+  background-color: #5e73eb1d !important;
+}

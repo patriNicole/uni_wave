@@ -1,0 +1,259 @@
+.courseComponent {
+  position: absolute;
+  top: 55%;
+  left: 55%;
+  height: 80%;
+  width: 84%;
+  background-color: #5e73eb3b;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(5px);
+  padding: 50px 35px;
+  border-radius: 58px;
+  overflow: scroll;
+}
+
+.coursePageTitle {
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+  padding-left: 10px;
+  padding-top: 0px;
+  color: rgba(255, 255, 255, 0.471);
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.userCourseInfo {
+  margin-left: 30%;
+  display: flex;
+  flex-direction: row;
+}
+
+.allUserCourseInfo {
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.overviewCourseComponent {
+  color: white;
+  padding-left: 10px;
+  margin-top: 5vh;
+}
+
+.overviewCourse {
+  font-size: 18px;
+  font-weight: 700;
+  width: 130vh;
+  height: 15vh;
+  padding: 15px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 5px solid transparent;
+  overflow: scroll;
+}
+
+.overviewCourse:hover {
+  -webkit-box-shadow: 2px -3px 24px 1px rgba(0, 0, 0, 0.48);
+  -moz-box-shadow: 2px -3px 24px 1px rgba(0, 0, 0, 0.48);
+  box-shadow: 2px -3px 24px 1px rgba(0, 0, 0, 0.48);
+  height: auto !important;
+}
+
+.titleCourseOverview {
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+  padding-left: 10px;
+  padding-top: 0px;
+  padding-bottom: 10px;
+  color: rgba(255, 255, 255, 0.471);
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.videoTextComponent {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+}
+
+.overviewVideo {
+  margin-left: 10%;
+  font-size: 18px;
+  font-weight: 700;
+  width: 70vh;
+  height: 40vh !important;
+  padding: 25px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 5px solid transparent;
+  -webkit-box-shadow: 2px -3px 24px 1px rgba(0, 0, 0, 0.48);
+  -moz-box-shadow: 2px -3px 24px 1px rgba(0, 0, 0, 0.48);
+  box-shadow: 2px -3px 24px 1px rgba(0, 0, 0, 0.48);
+  overflow: scroll;
+  color: white;
+}
+
+.titleCourseVideos {
+  margin: 0;
+  padding-left: 10px;
+  margin-top: 20px;
+  padding-bottom: 10px;
+  color: rgba(255, 255, 255, 0.471);
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.imageFile {
+  margin-left: 10%;
+  font-size: 18px;
+  font-weight: 700;
+  width: 50vh;
+  height: 40vh !important;
+  padding: 25px;
+  backdrop-filter: blur(10px);
+}
+
+/* EDIT COMPONENTS */
+.editTitleCourse {
+  display: flex;
+  flex-direction: row;
+}
+
+.updateCourseButtons {
+  display: flex;
+  flex-direction: row;
+  margin-top: 5vh;
+}
+
+.editSaveCancel {
+  display: flex;
+  flex-direction: row;
+}
+
+.myTextareaClassTitle {
+  width: 110vh;
+  height: 10vh;
+  overflow: scroll;
+  padding: 10px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 5px solid transparent;
+}
+
+.addNewPDF {
+  display: flex;
+  flex-direction: row;
+  margin-top: 3%;
+}
+
+.overviewAddNewPDF {
+  font-size: 18px;
+  font-weight: 700;
+  width: 90vh;
+  height: 15vh;
+  padding: 15px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 5px solid transparent;
+  overflow: scroll;
+  -webkit-box-shadow: 2px -3px 24px 1px rgba(0, 0, 0, 0.48);
+  -moz-box-shadow: 2px -3px 24px 1px rgba(0, 0, 0, 0.48);
+  box-shadow: 2px -3px 24px 1px rgba(0, 0, 0, 0.48);
+}
+
+/* BUTTONS COURSE */
+
+.detailsCourse {
+  flex: 1;
+}
+
+.editCourse {
+  background: #fff;
+  font-size: 14px;
+  padding: 16px 20px;
+  border-radius: 26px;
+  border: 1px solid #d4d3e8;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  color: #4c489d;
+  box-shadow: 0px 2px 2px #5c5696;
+  cursor: pointer;
+  transition: 0.2s;
+  padding: 10px 15px;
+  margin-left: 40px;
+  margin-bottom: 40px;
+  height: 50px;
+}
+
+.deleteCourse {
+  background: #fff;
+  font-size: 14px;
+  padding: 16px 20px;
+  border-radius: 26px;
+  border: 1px solid #d4d3e8;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  color: #4c489d;
+  box-shadow: 0px 2px 2px #5c5696;
+  cursor: pointer;
+  transition: 0.2s;
+  padding: 10px 15px;
+  margin-left: 40px;
+  margin-bottom: 40px;
+  height: 50px;
+}
+
+.editCourseNewPDF {
+  background: #fff;
+  font-size: 14px;
+  padding: 16px 20px;
+  border-radius: 26px;
+  border: 1px solid #d4d3e8;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  color: #4c489d;
+  box-shadow: 0px 2px 2px #5c5696;
+  cursor: pointer;
+  transition: 0.2s;
+  padding: 10px 15px;
+  margin-left: 40px;
+  margin-bottom: 40px;
+  height: 50px;
+  margin-top: 40px;
+  margin-right: 40px;
+}
+
+.editCourse:active,
+.editCourse:focus,
+.editCourse:hover {
+  border-color: #6a679e;
+  outline: none;
+}
+
+.deleteCourse:active,
+.deleteCourse:focus,
+.deleteCourse:hover {
+  border-color: #6a679e;
+  outline: none;
+}
+
+.editCourseNewPDF:active,
+.editCourseNewPDF:focus,
+.editCourseNewPDF:hover {
+  border-color: #6a679e;
+  outline: none;
+}

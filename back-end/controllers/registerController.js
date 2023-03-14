@@ -73,6 +73,7 @@ module.exports = {
               files.image.filepath,
               {
                 resource_type: "auto",
+                folder: "registration",
               },
               async function (error, result) {
                 if (error) throw error;
