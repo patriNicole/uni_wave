@@ -24,7 +24,7 @@ export default function TeachingCourses() {
   // Get the State passed through the link from TeachingCourse
   const location = useLocation();
   const course = location.state.course;
-  //console.log(course.teachingFile);
+  //console.log(course);
 
   /* EDIT MODE */
   const [shouldUpdate, setShouldUpdate] = useState(true);
@@ -35,6 +35,7 @@ export default function TeachingCourses() {
   const [updatedOverview, setUpdatedOverview] = useState(course.teachingOverview);
   const [updatedImageText, setUpdatedImageText] = useState(course.teachingFileText);
   const [updatedVideoText, setUpdatedVideoText] = useState(course.teachingVideoText);
+  const [updatedImageFile, setUpdatedImageFile] = useState(course.teachingVideoText);
 
   // Use The input text to refer to it
   const textareaRefOverview = useRef();
@@ -42,6 +43,7 @@ export default function TeachingCourses() {
   const textareaRefImageText = useRef();
   const textareaRefVideoText = useRef(); 
   const textareaRefPDF = useRef();
+  const inputRefImage = useRef();
 
   const navigate = useNavigate();
   //dispach the action from the store
@@ -56,7 +58,7 @@ export default function TeachingCourses() {
     setTimeout(() => {
       // Link to Teaching Home Page
       navigate("/teaching");
-    }, 5000);
+    }, 3000);
   };
 
   // Delete PDF
@@ -67,7 +69,7 @@ export default function TeachingCourses() {
     setTimeout(() => {
       // Link to Teaching Home Page
       navigate("/teaching");
-    }, 5000);
+    }, 3000);
   };
 
   // Delete Entire File (Image + Text)
@@ -78,7 +80,7 @@ export default function TeachingCourses() {
     setTimeout(() => {
       // Link to Teaching Home Page
       navigate("/teaching");
-    }, 5000);
+    }, 3000);
   };
 
   // Delete Entire Video (Video + Text)
@@ -89,7 +91,7 @@ export default function TeachingCourses() {
     setTimeout(() => {
       // Link to Teaching Home Page
       navigate("/teaching");
-    }, 5000);
+    }, 3000);
   };
 
   // Set the Edit Mode On
@@ -103,11 +105,26 @@ export default function TeachingCourses() {
     setCourseUpdated(false);
     e.preventDefault();
     // Update the overview value - can be set to empty
+    const updatedTitleValue = textareaRefTitle?.current?.value.trim();
     const updatedOverviewValue = textareaRefOverview?.current?.value || "";
     const updatedImageTextValue = textareaRefImageText?.current?.value || "";
     const updatedVideoTextValue = textareaRefVideoText?.current?.value || ""; 
-    const updatedPDFValue = textareaRefPDF?.current?.value || "";
-    const updatedTitleValue = textareaRefTitle?.current?.value.trim();
+    let updatedPDFValue;
+    if(!course.pdfLink) {
+      updatedPDFValue = textareaRefPDF?.current?.value || "";
+    } else {
+      updatedPDFValue = course.pdfLink;
+    }
+    let updateImage;
+    if(!course.teachingFile) {
+      if(inputRefImage.current.files[0] === undefined) {
+        updateImage = "";
+      } else {
+        updateImage = inputRefImage?.current?.files[0];
+      }
+    } else {
+      updateImage = course.teachingFile ? course.teachingFile : "";
+    }
 
     //console.log(`updatedTitleValue: '${updatedTitleValue}'`);
     // // Update the title value - cannot be set to empty
@@ -118,18 +135,31 @@ export default function TeachingCourses() {
     // Update course
     if (updatedTitleValue) {
       setShouldUpdate(true);
-      const updatedCourse = {
+      const updatedCourse = new FormData();
+      updatedCourse.append('senderId', course.senderId);
+      updatedCourse.append('senderName', course.senderName);
+      updatedCourse.append('senderEmail', course.senderEmail);
+      updatedCourse.append('senderImage', course.senderImage);
+      updatedCourse.append('teachingTitle', updatedTitleValue || course.teachingTitle);
+      updatedCourse.append('teachingOverview', updatedOverviewValue);
+      updatedCourse.append('teachingFileText', updatedImageTextValue);
+      updatedCourse.append('teachingVideoText', updatedVideoTextValue);
+      updatedCourse.append('pdfLink', updatedPDFValue);
+      updatedCourse.append('teachingFile', updateImage);
+      /*const updatedCourse = {
         ...course,
         teachingTitle: updatedTitleValue || course.teachingTitle,
         teachingOverview: updatedOverviewValue,
         teachingFileText: updatedImageTextValue,
         teachingVideoText: updatedVideoTextValue, 
         pdfLink: updatedPDFValue,
-      };
+      };*/
+
       setUpdatedOverview(updatedOverviewValue);
       setUpdatedTitle(updatedTitleValue);
       setUpdatedImageText(updatedImageTextValue);
       setUpdatedVideoText(updatedVideoTextValue);
+      setUpdatedImageFile(updateImage);
       
       setCourseUpdated(true);
       setTimeout(() => {
@@ -139,8 +169,9 @@ export default function TeachingCourses() {
 
       // Edit Mode Off
       setEditMode(false);
+
       // Dispach Result in Redux
-      dispatch(updateCourse(updatedCourse));
+      dispatch(updateCourse(course._id, updatedCourse));
 
     }
   };
@@ -296,6 +327,23 @@ export default function TeachingCourses() {
               </div>
             </>
           )}
+          {editMode && !course.teachingFile && (
+            <div className="addNewPDF">
+              <button className="editCourseNewPDF" onClick={handleSaveChanges}>
+                Add New Image
+              </button>
+              <input
+                type="file"
+                id="myfile"
+                name="teachingFile"
+                style={{ marginBottom: "1rem" }}
+                onChange={handleSaveChanges}
+                accept="image/*"
+                ref={inputRefImage}
+              />
+            </div>
+          )}
+          {/* --------------- BOTTOM BUTTONS ------------------- */}
           <div className="updateCourseButtons">
             {/* If user logged in same as the one who posted
           then he/she will be able to edit the post */}

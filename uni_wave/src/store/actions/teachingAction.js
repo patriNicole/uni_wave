@@ -117,11 +117,11 @@ export const deleteVideo = ( courseId ) => {
 };
 
 /* EDIT THE COURSE */
-export const updateCourse = (updatedCourse) => {
+export const updateCourse = (id, updatedCourse) => {
   return async (dispatch) => {
     try {
       const response = await axios.put(
-        `http://localhost:8000/api/uniwave/update-course/${updatedCourse._id}`,
+        `http://localhost:8000/api/uniwave/update-course/${id}`,
         updatedCourse,
         { withCredentials: true }
       )

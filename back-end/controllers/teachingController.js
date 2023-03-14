@@ -209,11 +209,41 @@ module.exports.deleteVideo = async (req, res) => {
 };
 
 module.exports.updateCourse = async (req, res) => {
-  const courseId = req.params.id;
-  const updatedCourse = req.body;
-  //console.log(courseId, updatedCourse)
+  //const courseId = req.params.id;
+  //const updatedCourse = req.body;
+  //console.log(req.body)
+  const form = formidable();
+  form.parse(req, async (err, fields, files) => {
+    const {
+      senderId,
+      senderName,
+      senderEmail,
+      senderImage,
+      teachingTitle,
+      teachingOverview,
+      teachingFileText,
+      teachingVideoText,
+      pdfLink
+    } = fields;
 
+    const { teachingFile, teachingVideo } = files;
+    console.log(fields, files)
   try {
+    // Handle video upload
+    /*if (req.files && req.files.video) {
+      const video = req.files.video;
+      const videoPath = video.tempFilePath;
+      console.log(video)
+      
+      // Upload the video to Cloudinary
+      const cloudinaryResponse = await cloudinary.uploader.upload(videoPath, {
+        resource_type: 'video',
+        folder: 'teaching-videos'
+      });
+
+      updatedCourse.teachingVideo = cloudinaryResponse.secure_url;
+    }
+
     // Find the course with the specified courseId and update its properties
     const course = await teachingSchema.findByIdAndUpdate(
       courseId,
@@ -222,9 +252,10 @@ module.exports.updateCourse = async (req, res) => {
     );
 
     // Send the updated course as a response to frontend
-    res.status(200).json({ success: true, course: course });
+    res.status(200).json({ success: true, course: course });*/
   } catch (error) {
     //console.log(error);
     res.status(500).json({ success: false, error: "Unable to update course" });
   }
+});
 };
