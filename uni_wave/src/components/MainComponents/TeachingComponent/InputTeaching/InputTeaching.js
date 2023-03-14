@@ -48,8 +48,13 @@ export default function InputTeaching({ setCoursePosts }) {
     teachingFileText: "",
     teachingVideo: "",
     teachingVideoText: "",
-    pdfLink: ""
+    pdfLink: "",
   });
+
+  // File Name Displayed
+  const [selectedFileName, setSelectedFileName] = useState("");
+  const [selectedVideoName, setSelectedVideoName] = useState("");
+
   // In order to display image/pdf/video in real-time
   const [teachingFileSocket, setTeachingFileSocket] = useState(null);
 
@@ -67,6 +72,7 @@ export default function InputTeaching({ setCoursePosts }) {
         ...course,
         [input.name]: input.files[0],
       });
+      setSelectedFileName(input.files[0].name);
     }
     // In order to display image/pdf/video in real-time
     const reader = new FileReader();
@@ -83,6 +89,7 @@ export default function InputTeaching({ setCoursePosts }) {
         ...course,
         [input.name]: input.files[0],
       });
+      setSelectedVideoName(input.files[0].name);
     }
   };
 
@@ -104,18 +111,18 @@ export default function InputTeaching({ setCoursePosts }) {
       newCourse.append("pdfLink", course.pdfLink);
 
       // Cannot Input Text without Video/PDF/Image
-      if(course.teachingFile && course.teachingFileText) {
+      if (course.teachingFile && course.teachingFileText) {
         newCourse.append("teachingFileText", course.teachingFileText);
-      } else if(!course.teachingFile && course.teachingFileText) {
+      } else if (!course.teachingFile && course.teachingFileText) {
         setTextVideoFile(true);
-        return
+        return;
       }
-      
-      if(course.teachingVideo && course.teachingVideoText) {
+
+      if (course.teachingVideo && course.teachingVideoText) {
         newCourse.append("teachingVideoText", course.teachingVideoText);
-      } else if(!course.teachingVideo && course.teachingVideoText) {
+      } else if (!course.teachingVideo && course.teachingVideoText) {
         setTextVideoFile(true);
-        return
+        return;
       }
 
       if (socket.current && socket.current.emit && textVideoFile === false) {
@@ -132,15 +139,15 @@ export default function InputTeaching({ setCoursePosts }) {
       newCourse.append("teachingFile", course.teachingFile);
       newCourse.append("teachingVideo", course.teachingVideo);
 
-      if(course.teachingVideo) {
+      if (course.teachingVideo) {
         setVideoUploaded(true);
       }
 
-      if(textVideoFile === false) {
+      if (textVideoFile === false) {
         await dispatch(inputCourse(newCourse));
       }
 
-      if(course.teachingVideo) {
+      if (course.teachingVideo) {
         window.location.reload(false);
       }
     }
@@ -148,8 +155,8 @@ export default function InputTeaching({ setCoursePosts }) {
 
   return (
     <div className="inputTeaching">
-      { videoUploade && <AlertSuccessVideoUploaded/> }
-      { textVideoFile && <AlertNoTextWithoutVideo/> }
+      {videoUploade && <AlertSuccessVideoUploaded />}
+      {textVideoFile && <AlertNoTextWithoutVideo />}
       <form className="formTeachingInput" onSubmit={inputTeachingForm}>
         <div className="formTeachingColumn">
           <label htmlFor="teachingTitle">
@@ -180,7 +187,7 @@ export default function InputTeaching({ setCoursePosts }) {
             />
           </label>
           <label htmlFor="pdfLink" style={styleTwo}>
-            <VscFilePdf size={30} style={style}/> 
+            <VscFilePdf size={30} style={style} />
             <input
               className="inputTeachingTitle"
               type="text"
@@ -195,7 +202,28 @@ export default function InputTeaching({ setCoursePosts }) {
         </div>
         <div className="formTeachingColumnTwo">
           <label htmlFor="myfile" style={styleTwo}>
-            <MdAttachFile size={30} /> Image
+            <MdAttachFile size={30} />
+            {course.teachingFile ? (
+              <label htmlFor="myfile">
+                {selectedFileName ? (
+                  <span
+                    style={{
+                      color: "white",
+                      fontSize: "12px",
+                      display: "block",
+                      marginTop: "20px",
+                      fontWeight: "700",
+                    }}
+                  >
+                    {selectedFileName}
+                  </span>
+                ) : (
+                  ""
+                )}
+              </label>
+            ) : (
+              "Image"
+            )}
             <input
               type="file"
               id="myfile"
@@ -219,7 +247,28 @@ export default function InputTeaching({ setCoursePosts }) {
 
           {/* ------------------------------------ */}
           <label htmlFor="videoInput" style={styleTwo}>
-            <FaFileVideo size={30} /> Video
+            <FaFileVideo size={30} />{" "}
+            {course.teachingVideo ? (
+              <label htmlFor="myfile">
+                {selectedVideoName ? (
+                  <span
+                    style={{
+                      color: "white",
+                      fontSize: "12px",
+                      display: "block",
+                      marginTop: "20px",
+                      fontWeight: "700",
+                    }}
+                  >
+                    {selectedVideoName}
+                  </span>
+                ) : (
+                  ""
+                )}
+              </label>
+            ) : (
+              "Video"
+            )}
             <input
               type="file"
               id="videoInput"
