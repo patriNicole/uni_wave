@@ -5,7 +5,7 @@
   background: transparent !important;
   position: relative;
   transform: translate(-50%, -50%);
-  top: 71%;
+  top: 68%;
   left: 50%;
   border-radius: 10px;
   backdrop-filter: blur(10px);
@@ -35,7 +35,7 @@
 }
 
 .itemCourse {
-  width: 10vh;
+  width: 95% !important;
   background: transparent;
   background: #f4f2ff2c !important;
   border-radius: 10px;
@@ -45,7 +45,8 @@
   /* remove height property to use the flexbox height */
   overflow: scroll;
   padding: 20px;
-  margin: 10px;
+  height: 30% !important;
+  margin-bottom: 10px !important;
 }
 
 .titleCourse {

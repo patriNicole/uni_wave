@@ -9,14 +9,18 @@ export default function TeachingComponent() {
     return (
         <>
             <div className="teachingComponent">
-                <InputTeaching
+              <div className="inputTeachingClass">
+              <InputTeaching
                   coursePosts={coursePosts}
                   setCoursePosts={setCoursePosts}
                 />
+              </div>
+                <div className="coursesTeachingClass">
                 <TeachingCourses
                   coursePosts={coursePosts}
                   setCoursePosts={setCoursePosts}
                 />
+                </div>
             </div>
         </>
     );
