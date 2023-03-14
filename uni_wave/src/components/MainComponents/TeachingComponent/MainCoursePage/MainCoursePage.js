@@ -45,6 +45,9 @@ export default function TeachingCourses() {
   const textareaRefPDF = useRef();
   const inputRefImage = useRef();
 
+  // File Name Displayed
+  const [selectedFileName, setSelectedFileName] = useState("");
+
   const navigate = useNavigate();
   //dispach the action from the store
   //working with reducer
@@ -100,6 +103,11 @@ export default function TeachingCourses() {
     setEditMode(true);
   };
 
+  // When button clicked -> File Choose and then call SaveChanges
+  const handleAddImage = () => {
+    inputRefImage.current.click();
+  };
+
   // Course Updated and Saved
   const handleSaveChanges = (e) => {
     setCourseUpdated(false);
@@ -121,6 +129,7 @@ export default function TeachingCourses() {
         updateImage = "";
       } else {
         updateImage = inputRefImage?.current?.files[0];
+        setSelectedFileName(updateImage.name);
       }
     } else {
       updateImage = course.teachingFile ? course.teachingFile : "";
@@ -146,14 +155,6 @@ export default function TeachingCourses() {
       updatedCourse.append('teachingVideoText', updatedVideoTextValue);
       updatedCourse.append('pdfLink', updatedPDFValue);
       updatedCourse.append('teachingFile', updateImage);
-      /*const updatedCourse = {
-        ...course,
-        teachingTitle: updatedTitleValue || course.teachingTitle,
-        teachingOverview: updatedOverviewValue,
-        teachingFileText: updatedImageTextValue,
-        teachingVideoText: updatedVideoTextValue, 
-        pdfLink: updatedPDFValue,
-      };*/
 
       setUpdatedOverview(updatedOverviewValue);
       setUpdatedTitle(updatedTitleValue);
@@ -329,7 +330,7 @@ export default function TeachingCourses() {
           )}
           {editMode && !course.teachingFile && (
             <div className="addNewPDF">
-              <button className="editCourseNewPDF" onClick={handleSaveChanges}>
+              <button className="editCourseNewPDF" onClick={handleAddImage}>
                 Add New Image
               </button>
               <input
@@ -342,6 +343,15 @@ export default function TeachingCourses() {
                 ref={inputRefImage}
               />
             </div>
+          )}
+          {inputRefImage && (
+            <label htmlFor="myfile">
+              {selectedFileName ? (
+                <span style={{ color: "white", fontSize: "18px", display: "block", marginTop: "20px", fontWeight: "700" }}>Image selected {selectedFileName}</span>
+              ) : (
+                ""
+              )}
+            </label>
           )}
           {/* --------------- BOTTOM BUTTONS ------------------- */}
           <div className="updateCourseButtons">

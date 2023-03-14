@@ -26,7 +26,7 @@ module.exports.inputCourse = async (req, res) => {
       teachingOverview,
       teachingFileText,
       teachingVideoText,
-      pdfLink
+      pdfLink,
     } = fields;
 
     const { teachingFile, teachingVideo } = files;
@@ -209,53 +209,74 @@ module.exports.deleteVideo = async (req, res) => {
 };
 
 module.exports.updateCourse = async (req, res) => {
-  //const courseId = req.params.id;
+  const courseId = req.params.id;
   //const updatedCourse = req.body;
-  //console.log(req.body)
+  //console.log(req.params.id)
   const form = formidable();
   form.parse(req, async (err, fields, files) => {
     const {
-      senderId,
-      senderName,
-      senderEmail,
-      senderImage,
+      //senderId,
+      //senderName,
+      //senderEmail,
+      //senderImage,
       teachingTitle,
       teachingOverview,
       teachingFileText,
       teachingVideoText,
-      pdfLink
+      pdfLink,
     } = fields;
 
     const { teachingFile, teachingVideo } = files;
-    console.log(fields, files)
-  try {
-    // Handle video upload
-    /*if (req.files && req.files.video) {
-      const video = req.files.video;
-      const videoPath = video.tempFilePath;
-      console.log(video)
-      
-      // Upload the video to Cloudinary
-      const cloudinaryResponse = await cloudinary.uploader.upload(videoPath, {
-        resource_type: 'video',
-        folder: 'teaching-videos'
-      });
+    //console.log(fields, files)
+    try {
+      const course = await teachingSchema.findById(courseId);
+      course.teachingTitle = teachingTitle;
+      course.teachingOverview = teachingOverview;
+      course.teachingFileText = teachingFileText;
+      course.teachingVideoText = teachingVideoText;
+      course.pdfLink = pdfLink;
 
-      updatedCourse.teachingVideo = cloudinaryResponse.secure_url;
+      // Handle image/video upload
+      let fileUrl, videoUrl;
+
+      if (teachingFile) {
+        const { url } = await cloudinary.uploader.upload(
+          teachingFile.filepath,
+          {
+            resource_type: "auto",
+            folder: "teaching-files",
+          }
+        );
+        fileUrl = url;
+        course.teachingFile = fileUrl;
+      }
+
+      if (teachingVideo) {
+        const { url } = await cloudinary.uploader.upload(
+          teachingVideo.filepath,
+          {
+            resource_type: "auto",
+            folder: "teaching-videos",
+          }
+        );
+        videoUrl = url;
+        course.teachingVideo = videoUrl;
+      }
+
+      // Find the course with the specified courseId and update its properties
+      const updatedCourse = await teachingSchema.findByIdAndUpdate(
+        courseId,
+        course,
+        { new: true }
+      );
+
+      // Send the updated course as a response to frontend
+      res.status(200).json({ success: true, course: updatedCourse });
+    } catch (error) {
+      //console.log(error);
+      res
+        .status(500)
+        .json({ success: false, error: "Unable to update course" });
     }
-
-    // Find the course with the specified courseId and update its properties
-    const course = await teachingSchema.findByIdAndUpdate(
-      courseId,
-      updatedCourse,
-      { new: true }
-    );
-
-    // Send the updated course as a response to frontend
-    res.status(200).json({ success: true, course: course });*/
-  } catch (error) {
-    //console.log(error);
-    res.status(500).json({ success: false, error: "Unable to update course" });
-  }
-});
+  });
 };
