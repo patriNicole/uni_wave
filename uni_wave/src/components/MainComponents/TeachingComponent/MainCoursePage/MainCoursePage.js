@@ -36,6 +36,7 @@ export default function TeachingCourses() {
   const [updatedImageText, setUpdatedImageText] = useState(course.teachingFileText);
   const [updatedVideoText, setUpdatedVideoText] = useState(course.teachingVideoText);
   const [updatedImageFile, setUpdatedImageFile] = useState(course.teachingVideoText);
+  const [updatedVideoFile, setUpdatedVideoFile] = useState(course.teachingVideoText);
 
   // Use The input text to refer to it
   const textareaRefOverview = useRef();
@@ -44,9 +45,11 @@ export default function TeachingCourses() {
   const textareaRefVideoText = useRef(); 
   const textareaRefPDF = useRef();
   const inputRefImage = useRef();
+  const inputRefVideo = useRef();
 
   // File Name Displayed
-  const [selectedFileName, setSelectedFileName] = useState("");
+  const [selectedFileName, setSelectedFileName] = useState(""); 
+  const [selectedVideoName, setSelectedVideoName] = useState("");
 
   const navigate = useNavigate();
   //dispach the action from the store
@@ -108,6 +111,10 @@ export default function TeachingCourses() {
     inputRefImage.current.click();
   };
 
+  const handleAddVideo = () => {
+    inputRefVideo.current.click();
+  };
+
   // Course Updated and Saved
   const handleSaveChanges = (e) => {
     setCourseUpdated(false);
@@ -133,6 +140,17 @@ export default function TeachingCourses() {
       }
     } else {
       updateImage = course.teachingFile ? course.teachingFile : "";
+    } 
+    let updateVideo;
+    if(!course.teachingVideo) {
+      if(inputRefVideo.current.files[0] === undefined) {
+        updateVideo = "";
+      } else {
+        updateVideo = inputRefVideo?.current?.files[0];
+        setSelectedVideoName(updateVideo.name);
+      }
+    } else {
+      updateVideo = course.teachingVideo ? course.teachingVideo : "";
     }
 
     //console.log(`updatedTitleValue: '${updatedTitleValue}'`);
@@ -155,12 +173,14 @@ export default function TeachingCourses() {
       updatedCourse.append('teachingVideoText', updatedVideoTextValue);
       updatedCourse.append('pdfLink', updatedPDFValue);
       updatedCourse.append('teachingFile', updateImage);
+      updatedCourse.append('teachingVideo', updateVideo);
 
       setUpdatedOverview(updatedOverviewValue);
       setUpdatedTitle(updatedTitleValue);
       setUpdatedImageText(updatedImageTextValue);
       setUpdatedVideoText(updatedVideoTextValue);
       setUpdatedImageFile(updateImage);
+      setUpdatedVideoFile(updateVideo);
       
       setCourseUpdated(true);
       setTimeout(() => {
@@ -263,6 +283,31 @@ export default function TeachingCourses() {
                 )}
               </div>
             </>
+          )}
+          {editMode && !course.teachingVideo && (
+            <div className="addNewPDF">
+              <button className="editCourseNewPDF" onClick={handleAddVideo}>
+                Add New Video
+              </button>
+              <input
+                type="file"
+                id="myfile"
+                name="teachingFile"
+                style={{ marginBottom: "1rem" }}
+                onChange={handleSaveChanges}
+                accept="video/*"
+                ref={inputRefVideo}
+              />
+            </div>
+          )}
+          {inputRefVideo && (
+            <label htmlFor="myfile">
+              {selectedVideoName ? (
+                <span style={{ color: "white", fontSize: "18px", display: "block", marginTop: "20px", fontWeight: "700" }}>Video selected {selectedVideoName}</span>
+              ) : (
+                ""
+              )}
+            </label>
           )}
           {/* ------------ PDF LINK ------------ */}
           {course.pdfLink && (
