@@ -1,4 +1,4 @@
-import { TODO_INPUT_SUCCESS } from "../types/todoType.js";
+import { TODO_INPUT_SUCCESS, TODO_GET_SUCCESS } from "../types/todoType.js";
 
 const todoState = {
   todoList: [],
@@ -15,6 +15,14 @@ export const todoReducer = (state = todoState, action) => {
       // The new todoList array contains all the elements of the previous todoList array,
       // as well as the new payload.todoList object added to the end of the array
       todoList: [...state.todoList, payload.todoList],
+    };
+  }
+
+  if (type === TODO_GET_SUCCESS) {
+    return {
+      //updating the state of the application with the latest message retrieved from the server
+      ...state,
+      todoList: payload.todoList,
     };
   }
 

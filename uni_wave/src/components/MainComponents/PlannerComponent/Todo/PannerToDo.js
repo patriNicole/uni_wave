@@ -30,7 +30,6 @@ function TodoList() {
 
   /* Used user info as appears (Redux) when logged in in application */
   const { userInfo } = useSelector((state) => state.auth); 
-  const { todoList } = useSelector((state) => state.toDo);
 
   const [todos, setTodos] = useState([]);
   const [inputUser, setInputUser] = useState("");
