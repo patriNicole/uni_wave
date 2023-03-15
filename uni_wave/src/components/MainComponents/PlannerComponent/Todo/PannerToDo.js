@@ -7,7 +7,7 @@ import { TiEdit } from "react-icons/ti";
 import { useDispatch, useSelector } from "react-redux";
 import { io } from "socket.io-client";
 
-import { inputTodo } from '../../../../store/actions/todoAction.js';
+import { inputTodo } from "../../../../store/actions/todoAction.js";
 
 import ToDoList from "./ToDoList.js";
 
@@ -17,7 +17,7 @@ const optionsCategory = [
   { value: "projects", label: "Projects" },
 ];
 
-function TodoList() {
+function TodoList({ todos, setTodos }) {
   //dispach the action from the store
   //working with reducer
   const dispatch = useDispatch();
@@ -29,9 +29,10 @@ function TodoList() {
   });
 
   /* Used user info as appears (Redux) when logged in in application */
-  const { userInfo } = useSelector((state) => state.auth); 
+  const { userInfo } = useSelector((state) => state.auth);
+  const { todoList } = useSelector((state) => state.toDo);
+  //console.log(todoList);
 
-  const [todos, setTodos] = useState([]);
   const [inputUser, setInputUser] = useState("");
   const [category, setCategory] = useState(optionsCategory[0]);
   const [categories, setCategories] = useState(optionsCategory);
@@ -57,7 +58,8 @@ function TodoList() {
       category: category.value,
       completed: false,
     };
-    setTodos([ ...todos, newTodo ]);
+    setTodos([...todos, newTodo]);
+    socket.current.emit("newTodo", newTodo);
     dispatch(inputTodo(newTodo));
     setInputUser("");
   };
@@ -121,7 +123,10 @@ function TodoList() {
               {categories.map((c) => (
                 <li key={c.value} className="allCategories">
                   <p className="categoryTitleAll">{c.label}</p>
-                  <button onClick={() => handleCategoryDelete(c.value)} className="addNewCategoryButton">
+                  <button
+                    onClick={() => handleCategoryDelete(c.value)}
+                    className="addNewCategoryButton"
+                  >
                     Delete
                   </button>
                 </li>
@@ -134,13 +139,13 @@ function TodoList() {
                 value={newCategory}
                 onChange={handleNewCategoryChange}
               />
-              <button type="submit" className="addNewCategoryButton">Add</button>
+              <button type="submit" className="addNewCategoryButton">
+                Add
+              </button>
             </form>
           </div>
         )}
-        {!showCategories && (
-          <ToDoList todos={todos} category={category}/>
-        )}
+        {!showCategories && <ToDoList todos={todos} category={category} todoList={todoList}/>}
       </div>
     </div>
   );

@@ -98,9 +98,15 @@ io.on("connection", (socket) => {
   });
 
   /* --------------- New Courses Added --------------- */
-  socket.on('newCourse', (postData) => {
+  socket.on('newCourse', (newTodo) => {
     //console.log(postData)
-    io.emit('newCourse', postData);
+    io.emit('newCourseAdded', newTodo);
+  });
+
+  /* --------------- New ToDo Added --------------- */
+  socket.on('newToDo', (postData) => {
+    console.log(postData)
+    io.emit('newToDo', postData);
   });
 
   /* Real Time User Logout so it won't be Active anymore */

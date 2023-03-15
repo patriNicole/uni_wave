@@ -9,14 +9,10 @@ import { io } from "socket.io-client";
 
 import { getToDo } from "../../../../store/actions/todoAction.js";
 
-export default function ToDoList({ todos, category }) {
+export default function ToDoList({ todos, category, todoList }) {
   //dispach the action from the store
   //working with reducer
   const dispatch = useDispatch();
-  /* Used user info as appears (Redux) when logged in in application */
-  const { userInfo } = useSelector((state) => state.auth);
-  const { todoList } = useSelector((state) => state.toDo);
-  console.log(todoList);
 
   const socket = useRef();
   useEffect(() => {
@@ -30,7 +26,7 @@ export default function ToDoList({ todos, category }) {
 
   // reduce() method on the todos array, which iterates through
   // each element of the array and reduces it to a single value
-  const todosByCategory = todos.reduce((acc, todo) => {
+  const todosByCategory = todoList.reduce((acc, todo) => {
     const category = todo.category;
     // acc = accumulator
     acc[category] = acc[category] || [];
@@ -52,7 +48,7 @@ export default function ToDoList({ todos, category }) {
             <h2>{category.label}</h2>
             <ul className="todo-list">
               {todosByCategory[category.value].map((todo) => (
-                <li className="todo-row" key={todo}>
+                <li className="todo-row" key={todo._id}>
                   {todo.text}
                   <div className="iconsTodo">
                     <CgCloseR
