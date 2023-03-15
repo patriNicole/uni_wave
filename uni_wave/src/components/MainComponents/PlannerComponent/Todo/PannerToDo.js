@@ -1,8 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./Todo.css";
 import Select from "react-select";
-import { CgCloseR } from "react-icons/cg";
-import { TiEdit } from "react-icons/ti";
 
 import { useDispatch, useSelector } from "react-redux";
 import { io } from "socket.io-client";
@@ -79,6 +77,17 @@ function TodoList({ todos, setTodos }) {
     setCategories(categories.filter((c) => c.value !== categoryToDelete));
     setTodos(todos.filter((t) => t.category !== categoryToDelete));
   };
+
+  useEffect(() => {
+    if (todoList) {
+      const todoListCategories = todoList.map((todo) => todo.category);
+      const uniqueCategories = [...new Set(todoListCategories)];
+      const newCategories = uniqueCategories
+        .filter((category) => !optionsCategory.some((c) => c.value === category))
+        .map((category) => ({ value: category, label: category }));
+      setCategories([...optionsCategory, ...newCategories]);
+    }
+  }, [todoList]);
 
   return (
     <div className="todoLists">
