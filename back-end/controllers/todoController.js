@@ -6,11 +6,11 @@ module.exports.inputTodo = async (req, res) => {
   //console.log(myToDo);
   try {
     const insertCourse = await todoSchema.create({
-        senderId: myToDo.senderId,
-        senderName: myToDo.senderName,
-        text: myToDo.text,
-        category: myToDo.category,
-        completed: myToDo.completed,
+      senderId: myToDo.senderId,
+      senderName: myToDo.senderName,
+      text: myToDo.text,
+      category: myToDo.category,
+      completed: myToDo.completed,
     });
 
     res.status(200).json({ success: true, todoList: insertCourse });
@@ -21,4 +21,4 @@ module.exports.inputTodo = async (req, res) => {
       },
     });
   }
-}
+};

@@ -6,12 +6,14 @@ import thunkMiddleware from 'redux-thunk';
 import { authReducer } from './reducers/authReducer.js';
 import { messengerReducer } from './reducers/messangerReducer.js';
 import { teachingReducer } from './reducers/teachingReducer.js';
+import { todoReducer } from './reducers/todoReducer.js';
 
 //the reducer
 const rootReducer = combineReducers({
     auth: authReducer,
     messenger : messengerReducer,
-    teaching: teachingReducer
+    teaching: teachingReducer,
+    toDo: todoReducer
 })
 
 const middleware = [thunkMiddleware];

@@ -16,10 +16,6 @@ const optionsCategory = [
 ];
 
 function TodoList() {
-
-  /* Used user info as appears (Redux) when logged in in application */
-  const { userInfo } = useSelector((state) => state.auth);
-
   //dispach the action from the store
   //working with reducer
   const dispatch = useDispatch();
@@ -29,6 +25,10 @@ function TodoList() {
     // Socket is running on 8080
     socket.current = io("ws://localhost:8080");
   });
+
+  /* Used user info as appears (Redux) when logged in in application */
+  const { userInfo } = useSelector((state) => state.auth); 
+  const { todoList } = useSelector((state) => state.toDo);
 
   const [todos, setTodos] = useState([]);
   const [inputUser, setInputUser] = useState("");
@@ -45,6 +45,7 @@ function TodoList() {
     setCategory(selectedOption);
   };
 
+  /* Input Course */
   const handleSubmit = (e) => {
     e.preventDefault();
     if (inputUser.trim() === "") return;
