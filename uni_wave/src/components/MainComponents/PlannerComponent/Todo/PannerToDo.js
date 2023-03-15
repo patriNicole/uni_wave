@@ -80,14 +80,19 @@ function TodoList({ todos, setTodos }) {
 
   useEffect(() => {
     if (todoList) {
-      const todoListCategories = todoList.map((todo) => todo.category);
+      const filteredTodoList = todoList.filter(
+        (todo) => todo.senderName === userInfo.username
+      );
+      const todoListCategories = filteredTodoList.map((todo) => todo.category);
       const uniqueCategories = [...new Set(todoListCategories)];
       const newCategories = uniqueCategories
-        .filter((category) => !optionsCategory.some((c) => c.value === category))
+        .filter(
+          (category) => !optionsCategory.some((c) => c.value === category)
+        )
         .map((category) => ({ value: category, label: category }));
       setCategories([...optionsCategory, ...newCategories]);
     }
-  }, [todoList]);
+  }, [todoList, userInfo.username]);
 
   return (
     <div className="todoLists">
@@ -154,7 +159,14 @@ function TodoList({ todos, setTodos }) {
             </form>
           </div>
         )}
-        {!showCategories && <ToDoList todos={todos} category={category} todoList={todoList}/>}
+        {!showCategories && (
+          <ToDoList
+            todos={todos}
+            category={category}
+            todoList={todoList}
+            userInfo={userInfo}
+          />
+        )}
       </div>
     </div>
   );

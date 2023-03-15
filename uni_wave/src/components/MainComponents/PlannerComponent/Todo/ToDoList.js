@@ -9,7 +9,7 @@ import { io } from "socket.io-client";
 
 import { getToDo } from "../../../../store/actions/todoAction.js";
 
-export default function ToDoList({ category, todoList }) {
+export default function ToDoList({ category, todoList, userInfo }) {
   //dispach the action from the store
   //working with reducer
   const dispatch = useDispatch();
@@ -47,6 +47,7 @@ export default function ToDoList({ category, todoList }) {
           <div className="todo-category" key={category.value}>
             <ul className="todo-list">
               {todosByCategory[category.value].map((todo) => (
+                todo.senderName === userInfo.username && (
                 <li className="todo-row" key={todo._id}>
                   {todo.text}
                   <div className="iconsTodo">
@@ -60,6 +61,7 @@ export default function ToDoList({ category, todoList }) {
                     />
                   </div>
                 </li>
+                )
               ))}
             </ul>
           </div>
