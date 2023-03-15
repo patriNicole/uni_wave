@@ -8,9 +8,6 @@ const optionsCategory = [
   { value: "university", label: "University" },
   { value: "priority", label: "Priority" },
   { value: "projects", label: "Projects" },
-  { value: "shopping", label: "Shopping" },
-  { value: "work", label: "Work" },
-  { value: "others", label: "Others" },
 ];
 
 function TodoList() {
@@ -102,30 +99,34 @@ function TodoList() {
             onChange={handleCategoryChange}
             value={category}
           />
-          <button onClick={() => setShowCategories(!showCategories)}>
-            {showCategories ? "Hide Categories" : "Show Categories"}
-          </button>
         </form>
+        <button
+          onClick={() => setShowCategories(!showCategories)}
+          className="showCategoryButton"
+        >
+          {showCategories ? "Hide Categories" : "Show Categories"}
+        </button>
         {showCategories && (
           <div className="categories-container">
             <h2>Categories</h2>
             <ul>
               {categories.map((c) => (
-                <li key={c.value}>
-                  {c.label}
-                  <button onClick={() => handleCategoryDelete(c.value)}>
+                <li key={c.value} className="allCategories">
+                  <p className="categoryTitleAll">{c.label}</p>
+                  <button onClick={() => handleCategoryDelete(c.value)} className="addNewCategoryButton">
                     Delete
                   </button>
                 </li>
               ))}
             </ul>
-            <form onSubmit={handleNewCategorySubmit}>
+            <form onSubmit={handleNewCategorySubmit} className="addNewCategory">
               <input
+                className="addNewCategoryInput"
                 placeholder="New category"
                 value={newCategory}
                 onChange={handleNewCategoryChange}
               />
-              <button type="submit">Add</button>
+              <button type="submit" className="addNewCategoryButton">Add</button>
             </form>
           </div>
         )}
