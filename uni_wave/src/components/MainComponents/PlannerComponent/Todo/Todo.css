@@ -95,7 +95,7 @@ h1 {
   );
   padding: 16px;
   border-radius: 5px;
-  width: 70%;
+  width: 40vh;
 }
 
 .todo-row:nth-child(2n + 1) {
