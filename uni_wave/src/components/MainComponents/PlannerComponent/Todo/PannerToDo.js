@@ -1,8 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./Todo.css";
 import Select from "react-select";
 import { CgCloseR } from "react-icons/cg";
 import { TiEdit } from "react-icons/ti";
+
+import { useDispatch, useSelector } from "react-redux";
+import { io } from "socket.io-client";
+
+import { inputTodo } from '../../../../store/actions/todoAction.js';
 
 const optionsCategory = [
   { value: "university", label: "University" },
@@ -11,6 +16,20 @@ const optionsCategory = [
 ];
 
 function TodoList() {
+
+  /* Used user info as appears (Redux) when logged in in application */
+  const { userInfo } = useSelector((state) => state.auth);
+
+  //dispach the action from the store
+  //working with reducer
+  const dispatch = useDispatch();
+
+  const socket = useRef();
+  useEffect(() => {
+    // Socket is running on 8080
+    socket.current = io("ws://localhost:8080");
+  });
+
   const [todos, setTodos] = useState([]);
   const [inputUser, setInputUser] = useState("");
   const [category, setCategory] = useState(optionsCategory[0]);
@@ -30,17 +49,20 @@ function TodoList() {
     e.preventDefault();
     if (inputUser.trim() === "") return;
     const newTodo = {
-      id: Math.floor(Math.random() * 10000),
+      senderId: userInfo.id,
+      senderName: userInfo.username,
       text: inputUser,
       category: category.value,
+      completed: false,
     };
-    setTodos([...todos, newTodo]);
+    setTodos([ ...todos, newTodo ]);
+    dispatch(inputTodo(newTodo));
     setInputUser("");
   };
 
-  const handleDelete = (id) => {
+  /*const handleDelete = (id) => {
     setTodos(todos.filter((todo) => todo.id !== id));
-  };
+  };*/
 
   // reduce() method on the todos array, which iterates through
   // each element of the array and reduces it to a single value
@@ -137,11 +159,11 @@ function TodoList() {
                 <h2>{category.label}</h2>
                 <ul className="todo-list">
                   {todosByCategory[category.value].map((todo) => (
-                    <li className="todo-row" key={todo.id}>
+                    <li className="todo-row" key={todo}>
                       {todo.text}
                       <div className="iconsTodo">
                         <CgCloseR
-                          onClick={() => handleDelete(todo.id)}
+                          //onClick={() => handleDelete(todo.id)}
                           className="delete-iconTodo"
                         />
                         <TiEdit

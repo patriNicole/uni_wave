@@ -143,8 +143,7 @@ h1 {
 
 /* ------------- Categories Container ------------- */
 .categories-container {
-  width: 80vh;
-  overflow: scroll;
+  width: auto;
   margin-left: 20vh;
 }
 
@@ -157,6 +156,7 @@ h2 {
 }
 
 .allCategories {
+  width: auto;
   display: flex;
   flex-direction: column;
   font-size: 20px;
