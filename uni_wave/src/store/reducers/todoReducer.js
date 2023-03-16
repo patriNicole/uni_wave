@@ -1,4 +1,4 @@
-import { TODO_INPUT_SUCCESS, TODO_GET_SUCCESS } from "../types/todoType.js";
+import { TODO_INPUT_SUCCESS, TODO_GET_SUCCESS, DELETE_TODO_SUCCESS } from "../types/todoType.js";
 
 const todoState = {
   todoList: [],
@@ -23,6 +23,16 @@ export const todoReducer = (state = todoState, action) => {
       //updating the state of the application with the latest message retrieved from the server
       ...state,
       todoList: payload.todoList,
+    };
+  }
+
+  if(type === DELETE_TODO_SUCCESS) {
+    const filteredTodos= state.todoList.filter(post => post._id !== action.payload);
+    //console.log(filteredTodos)
+    return {
+      //updating the state of the application with the latest message retrieved from the server
+      ...state,
+      todoList: filteredTodos,
     };
   }
 

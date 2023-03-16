@@ -7,9 +7,9 @@ import { TiEdit } from "react-icons/ti";
 import { useDispatch, useSelector } from "react-redux";
 import { io } from "socket.io-client";
 
-import { getToDo } from "../../../../store/actions/todoAction.js";
+import { getToDo, deleteTodo } from "../../../../store/actions/todoAction.js";
 
-export default function ToDoList({ category, todoList, userInfo }) {
+export default function ToDoList({ category, todoList, userInfo, setTodos, todos }) {
   //dispach the action from the store
   //working with reducer
   const dispatch = useDispatch();
@@ -36,9 +36,11 @@ export default function ToDoList({ category, todoList, userInfo }) {
     return acc;
   }, {});
 
-  /*const handleDelete = (id) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
-    };*/
+  const handleDelete = (e, id) => {
+    e.preventDefault();
+    dispatch(deleteTodo(id));
+    //setTodos(todos.filter((todo) => todo.id !== id));
+  };
 
   return (
     <>
@@ -52,7 +54,7 @@ export default function ToDoList({ category, todoList, userInfo }) {
                   {todo.text}
                   <div className="iconsTodo">
                     <CgCloseR
-                      //onClick={() => handleDelete(todo.id)}
+                      onClick={(e) => handleDelete(e, todo._id)}
                       className="delete-iconTodo"
                     />
                     <TiEdit

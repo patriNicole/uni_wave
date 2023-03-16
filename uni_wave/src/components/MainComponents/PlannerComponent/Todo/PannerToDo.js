@@ -73,10 +73,12 @@ function TodoList({ todos, setTodos }) {
     setNewCategory("");
   };
 
+  /*
   const handleCategoryDelete = (categoryToDelete) => {
     setCategories(categories.filter((c) => c.value !== categoryToDelete));
     setTodos(todos.filter((t) => t.category !== categoryToDelete));
   };
+  */
 
   useEffect(() => {
     if (todoList) {
@@ -137,12 +139,12 @@ function TodoList({ todos, setTodos }) {
               {categories.map((c) => (
                 <li key={c.value} className="allCategories">
                   <p className="categoryTitleAll">{c.label}</p>
-                  <button
+                  {/*<button
                     onClick={() => handleCategoryDelete(c.value)}
                     className="addNewCategoryButton"
                   >
                     Delete
-                  </button>
+                </button>*/}
                 </li>
               ))}
             </ul>
@@ -165,6 +167,7 @@ function TodoList({ todos, setTodos }) {
             category={category}
             todoList={todoList}
             userInfo={userInfo}
+            setTodos={setTodos}
           />
         )}
       </div>

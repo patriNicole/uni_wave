@@ -48,3 +48,21 @@ module.exports.getTodo = async (req, res) => {
     });
   }
 };
+
+module.exports.deleteToDo = async (req, res) => {
+  const { id } = req.params;
+  //console.log(id)
+  try {
+    // Delete the todolist with the specified id
+    await todoSchema.findByIdAndDelete(id);
+
+    // Get all remaining todos
+    const todos = await todoSchema.find();
+
+    // Send the remaining todos as a response to frontend
+    res.status(200).json({ success: true, todoList: todos });
+  } catch (error) {
+    //console.log(error);
+    res.status(500).json({ success: false, error: "Unable to delete todo list" });
+  }
+};
