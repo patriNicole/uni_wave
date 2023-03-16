@@ -1,5 +1,5 @@
 import axios from "axios";
-import { TODO_INPUT_SUCCESS, TODO_GET_SUCCESS, DELETE_TODO_SUCCESS } from "../types/todoType.js";
+import { TODO_INPUT_SUCCESS, TODO_GET_SUCCESS, DELETE_TODO_SUCCESS, UPDATE_TODO } from "../types/todoType.js";
 
 export const inputTodo = (data) => async (dispatch) => {
   try {
@@ -56,6 +56,26 @@ export const deleteTodo = (id) => {
       dispatch({
         type: DELETE_TODO_SUCCESS,
         payload: id,
+      });
+    } catch (error) {
+      console.log(error.response.data);
+    }
+  };
+};
+
+/* EDIT THE TODO list */
+export const updateTodo = (id, updatedTodo) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.put(
+        `http://localhost:8000/api/uniwave/update-todo/${id}`,
+        updatedTodo,
+        { withCredentials: true }
+      )
+      //console.log(response.data);
+      dispatch({
+        type: UPDATE_TODO,
+        payload: updatedTodo,
       });
     } catch (error) {
       console.log(error.response.data);

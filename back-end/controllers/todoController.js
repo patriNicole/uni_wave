@@ -63,6 +63,32 @@ module.exports.deleteToDo = async (req, res) => {
     res.status(200).json({ success: true, todoList: todos });
   } catch (error) {
     //console.log(error);
-    res.status(500).json({ success: false, error: "Unable to delete todo list" });
+    res
+      .status(500)
+      .json({ success: false, error: "Unable to delete todo list" });
+  }
+};
+
+module.exports.updateToDo = async (req, res) => {
+  const { id } = req.params.id;
+  const { updatedTodo } = req.body;
+  //console.log(req.params.id)
+
+  try {
+    /*const course = await teachingSchema.findById(courseId);
+      course.teachingTitle = teachingTitle;
+
+      // Find the course with the specified courseId and update its properties
+      const updatedCourse = await teachingSchema.findByIdAndUpdate(
+        courseId,
+        course,
+        { new: true }
+      );
+
+      // Send the updated course as a response to frontend
+      res.status(200).json({ success: true, course: updatedCourse });*/
+  } catch (error) {
+    //console.log(error);
+    res.status(500).json({ success: false, error: "Unable to update course" });
   }
 };

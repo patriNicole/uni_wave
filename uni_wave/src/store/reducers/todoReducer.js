@@ -1,4 +1,4 @@
-import { TODO_INPUT_SUCCESS, TODO_GET_SUCCESS, DELETE_TODO_SUCCESS } from "../types/todoType.js";
+import { TODO_INPUT_SUCCESS, TODO_GET_SUCCESS, DELETE_TODO_SUCCESS, UPDATE_TODO } from "../types/todoType.js";
 
 const todoState = {
   todoList: [],
@@ -33,6 +33,19 @@ export const todoReducer = (state = todoState, action) => {
       //updating the state of the application with the latest message retrieved from the server
       ...state,
       todoList: filteredTodos,
+    };
+  }
+
+  if (type === UPDATE_TODO) {
+    // Find the todos' index which we want to change
+    const updatedTodoIndex = state.todoList.findIndex((post) => post._id === payload._id);
+    // Get the updated todos' state
+    const updatedTodo = [...state.todoList];
+    // Equal it with the new state from payload
+    updatedTodo[updatedTodoIndex] = payload;
+    return {
+      ...state,
+      todoList: updatedTodo,
     };
   }
 
