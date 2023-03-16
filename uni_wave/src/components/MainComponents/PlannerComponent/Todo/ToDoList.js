@@ -9,7 +9,13 @@ import { io } from "socket.io-client";
 
 import { getToDo, deleteTodo } from "../../../../store/actions/todoAction.js";
 
-export default function ToDoList({ category, todoList, userInfo, setTodos, todos }) {
+export default function ToDoList({
+  category,
+  todoList,
+  userInfo,
+  setTodos,
+  todos,
+}) {
   //dispach the action from the store
   //working with reducer
   const dispatch = useDispatch();
@@ -36,10 +42,28 @@ export default function ToDoList({ category, todoList, userInfo, setTodos, todos
     return acc;
   }, {});
 
+  const [editText, setEditText] = useState("");
+
+  const textRef = useRef();
+
   const handleDelete = (e, id) => {
     e.preventDefault();
     dispatch(deleteTodo(id));
-    //setTodos(todos.filter((todo) => todo.id !== id));
+  };
+
+  const handleEdit = (e, id) => {
+    e.preventDefault();
+    const editedTodo = {
+      ...todos.find((todo) => todo._id === id),
+      text: textRef.current.value,
+    };
+    //dispatch(updateTodo(editedTodo));
+    setEditText("");
+  };
+
+  const onEdit = (e, text) => {
+    e.preventDefault();
+    setEditText(text);
   };
 
   return (
@@ -48,23 +72,46 @@ export default function ToDoList({ category, todoList, userInfo, setTodos, todos
         {todosByCategory[category.value] && (
           <div className="todo-category" key={category.value}>
             <ul className="todo-list">
-              {todosByCategory[category.value].map((todo) => (
-                todo.senderName === userInfo.username && (
-                <li className="todo-row" key={todo._id}>
-                  {todo.text}
-                  <div className="iconsTodo">
-                    <CgCloseR
-                      onClick={(e) => handleDelete(e, todo._id)}
-                      className="delete-iconTodo"
-                    />
-                    <TiEdit
-                      //onClick={() => setEdit({ id: todo.id, value: todo.text, category: todo.category })}
-                      className="edit-iconTodo"
-                    />
-                  </div>
-                </li>
-                )
-              ))}
+              {todosByCategory[category.value].map(
+                (todo) =>
+                  todo.senderName === userInfo.username && (
+                    <li
+                      className={editText === todo.text ? "todo-row-edit" : "todo-row"}
+                      key={todo._id}
+                    >
+                      {editText === todo.text ? (
+                        <textarea
+                          ref={textRef}
+                          defaultValue={todo.text}
+                          className="textTodoEdit"
+                        />
+                      ) : (
+                        todo.text
+                      )}
+                      <div className="iconsTodo">
+                        {editText === todo.text ? (
+                          <button
+                            onClick={(e) => handleEdit(e, todo._id)}
+                            className="addNewCategoryButton"
+                          >
+                            Save
+                          </button>
+                        ) : (
+                          <>
+                            <CgCloseR
+                              onClick={(e) => handleDelete(e, todo._id)}
+                              className="delete-iconTodo"
+                            />
+                            <TiEdit
+                              onClick={(e) => onEdit(e, todo.text)}
+                              className="edit-iconTodo"
+                            />
+                          </>
+                        )}
+                      </div>
+                    </li>
+                  )
+              )}
             </ul>
           </div>
         )}

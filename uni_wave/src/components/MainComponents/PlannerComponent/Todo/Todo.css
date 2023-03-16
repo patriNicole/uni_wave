@@ -205,3 +205,23 @@ h2 {
   padding: 6px;
   border-radius: 5px;
 }
+
+/* ----------- EDIT TODO --------------- */
+.textTodoEdit {
+  display: flex;
+  flex-direction: column;
+  font-size: 18px;
+  font-weight: 700;
+  background: transparent;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(93, 12, 255, 1);
+  overflow: scroll;
+  color: white;
+  list-style: none;
+  height: 10%;
+}
+
+li {
+  list-style: none;
+}
