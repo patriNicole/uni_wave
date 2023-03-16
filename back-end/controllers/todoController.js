@@ -70,23 +70,25 @@ module.exports.deleteToDo = async (req, res) => {
 };
 
 module.exports.updateToDo = async (req, res) => {
-  const { id } = req.params.id;
-  const { updatedTodo } = req.body;
-  //console.log(req.params.id)
+  const id = req.params.id;
+  const editedTodo = req.body;
+  //console.log(id, editedTodo);
 
   try {
-    /*const course = await teachingSchema.findById(courseId);
-      course.teachingTitle = teachingTitle;
+    const todo = await todoSchema.findById(id);
+    todo.text = editedTodo.text;
+    todo.category = editedTodo.category;
+    //console.log(todo)
 
-      // Find the course with the specified courseId and update its properties
-      const updatedCourse = await teachingSchema.findByIdAndUpdate(
-        courseId,
-        course,
-        { new: true }
-      );
+    // Find the course with the specified id and update its properties
+    const updatedTodo = await todoSchema.findByIdAndUpdate(
+      id,
+      todo,
+      { new: true }
+    );
 
-      // Send the updated course as a response to frontend
-      res.status(200).json({ success: true, course: updatedCourse });*/
+    // Send the updated todoList as a response to frontend
+    res.status(200).json({ success: true, todoList: updatedTodo });
   } catch (error) {
     //console.log(error);
     res.status(500).json({ success: false, error: "Unable to update course" });

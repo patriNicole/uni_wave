@@ -7,7 +7,7 @@ import { TiEdit } from "react-icons/ti";
 import { useDispatch, useSelector } from "react-redux";
 import { io } from "socket.io-client";
 
-import { getToDo, deleteTodo } from "../../../../store/actions/todoAction.js";
+import { getToDo, deleteTodo, updateTodo } from "../../../../store/actions/todoAction.js";
 
 export default function ToDoList({
   category,
@@ -30,6 +30,14 @@ export default function ToDoList({
     dispatch(getToDo());
   }, []);
 
+  // When a Todo is edited
+  useEffect(() => {
+    socket.current.on("update-todo", () => {
+      dispatch(getToDo()); // Fetch updated todo list
+    });
+    return () => socket.current.off("update-todo");
+  }, [dispatch]);
+
   // reduce() method on the todos array, which iterates through
   // each element of the array and reduces it to a single value
   const todosByCategory = todoList.reduce((acc, todo) => {
@@ -43,27 +51,42 @@ export default function ToDoList({
   }, {});
 
   const [editText, setEditText] = useState("");
+  const [editing, setEditing] = useState(false);
 
-  const textRef = useRef();
+  const textRef = useRef(); 
+  const categoryRef = useRef();
 
   const handleDelete = (e, id) => {
     e.preventDefault();
     dispatch(deleteTodo(id));
   };
 
-  const handleEdit = (e, id) => {
+  const handleEdit = async (e, id) => {
     e.preventDefault();
+    if (textRef.current.value.trim() === "") return
     const editedTodo = {
       ...todos.find((todo) => todo._id === id),
       text: textRef.current.value,
+      category: categoryRef.current.value,
     };
-    //dispatch(updateTodo(editedTodo));
+    //console.log(editedTodo)
+    await dispatch(updateTodo(id, editedTodo));
     setEditText("");
+    // Emit message to server with updated todo
+    socket.current.emit("update-todo", editedTodo);
   };
 
   const onEdit = (e, text) => {
     e.preventDefault();
     setEditText(text);
+    setEditing(true);
+  };
+
+  // handle cancel button click
+  const handleCancel = (e) => {
+    e.preventDefault();
+    setEditing(false);
+    setEditText("");
   };
 
   return (
@@ -79,23 +102,38 @@ export default function ToDoList({
                       className={editText === todo.text ? "todo-row-edit" : "todo-row"}
                       key={todo._id}
                     >
-                      {editText === todo.text ? (
-                        <textarea
-                          ref={textRef}
-                          defaultValue={todo.text}
-                          className="textTodoEdit"
-                        />
+                      {editing && editText === todo.text ? (
+                        <div className="editFields">
+                          <textarea
+                            ref={textRef}
+                            defaultValue={todo.text}
+                            className="textTodoEdit"
+                          />
+                          <textarea
+                            ref={categoryRef}
+                            defaultValue={todo.category}
+                            className="categoryTodoEdit"
+                          />
+                        </div>
                       ) : (
                         todo.text
                       )}
                       <div className="iconsTodo">
-                        {editText === todo.text ? (
+                        {editing && editText === todo.text ? (
+                          <>
                           <button
                             onClick={(e) => handleEdit(e, todo._id)}
-                            className="addNewCategoryButton"
+                            className="saveCancelEditTodo"
                           >
                             Save
                           </button>
+                          <button
+                            onClick={(e) => {handleCancel(e)}}
+                            className="saveCancelEditTodo"
+                          >
+                            Cancel
+                          </button>
+                          </>
                         ) : (
                           <>
                             <CgCloseR

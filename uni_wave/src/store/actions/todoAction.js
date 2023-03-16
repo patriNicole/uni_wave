@@ -64,18 +64,18 @@ export const deleteTodo = (id) => {
 };
 
 /* EDIT THE TODO list */
-export const updateTodo = (id, updatedTodo) => {
+export const updateTodo = (id, editedTodo) => {
   return async (dispatch) => {
     try {
       const response = await axios.put(
         `http://localhost:8000/api/uniwave/update-todo/${id}`,
-        updatedTodo,
+        editedTodo,
         { withCredentials: true }
       )
       //console.log(response.data);
       dispatch({
         type: UPDATE_TODO,
-        payload: updatedTodo,
+        payload: editedTodo,
       });
     } catch (error) {
       console.log(error.response.data);

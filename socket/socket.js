@@ -109,6 +109,13 @@ io.on("connection", (socket) => {
     io.emit('newToDo', postData);
   });
 
+  /* --------------- Update ToDo --------------- */
+  socket.on("update-todo", (updatedTodo) => {
+    //console.log(updatedTodo);
+    // Emit updated todo to all connected clients
+    io.emit("update-todo", updatedTodo);
+  });
+
   /* Real Time User Logout so it won't be Active anymore */
   socket.on('logout', userId => {
     userLogout(userId);
