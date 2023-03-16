@@ -54,7 +54,7 @@ function TodoList({ todos, setTodos }) {
       senderName: userInfo.username,
       text: inputUser,
       category: category.value,
-      completed: false,
+      //completed: false,
     };
     setTodos([...todos, newTodo]);
     socket.current.emit("newTodo", newTodo);

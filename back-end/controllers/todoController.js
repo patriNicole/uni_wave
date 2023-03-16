@@ -10,7 +10,7 @@ module.exports.inputTodo = async (req, res) => {
       senderName: myToDo.senderName,
       text: myToDo.text,
       category: myToDo.category,
-      completed: myToDo.completed,
+      //completed: myToDo.completed,
     });
 
     res.status(200).json({ success: true, todoList: insertCourse });
@@ -79,7 +79,7 @@ module.exports.updateToDo = async (req, res) => {
     todo.text = editedTodo.text;
     todo.category = editedTodo.category;
     //console.log(todo)
-    
+
     // Find the course with the specified id and update its properties
     const updatedTodo = await todoSchema.findByIdAndUpdate(
       id,
