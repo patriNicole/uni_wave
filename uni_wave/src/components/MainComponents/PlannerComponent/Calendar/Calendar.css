@@ -53,9 +53,9 @@ button {
 .close-event {
   position: absolute;
   right: 5%;
-  top: -120%;
-  width: 10%;
-  height: 95%;
+  top: 5%;
+  width: 8%;
+  height: 8%;
   display: inline-block !important;
   padding: 0.3em 1.2em !important;
   margin: 0 0.1em 0.1em 0 !important;
@@ -64,7 +64,6 @@ button {
   box-sizing: border-box !important;
   text-decoration: none !important;
   background-color: transparent !important;
-  border-color: none !important;
 }
 
 .close-event:before {
@@ -72,17 +71,9 @@ button {
   font-weight: 700;
   position: absolute;
   left: 24%;
-  top: -20%;
+  top: -9vh;
   content: "x";
   color: white;
-}
-
-.close-event:hover {
-  border-color: rgba(255, 255, 255, 1) !important;
-}
-
-.close-event:before:hover {
-  color: rgb(41, 6, 136);
 }
 
 .save-event {
@@ -104,7 +95,7 @@ button {
   background-color: #5f43dd !important;
   border-color: rgb(141, 144, 255) !important;
   position: absolute !important;
-  top: 790% !important;
+  top: 60vh !important;
   right: 10%;
 }
 
@@ -114,7 +105,7 @@ button {
   position: absolute;
   top: 50%;
   left: 50%;
-  height: 65%;
+  height: 80vh;
   width: 30%;
   background-color: #04105731;
   position: absolute;
@@ -126,27 +117,21 @@ button {
   border-radius: 58px;
 }
 
-.modal-content {
-  background-color: transparent !important;
-  pointer-events: none !important;
-}
-
 .addEventHead {
   font-size: 40px;
   font-family: "Times New Roman", Times, serif;
   font-weight: bold;
   position: absolute;
   top: 3%;
-  color: white;
-  text-shadow: 2px 2px rgb(41, 6, 136);
+  color: #5f43dd;
 }
 
 .event-content-add {
   position: absolute;
-  top: 450%;
+  top: 35vh;
   left: 50%;
-  height: 600%;
-  width: 100%;
+  height: 40vh;
+  width: 80%;
   background-color: rgba(201, 182, 252, 0.186);
   position: absolute;
   transform: translate(-50%, -50%);
@@ -228,7 +213,7 @@ button {
   position: absolute;
   top: 50%;
   left: 50%;
-  height: 50%;
+  height: 80vh;
   width: 30%;
   background-color: #04105731;
   position: absolute;
@@ -246,8 +231,7 @@ button {
   font-weight: bold;
   position: absolute;
   top: 3%;
-  color: white;
-  text-shadow: 2px 2px rgb(41, 6, 136);
+  color: #5f43dd;
 }
 
 .delete-event {
@@ -269,7 +253,7 @@ button {
   background-color: #900000 !important;
   border-color: rgb(141, 144, 255) !important;
   position: absolute !important;
-  top: 90% !important;
+  top: 60vh !important;
   right: 50%;
 }
 
