@@ -7,13 +7,15 @@ import { authReducer } from './reducers/authReducer.js';
 import { messengerReducer } from './reducers/messangerReducer.js';
 import { teachingReducer } from './reducers/teachingReducer.js';
 import { todoReducer } from './reducers/todoReducer.js';
+import { calendarReducer } from './reducers/calendarReducer.js';
 
 //the reducer
 const rootReducer = combineReducers({
     auth: authReducer,
     messenger : messengerReducer,
     teaching: teachingReducer,
-    toDo: todoReducer
+    toDo: todoReducer,
+    calendar: calendarReducer
 })
 
 const middleware = [thunkMiddleware];

@@ -44,12 +44,14 @@ const authRoutes = require("./routes/authRoute.js");
 const messengerRoute = require('./routes/messengerRouter.js');
 const teachingRoute = require('./routes/teachingRoute.js');
 const todoRoute = require('./routes/todoRoute.js');
+const calendarRoute = require('./routes/calendarRoute.js');
 
 //middlewares
 app.use('/api/uniwave', authRoutes);
 app.use('/api/uniwave', messengerRoute);
 app.use('/api/uniwave', teachingRoute);
 app.use('/api/uniwave', todoRoute);
+app.use('/api/uniwave', calendarRoute);
 
 //start server
 app.listen(PORT, () => {
