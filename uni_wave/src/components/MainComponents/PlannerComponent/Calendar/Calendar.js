@@ -99,7 +99,6 @@ export default function StudentCalendar(props) {
     }
   }
 
-
   const allEvents = calendarList.map(event => ({
     ...event,
     start: parseISO(event.start),
@@ -107,6 +106,12 @@ export default function StudentCalendar(props) {
     allDay: false, // or use `event.allDay` if the field is present in the database
     title: event.title,
   }));
+
+  // Events only for user who created them
+  const eventsForUser = allEvents.filter((event) => {
+    return event.senderName === userInfo.username;
+  });
+  
 
   //when an event is selected
   /*function onSelectEvent(event) {
@@ -186,7 +191,7 @@ export default function StudentCalendar(props) {
       <div className="calendar">
         <Calendar
           localizer={localizer}
-          events={allEvents}
+          events={eventsForUser}
           startAccessor="start"
           endAccessor="end"
           style={{ height: "100%", width: "100%" }}
