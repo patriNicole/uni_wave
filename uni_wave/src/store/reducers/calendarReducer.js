@@ -1,4 +1,4 @@
-import {  } from "../types/calendarType.js";
+import { CALENDAR_INPUT_SUCCESS } from "../types/calendarType.js";
 
 const calendarState = {
   calendarList: [],
@@ -9,16 +9,16 @@ export const calendarReducer = (state = calendarState, action) => {
   // the payload property is used to provide additional data to the reducer function
   const { type, payload } = action;
 
-  /*if (type === TODO_INPUT_SUCCESS) {
+  if (type === CALENDAR_INPUT_SUCCESS) {
     return {
       ...state,
-      // The new todoList array contains all the elements of the previous todoList array,
-      // as well as the new payload.todoList object added to the end of the array
-      todoList: [...state.todoList, payload.todoList],
+      // The new calendarList array contains all the elements of the previous calendarList array,
+      // as well as the new payload.calendarList object added to the end of the array
+      calendarList: [...state.calendarList, payload.calendarList],
     };
   }
 
-  if (type === TODO_GET_SUCCESS) {
+  /*if (type === TODO_GET_SUCCESS) {
     return {
       //updating the state of the application with the latest message retrieved from the server
       ...state,

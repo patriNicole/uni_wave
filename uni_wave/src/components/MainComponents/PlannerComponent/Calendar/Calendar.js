@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./Calendar.css";
 
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
@@ -17,6 +17,11 @@ import Modal from "react-bootstrap/Modal";
 
 import AlertWarning from '../../../Alerts/AlertWarningCalendar.js';
 
+import { useDispatch, useSelector } from "react-redux";
+import { addEvent } from "../../../../store/actions/calendarAction.js";
+
+import { io } from "socket.io-client";
+
 const locales = {
   "en-UK": require("date-fns/locale/en-US"),
 };
@@ -29,6 +34,20 @@ const localizer = dateFnsLocalizer({
 });
 
 export default function StudentCalendar(props) {
+  /* Used user info as appears (Redux) when logged in in application */
+  const { userInfo } = useSelector((state) => state.auth);
+  const { calendarList } = useSelector((state) => state.calendar);
+
+  //dispach the action from the store
+  //working with reducer
+  const dispatch = useDispatch();
+
+  const socket = useRef();
+  useEffect(() => {
+    // Socket is running on 8080
+    socket.current = io("ws://localhost:8080");
+  });
+
   // Add event popup
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -53,6 +72,8 @@ export default function StudentCalendar(props) {
 
   //create a new event
   const [newEvent, setNewEvent] = useState({
+    senderId: userInfo.id,
+    senderName: userInfo.username,
     title: "",
     allDay: false,
     start: "",
@@ -66,6 +87,7 @@ export default function StudentCalendar(props) {
   function handleAddEvent() {
     if (newEvent.start < newEvent.end) {
       setWarningVisible(false);
+      dispatch(addEvent(newEvent));
       setAllEvents([...allEvents, newEvent]);
       handleClose();
     } else {
@@ -74,7 +96,7 @@ export default function StudentCalendar(props) {
   }
 
   //when an event is selected
-  function onSelectEvent(event) {
+  /*function onSelectEvent(event) {
     //set the event clicked
     setEvent(event);
     //if the delete button is pressed, then delete the event
@@ -132,7 +154,7 @@ export default function StudentCalendar(props) {
     } else {
       setWarningVisible(true);
     }
-  }
+  }*/
 
   return (
     <>
@@ -155,11 +177,11 @@ export default function StudentCalendar(props) {
           startAccessor="start"
           endAccessor="end"
           style={{ height: "100%", width: "100%" }}
-          onSelectEvent={(event) => {
+          /*onSelectEvent={(event) => {
             onSelectEvent(event);
             //when an event selected, a popup will appear
             if (showUpdateDelete === false) setUpdateDelete(true);
-          }}
+          }}*/
         />
 
         <Button
@@ -224,7 +246,7 @@ export default function StudentCalendar(props) {
         </Modal>
 
         {/* Update & Delete Window */}
-        <Modal
+        {/*<Modal
           className="update-delete-event-calendar"
           show={showUpdateDelete}
           onHide={handleCloseUpdateDelete}
@@ -303,7 +325,7 @@ export default function StudentCalendar(props) {
               Delete Event
             </Button>
           </Modal.Footer>
-        </Modal>
+            </Modal>*/}
 
         {/* Alert Popups */}
         {warningVisible && <AlertWarning/>}

@@ -1,24 +1,25 @@
-const todoSchema = require("../model/calendarModel.js");
+const calendarSchema = require("../model/calendarModel.js");
 
 module.exports.inputCalendar = async (req, res) => {
   // req.myId from authMiddleware
-  /*const myToDo = req.body;
-  //console.log(myToDo);
+  const myCalendar = req.body;
+  //console.log(myCalendar);
   try {
-    const insertCourse = await todoSchema.create({
-      senderId: myToDo.senderId,
-      senderName: myToDo.senderName,
-      text: myToDo.text,
-      category: myToDo.category,
-      //completed: myToDo.completed,
+    const insertCalendar = await calendarSchema.create({
+      senderId: myCalendar.senderId,
+      senderName: myCalendar.senderName,
+      title: myCalendar.title,
+      start: myCalendar.start,
+      end: myCalendar.end,
+      allDay: myCalendar.allDay
     });
 
-    res.status(200).json({ success: true, todoList: insertCourse });
+    res.status(200).json({ success: true, calendarList: insertCalendar });
   } catch (error) {
     res.status(500).json({
       error: {
         errorMessage: "Internal Sever Error",
       },
     });
-  }*/
+  }
 };
