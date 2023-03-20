@@ -1,4 +1,4 @@
-import { CALENDAR_INPUT_SUCCESS } from "../types/calendarType.js";
+import { CALENDAR_INPUT_SUCCESS, CALENDAR_GET_SUCCESS } from "../types/calendarType.js";
 
 const calendarState = {
   calendarList: [],
@@ -18,14 +18,14 @@ export const calendarReducer = (state = calendarState, action) => {
     };
   }
 
-  /*if (type === TODO_GET_SUCCESS) {
+  if (type === CALENDAR_GET_SUCCESS) {
     return {
       //updating the state of the application with the latest message retrieved from the server
       ...state,
-      todoList: payload.todoList,
+      calendarList: payload.calendarList,
     };
   }
-
+/*
   if(type === DELETE_TODO_SUCCESS) {
     const filteredTodos= state.todoList.filter(post => post._id !== action.payload);
     //console.log(filteredTodos)

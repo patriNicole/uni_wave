@@ -4,10 +4,10 @@ import "./Calendar.css";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import "../../../../../node_modules/react-big-calendar/lib/css/react-big-calendar.css";
 
-import format from "date-fns/format";
 import getDay from "date-fns/getDay";
 import parse from "date-fns/parse";
 import startOfWeek from "date-fns/startOfWeek";
+import { format, parseISO } from 'date-fns';
 
 import DatePicker from "react-datepicker";
 import "../../../../../node_modules/react-datepicker/dist/react-datepicker.css";
@@ -18,7 +18,7 @@ import Modal from "react-bootstrap/Modal";
 import AlertWarning from '../../../Alerts/AlertWarningCalendar.js';
 
 import { useDispatch, useSelector } from "react-redux";
-import { addEvent } from "../../../../store/actions/calendarAction.js";
+import { addEvent, getCalendar } from "../../../../store/actions/calendarAction.js";
 
 import { io } from "socket.io-client";
 
@@ -47,6 +47,10 @@ export default function StudentCalendar(props) {
     // Socket is running on 8080
     socket.current = io("ws://localhost:8080");
   });
+
+  useEffect(() => {
+    dispatch(getCalendar());
+  }, []);
 
   // Add event popup
   const [show, setShow] = useState(false);
@@ -79,21 +83,30 @@ export default function StudentCalendar(props) {
     start: "",
     end: "",
   });
-  const events = [];
+  //const events = [];
   //store the state of all the events
-  const [allEvents, setAllEvents] = useState(events);
+  //const [allEvents, setAllEvents] = useState(events);
 
   //adding the events to the calendar
   function handleAddEvent() {
     if (newEvent.start < newEvent.end) {
       setWarningVisible(false);
       dispatch(addEvent(newEvent));
-      setAllEvents([...allEvents, newEvent]);
+      //setAllEvents([...allEvents, newEvent]);
       handleClose();
     } else {
       setWarningVisible(true);
     }
   }
+
+
+  const allEvents = calendarList.map(event => ({
+    ...event,
+    start: parseISO(event.start),
+    end: parseISO(event.end),
+    allDay: false, // or use `event.allDay` if the field is present in the database
+    title: event.title,
+  }));
 
   //when an event is selected
   /*function onSelectEvent(event) {
