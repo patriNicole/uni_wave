@@ -69,3 +69,28 @@ module.exports.deleteEvent = async (req, res) => {
       .json({ success: false, error: "Unable to delete todo list" });
   }
 };
+
+module.exports.updateCalendar = async (req, res) => {
+  const editedCalendar = req.body;
+  //console.log(editedCalendar);
+
+  try {
+    const calendar = await calendarSchema.findById(editedCalendar._id);
+    calendar.title = editedCalendar.title;
+    calendar.start = editedCalendar.start;
+    calendar.end = editedCalendar.end;
+
+    // Find the course with the specified id and update its properties
+    const updatedCalendar = await calendarSchema.findByIdAndUpdate(
+      editedCalendar._id,
+      calendar,
+      { new: true }
+    );
+
+    // Send the updated todoList as a response to frontend
+    res.status(200).json({ success: true, calendarList: updatedCalendar });
+  } catch (error) {
+    //console.log(error);
+    res.status(500).json({ success: false, error: "Unable to update calendar event" });
+  }
+};

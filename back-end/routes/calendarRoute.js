@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const { inputCalendar, getCalendar, deleteEvent } = require("../controllers/calendarController.js");
+const { inputCalendar, getCalendar, deleteEvent, updateCalendar } = require("../controllers/calendarController.js");
 // if user authenticated
 const { authMiddleware } = require('../middleware/authMiddleware.js');
 
@@ -8,6 +8,6 @@ const { authMiddleware } = require('../middleware/authMiddleware.js');
 router.post('/input-calendar', authMiddleware, inputCalendar); 
 router.get('/get-calendar', authMiddleware, getCalendar); 
 router.delete('/delete-event/:id', authMiddleware, deleteEvent); 
-//router.put('/update-todo/:id', authMiddleware, updateToDo);
+router.put('/update-calendar/:id', authMiddleware, updateCalendar);
 
 module.exports = router;

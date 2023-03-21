@@ -1,4 +1,4 @@
-import { CALENDAR_INPUT_SUCCESS, CALENDAR_GET_SUCCESS, DELETE_EVENT_SUCCESS } from "../types/calendarType.js";
+import { CALENDAR_INPUT_SUCCESS, CALENDAR_GET_SUCCESS, DELETE_EVENT_SUCCESS, UPDATE_CALENDAR } from "../types/calendarType.js";
 
 const calendarState = {
   calendarList: [],
@@ -35,19 +35,19 @@ export const calendarReducer = (state = calendarState, action) => {
       calendarList: filteredEvents,
     };
   }
-/*
-  if (type === UPDATE_TODO) {
-    // Find the todos' index which we want to change
-    const updatedTodoIndex = state.todoList.findIndex((post) => post._id === payload._id);
-    // Get the updated todos' state
-    const updatedTodo = [...state.todoList];
+
+  if (type === UPDATE_CALENDAR) {
+    // Find the calendar' index which we want to change
+    const updatedCalendarIndex = state.calendarList.findIndex((post) => post._id === payload._id);
+    // Get the updated calendar' state
+    const updatedCalendar = [...state.calendarList];
     // Equal it with the new state from payload
-    updatedTodo[updatedTodoIndex] = payload;
+    updatedCalendar[updatedCalendarIndex] = payload;
     return {
       ...state,
-      todoList: updatedTodo,
+      calendarList: updatedCalendar,
     };
-  }*/
+  }
 
   return state;
 };

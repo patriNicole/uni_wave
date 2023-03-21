@@ -21,7 +21,8 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   addEvent,
   getCalendar,
-  deleteEvent
+  deleteEvent,
+  updateEvent
 } from "../../../../store/actions/calendarAction.js";
 
 import { io } from "socket.io-client";
@@ -73,9 +74,6 @@ export default function StudentCalendar(props) {
     start: "",
     end: "",
   });
-  //const events = [];
-  //store the state of all the events
-  //const [allEvents, setAllEvents] = useState(events);
 
   //adding the events to the calendar
   function handleAddEvent() {
@@ -122,6 +120,43 @@ export default function StudentCalendar(props) {
       handleCloseUpdate();
     }
   };
+
+  /* ------------ UPDATE EVENT ---------------- */
+  const titleRef = useRef();
+  const startRef = useRef();
+  const endRef = useRef();
+
+  useEffect(() => {
+    if (selectedEvent) {
+      titleRef.current.value = selectedEvent.title;
+      startRef.current.value = selectedEvent.start;
+      endRef.current.value = selectedEvent.end;
+    }
+  }, [selectedEvent]);
+
+  //update the event selected
+  function updateSelectedEvent() {
+    if (startRef.current.value < endRef.current.value) {
+      setWarningVisible(false);
+      //confirmation window for updating an event
+      const r = window.confirm("Would you like to update this event?");
+      if (r === true) {
+        const updatedEvent = {
+          ...selectedEvent,
+          title: titleRef.current.value,
+          start: startRef.current.value,
+          end: endRef.current.value,
+        };
+        //console.log("updated ", updatedEvent._id)
+        dispatch(updateEvent(updatedEvent));
+        handleCloseUpdate();
+      }
+    } else {
+      setWarningVisible(true);
+    }
+  }
+
+  /* ------------------------------------------ */
 
   return (
     <>
@@ -237,49 +272,37 @@ export default function StudentCalendar(props) {
                 //update the title state with the last input
                 setTitleEvent(e.target.value);
               }}*/
-              value={selectedEvent ? selectedEvent.title : ""}
+              ref={titleRef}
+              //value={selectedEvent ? selectedEvent.title : ""}
             />
             <DatePicker
-              selected={selectedEvent ? selectedEvent.start : ""}
-              onChange={(date) =>
-                setSelectedEvent({
-                  ...selectedEvent,
-                  start: date,
-                })
-              }
+              selected={selectedEvent ? new Date(selectedEvent.start) : null}
               showTimeSelect
               timeFormat="HH:mm"
               dateFormat="MMMM d, yyyy h:mm aa"
               className="pick-start-date"
               placeholderText="Start Date"
               style={{ marginRight: "10px" }}
-              //selected={newEvent.start}
-              value={newEvent.start}
-              /*onChange={(start) => {
-                setNewEvent({ ...newEvent, start });
-                //update the start date state with the last input
-                setStartDateEvent(start);
-              }}*/
+              onChange={(start) => {
+                if (selectedEvent) {
+                  setSelectedEvent({ ...selectedEvent, start });
+                }
+              }}
+              ref={startRef}
             />
             <DatePicker
               className="pick-end-date"
               placeholderText="End Date"
-              //selected={newEvent.end}
               showTimeSelect
               timeFormat="HH:mm"
               dateFormat="MMMM d, yyyy h:mm aa"
-              /*onChange={(end) => {
-                setNewEvent({ ...newEvent, end });
-                //update the end date state with the last input
-                setEndDateEvent(end);
-              }}*/
-              selected={selectedEvent ? selectedEvent.end : ""}
-              onChange={(date) =>
-                setSelectedEvent({
-                  ...selectedEvent,
-                  end: date,
-                })
-              }
+              selected={selectedEvent ? new Date(selectedEvent.end) : null}
+              onChange={(end) => {
+                if (selectedEvent) {
+                  setSelectedEvent({ ...selectedEvent, end });
+                }
+              }}
+              ref={endRef}
             />
           </Modal.Body>
           <Modal.Footer>
@@ -290,18 +313,12 @@ export default function StudentCalendar(props) {
                 setSelectedEvent(null);
                 handleCloseUpdate();
               }}
-              //onClick={handleCloseUpdateDelete}
             />
             <Button
               className="save-event"
               variant="primary"
-              /*onClick={() => {
-                setUpdateEvent(true);
-                updateSelectedEvent();
-              }}*/
               onClick={() => {
-                // Dispatch the update action here
-                handleCloseUpdate();
+                updateSelectedEvent();
               }}
             >
               Update Event
