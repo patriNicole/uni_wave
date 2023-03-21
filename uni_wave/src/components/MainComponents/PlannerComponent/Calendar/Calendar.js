@@ -57,6 +57,14 @@ export default function StudentCalendar(props) {
     dispatch(getCalendar());
   }, []);
 
+  // When an event is edited
+  useEffect(() => {
+    socket.current.on("update-calendar", () => {
+      dispatch(getCalendar()); // Fetch updated todo list
+    });
+    return () => socket.current.off("update-calendar");
+  }, [dispatch]);
+
   // Add event popup
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -135,7 +143,7 @@ export default function StudentCalendar(props) {
   }, [selectedEvent]);
 
   //update the event selected
-  function updateSelectedEvent() {
+  async function updateSelectedEvent() {
     if (startRef.current.value < endRef.current.value) {
       setWarningVisible(false);
       //confirmation window for updating an event
@@ -147,8 +155,8 @@ export default function StudentCalendar(props) {
           start: startRef.current.value,
           end: endRef.current.value,
         };
-        //console.log("updated ", updatedEvent._id)
-        dispatch(updateEvent(updatedEvent));
+        await dispatch(updateEvent(updatedEvent));
+        socket.current.emit("update-calendar", updatedEvent);
         handleCloseUpdate();
       }
     } else {
