@@ -15,7 +15,8 @@ import { FiMapPin } from "react-icons/fi";
 import { BiTrain } from "react-icons/bi";
 import { FaBusAlt } from "react-icons/fa";
 import { GiHouseKeys, GiMushroomHouse } from "react-icons/gi";
-import { MdOutlineHouse } from "react-icons/md";
+import { MdOutlineHouse, MdOutlineSportsHandball } from "react-icons/md"; 
+import { FaUniversity } from "react-icons/fa";
 import Campus from "./MapInfoPDF/Campus.pdf";
 
 export default function MapComponent(props) {
@@ -225,6 +226,33 @@ export default function MapComponent(props) {
                 target="_blank"
               >
                 <BiTrain size={20} style={style} />
+              </a>
+            </p>
+            <p className="infoMapMoreTitle">
+              ------------------------------------
+            </p>
+            <p className="infoMapTitle">Student Life</p>
+            <p className="infoMapTitle">
+              ------------
+            </p>
+            <p className="infoMapMoreTitle">
+              Students' Union 
+              <a
+                className="mapInteractiveLink"
+                href="https://manchesterstudentsunion.com/"
+                target="_blank"
+              >
+                <FaUniversity size={20} style={style} />
+              </a>
+            </p> 
+            <p className="infoMapMoreTitle">
+              Student Clubs 
+              <a
+                className="mapInteractiveLink"
+                href="https://manchesterstudentsunion.com/activities"
+                target="_blank"
+              >
+                <MdOutlineSportsHandball size={20} style={style} />
               </a>
             </p>
             <p className="infoMapMoreTitle">
