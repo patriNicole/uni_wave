@@ -39,6 +39,7 @@ const localizer = dateFnsLocalizer({
 });
 
 export default function StudentCalendar(props) {
+
   /* Used user info as appears (Redux) when logged in in application */
   const { userInfo } = useSelector((state) => state.auth);
   const { calendarList } = useSelector((state) => state.calendar);
