@@ -20,7 +20,7 @@ export default function MapInfoUniversityPlace(props) {
 
       <iframe
         src={UniversityPlace}
-        height="100%"
+        height="93%"
         width="100%"
         className="iframeBuildings"
       ></iframe>

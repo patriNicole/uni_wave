@@ -19,9 +19,9 @@
 
 .map {
   position: absolute;
-  top: 50%;
+  top: 55%;
   left: 23.5%;
-  height: 86%;
+  height: 95%;
   width: 43%;
   background-color: #5e73eb3b;
   position: absolute;
@@ -33,11 +33,28 @@
   border-radius: 58px;
 }
 
+.map-more {
+  position: absolute;
+  top: 55%;
+  left: 23.5%;
+  height: 95%;
+  width: 43%;
+  background-color: #5e73eb3b;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(5px);
+  padding: 50px 35px;
+  border-radius: 58px;
+  overflow: scroll;
+}
+
 .mapInfo {
   position: absolute;
-  top: 50%;
+  top: 55%;
   left: 74.5%;
-  height: 86%;
+  height: 95%;
   width: 46%;
   background-color: #5e73eb3b;
   position: absolute;
@@ -88,4 +105,49 @@ img[usemap] {
   font-size: 25px;
   font-weight: 700;
   margin-left: 30%;
+}
+
+.infoMapMoreTitle {
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+  padding-left: 10px;
+  padding-top: 0px;
+  color: rgba(255, 255, 255, 0.471);
+  font-size: 25px;
+  font-weight: 700;
+  margin-left: 10%;
+}
+
+/* MORE BUTTON TO MORE INFO STYLE */
+.mapInteractiveLink {
+  margin-left: 20px;
+}
+
+.buttonMoreAboutCampus {
+  display: inline-block !important;
+  padding: 0.3em 1.2em !important;
+  margin: 0 0.1em 0.1em 0 !important;
+  border: 0.16em solid rgba(255, 255, 255, 0) !important;
+  border-radius: 2em !important;
+  box-sizing: border-box !important;
+  text-decoration: none !important;
+  font-family: "Roboto", sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 18px !important;
+  text-align: center !important;
+  color: white !important;
+  text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35) !important;
+  text-align: center !important;
+  transition: all 0.2s !important;
+  background-color: #5f43dd !important;
+  border-color: rgb(141, 144, 255) !important;
+  position: absolute !important;
+  top: 10% !important;
+  right: 57%;
+  z-index: 1;
+}
+
+.buttonMoreAboutCampus:hover {
+  border-color: rgba(255, 255, 255, 1) !important;
 }
