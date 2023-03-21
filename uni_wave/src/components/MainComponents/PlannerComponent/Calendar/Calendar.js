@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./Calendar.css";
 
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import "../../../../../node_modules/react-big-calendar/lib/css/react-big-calendar.css";
 
-import format from "date-fns/format";
 import getDay from "date-fns/getDay";
 import parse from "date-fns/parse";
 import startOfWeek from "date-fns/startOfWeek";
+import { format, parseISO } from "date-fns";
 
 import DatePicker from "react-datepicker";
 import "../../../../../node_modules/react-datepicker/dist/react-datepicker.css";
@@ -15,7 +15,17 @@ import "../../../../../node_modules/react-datepicker/dist/react-datepicker.css";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
-import AlertWarning from '../../../Alerts/AlertWarningCalendar.js';
+import AlertWarning from "../../../Alerts/AlertWarningCalendar.js";
+
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addEvent,
+  getCalendar,
+  deleteEvent,
+  updateEvent
+} from "../../../../store/actions/calendarAction.js";
+
+import { io } from "socket.io-client";
 
 const locales = {
   "en-UK": require("date-fns/locale/en-US"),
@@ -29,110 +39,133 @@ const localizer = dateFnsLocalizer({
 });
 
 export default function StudentCalendar(props) {
+
+  /* Used user info as appears (Redux) when logged in in application */
+  const { userInfo } = useSelector((state) => state.auth);
+  const { calendarList } = useSelector((state) => state.calendar);
+
+  //dispach the action from the store
+  //working with reducer
+  const dispatch = useDispatch();
+
+  const socket = useRef();
+  useEffect(() => {
+    // Socket is running on 8080
+    socket.current = io("ws://localhost:8080");
+  });
+
+  useEffect(() => {
+    dispatch(getCalendar());
+  }, []);
+
+  // When an event is edited
+  useEffect(() => {
+    socket.current.on("update-calendar", () => {
+      dispatch(getCalendar()); // Fetch updated todo list
+    });
+    return () => socket.current.off("update-calendar");
+  }, [dispatch]);
+
   // Add event popup
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
-  // Update/Delete event popup
-  const [showUpdateDelete, setUpdateDelete] = useState(false);
-  const handleCloseUpdateDelete = () => setUpdateDelete(false);
-  //selected event state
-  const [pEvent, setEvent] = useState(null);
-  //if the user wants to delete an event state button
-  const [deleteEvent, setDeleteEvent] = useState(false);
-  //if the user wants to update an event state button
-  const [updateEvent, setUpdateEvent] = useState(false);
-  //get the last event title and dates from user input
-  const [titleEvent, setTitleEvent] = useState("");
-  const [startDateEvent, setStartDateEvent] = useState("");
-  const [endDateEvent, setEndDateEvent] = useState("");
 
   //warning alert popup
   const [warningVisible, setWarningVisible] = useState(false);
 
   //create a new event
   const [newEvent, setNewEvent] = useState({
+    senderId: userInfo.id,
+    senderName: userInfo.username,
     title: "",
     allDay: false,
     start: "",
     end: "",
   });
-  const events = [];
-  //store the state of all the events
-  const [allEvents, setAllEvents] = useState(events);
 
   //adding the events to the calendar
   function handleAddEvent() {
     if (newEvent.start < newEvent.end) {
       setWarningVisible(false);
-      setAllEvents([...allEvents, newEvent]);
+      dispatch(addEvent(newEvent));
+      //setAllEvents([...allEvents, newEvent]);
       handleClose();
     } else {
       setWarningVisible(true);
     }
   }
 
-  //when an event is selected
-  function onSelectEvent(event) {
-    //set the event clicked
-    setEvent(event);
-    //if the delete button is pressed, then delete the event
-    if (deleteEvent === true) {
-      deleteSelectedEvent();
-    }
-    if (updateEvent === true) {
-      updateSelectedEvent();
-    }
-  }
+  const allEvents = calendarList.map((event) => ({
+    ...event,
+    start: parseISO(event.start),
+    end: parseISO(event.end),
+    allDay: false, // or use `event.allDay` if the field is present in the database
+    title: event.title,
+  }));
 
-  //delete the event selected
-  function deleteSelectedEvent() {
-    //the delete action just happened, so the state will return to false
-    setDeleteEvent(false);
+  // Events only for user who created them
+  const eventsForUser = allEvents.filter((event) => {
+    return event.senderName === userInfo.username;
+  });
 
+  /* --------------------- Update event popup --------------------- */
+  const [showUpdate, setShowUpdate] = useState(false);
+  const handleCloseUpdate = () => setShowUpdate(false);
+  const handleShowUpdate = () => setShowUpdate(true);
+  // Selected event state
+  const [selectedEvent, setSelectedEvent] = useState(null);
+
+  const handleDeleteEvent = () => {
     //confirmation window for deleting an event
     const r = window.confirm("Would you like to remove this event?");
 
     if (r === true) {
-      //remove one or more objects from state array
-      allEvents.findIndex((obj) => {
-        if (obj === pEvent) {
-          setAllEvents(allEvents.filter((el) => el !== pEvent));
-        }
-      });
-      handleCloseUpdateDelete();
+      if (selectedEvent) {
+        //console.log(selectedEvent._id);
+        // dispatch the deleteEvent action with the id of the selected event
+        dispatch(deleteEvent(selectedEvent._id)); 
+      }
+      handleCloseUpdate();
     }
-  }
+  };
+
+  /* ------------ UPDATE EVENT ---------------- */
+  const titleRef = useRef();
+  const startRef = useRef();
+  const endRef = useRef();
+
+  useEffect(() => {
+    if (selectedEvent) {
+      titleRef.current.value = selectedEvent.title;
+      startRef.current.value = selectedEvent.start;
+      endRef.current.value = selectedEvent.end;
+    }
+  }, [selectedEvent]);
 
   //update the event selected
-  function updateSelectedEvent() {
-    if (startDateEvent < endDateEvent) {
+  async function updateSelectedEvent() {
+    if (startRef.current.value < endRef.current.value) {
       setWarningVisible(false);
       //confirmation window for updating an event
       const r = window.confirm("Would you like to update this event?");
-
       if (r === true) {
-        //the update action just happened, so the state will return to false
-        setUpdateEvent(false);
-        allEvents.findIndex((obj) => {
-          if (obj === pEvent && titleEvent !== "" && startDateEvent !== "" && endDateEvent !== "") {
-            obj.title = titleEvent;
-            obj.start = startDateEvent;
-            obj.end = endDateEvent;
-          } else {
-            if (obj === pEvent && titleEvent === "") {
-              obj.start = startDateEvent;
-              obj.end = endDateEvent;
-            }
-          }
-        });
-        handleCloseUpdateDelete();
+        const updatedEvent = {
+          ...selectedEvent,
+          title: titleRef.current.value,
+          start: startRef.current.value,
+          end: endRef.current.value,
+        };
+        await dispatch(updateEvent(updatedEvent));
+        socket.current.emit("update-calendar", updatedEvent);
+        handleCloseUpdate();
       }
     } else {
       setWarningVisible(true);
     }
   }
+
+  /* ------------------------------------------ */
 
   return (
     <>
@@ -151,14 +184,13 @@ export default function StudentCalendar(props) {
       <div className="calendar">
         <Calendar
           localizer={localizer}
-          events={allEvents}
+          events={eventsForUser}
           startAccessor="start"
           endAccessor="end"
           style={{ height: "100%", width: "100%" }}
           onSelectEvent={(event) => {
-            onSelectEvent(event);
-            //when an event selected, a popup will appear
-            if (showUpdateDelete === false) setUpdateDelete(true);
+            setSelectedEvent(event);
+            handleShowUpdate();
           }}
         />
 
@@ -211,7 +243,10 @@ export default function StudentCalendar(props) {
             <Button
               className="close-event"
               variant="secondary"
-              onClick={() => {handleClose(); setWarningVisible(false);}}
+              onClick={() => {
+                handleClose();
+                setWarningVisible(false);
+              }}
             />
             <Button
               className="save-event"
@@ -226,8 +261,8 @@ export default function StudentCalendar(props) {
         {/* Update & Delete Window */}
         <Modal
           className="update-delete-event-calendar"
-          show={showUpdateDelete}
-          onHide={handleCloseUpdateDelete}
+          show={showUpdate}
+          onHide={handleCloseUpdate}
         >
           <Modal.Header>
             <Modal.Title className="updateDeleteEventHead">
@@ -240,53 +275,51 @@ export default function StudentCalendar(props) {
               type="text"
               placeholder="Add Title"
               style={{ width: "20%", marginRight: "10px" }}
-              value={newEvent.title}
-              onChange={(e) => {
-                setNewEvent({ ...newEvent, title: e.target.value });
-                //update the title state with the last input
-                setTitleEvent(e.target.value);
-              }}
+              ref={titleRef}
             />
             <DatePicker
-              className="pick-start-date"
-              placeholderText="Start Date"
-              style={{ marginRight: "10px" }}
-              selected={newEvent.start}
-              value={newEvent.start}
+              selected={selectedEvent ? new Date(selectedEvent.start) : null}
               showTimeSelect
               timeFormat="HH:mm"
               dateFormat="MMMM d, yyyy h:mm aa"
+              className="pick-start-date"
+              placeholderText="Start Date"
+              style={{ marginRight: "10px" }}
               onChange={(start) => {
-                setNewEvent({ ...newEvent, start });
-                //update the start date state with the last input
-                setStartDateEvent(start);
+                if (selectedEvent) {
+                  setSelectedEvent({ ...selectedEvent, start });
+                }
               }}
+              ref={startRef}
             />
             <DatePicker
               className="pick-end-date"
               placeholderText="End Date"
-              selected={newEvent.end}
               showTimeSelect
               timeFormat="HH:mm"
               dateFormat="MMMM d, yyyy h:mm aa"
+              selected={selectedEvent ? new Date(selectedEvent.end) : null}
               onChange={(end) => {
-                setNewEvent({ ...newEvent, end });
-                //update the end date state with the last input
-                setEndDateEvent(end);
+                if (selectedEvent) {
+                  setSelectedEvent({ ...selectedEvent, end });
+                }
               }}
+              ref={endRef}
             />
           </Modal.Body>
           <Modal.Footer>
             <Button
               className="close-event"
               variant="secondary"
-              onClick={handleCloseUpdateDelete}
+              onClick={() => {
+                setSelectedEvent(null);
+                handleCloseUpdate();
+              }}
             />
             <Button
               className="save-event"
               variant="primary"
               onClick={() => {
-                setUpdateEvent(true);
                 updateSelectedEvent();
               }}
             >
@@ -294,11 +327,8 @@ export default function StudentCalendar(props) {
             </Button>
             <Button
               className="delete-event"
-              variant="primary"
-              onClick={() => {
-                setDeleteEvent(true);
-                deleteSelectedEvent();
-              }}
+              variant="danger"
+              onClick={handleDeleteEvent}
             >
               Delete Event
             </Button>
@@ -306,7 +336,7 @@ export default function StudentCalendar(props) {
         </Modal>
 
         {/* Alert Popups */}
-        {warningVisible && <AlertWarning/>}
+        {warningVisible && <AlertWarning />}
       </div>
     </>
   );
