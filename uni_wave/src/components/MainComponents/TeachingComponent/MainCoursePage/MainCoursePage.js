@@ -32,23 +32,33 @@ export default function TeachingCourses() {
   const [courseUpdatedDeleted, setCourseUpdatedDeleted] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [updatedTitle, setUpdatedTitle] = useState(course.teachingTitle);
-  const [updatedOverview, setUpdatedOverview] = useState(course.teachingOverview);
-  const [updatedImageText, setUpdatedImageText] = useState(course.teachingFileText);
-  const [updatedVideoText, setUpdatedVideoText] = useState(course.teachingVideoText);
-  const [updatedImageFile, setUpdatedImageFile] = useState(course.teachingVideoText);
-  const [updatedVideoFile, setUpdatedVideoFile] = useState(course.teachingVideoText);
+  const [updatedOverview, setUpdatedOverview] = useState(
+    course.teachingOverview
+  );
+  const [updatedImageText, setUpdatedImageText] = useState(
+    course.teachingFileText
+  );
+  const [updatedVideoText, setUpdatedVideoText] = useState(
+    course.teachingVideoText
+  );
+  const [updatedImageFile, setUpdatedImageFile] = useState(
+    course.teachingVideoText
+  );
+  const [updatedVideoFile, setUpdatedVideoFile] = useState(
+    course.teachingVideoText
+  );
 
   // Use The input text to refer to it
   const textareaRefOverview = useRef();
   const textareaRefTitle = useRef();
   const textareaRefImageText = useRef();
-  const textareaRefVideoText = useRef(); 
+  const textareaRefVideoText = useRef();
   const textareaRefPDF = useRef();
   const inputRefImage = useRef();
   const inputRefVideo = useRef();
 
   // File Name Displayed
-  const [selectedFileName, setSelectedFileName] = useState(""); 
+  const [selectedFileName, setSelectedFileName] = useState("");
   const [selectedVideoName, setSelectedVideoName] = useState("");
 
   const navigate = useNavigate();
@@ -59,45 +69,57 @@ export default function TeachingCourses() {
   // Delete a course entirely
   const handleDeleteCourse = (e) => {
     e.preventDefault();
-    dispatch(deleteCourse(course._id));
-    setCourseUpdatedDeleted(true);
-    setTimeout(() => {
-      // Link to Teaching Home Page
-      navigate("/teaching");
-    }, 3000);
+    const r = window.confirm("Would you like to delete this course?");
+    if (r === true) {
+      dispatch(deleteCourse(course._id));
+      setCourseUpdatedDeleted(true);
+      setTimeout(() => {
+        // Link to Teaching Home Page
+        navigate("/teaching");
+      }, 3000);
+    }
   };
 
   // Delete PDF
   const handleDeletePDF = (e) => {
     e.preventDefault();
-    dispatch(deletePDF(course._id));
-    setCourseUpdatedDeleted(true);
-    setTimeout(() => {
-      // Link to Teaching Home Page
-      navigate("/teaching");
-    }, 3000);
+    const r = window.confirm("Would you like to delete this link?");
+    if (r === true) {
+      dispatch(deletePDF(course._id));
+      setCourseUpdatedDeleted(true);
+      setTimeout(() => {
+        // Link to Teaching Home Page
+        navigate("/teaching");
+      }, 3000);
+    }
   };
 
   // Delete Entire File (Image + Text)
   const handleDeleteFile = (e) => {
     e.preventDefault();
-    dispatch(deleteFile(course._id));
-    setCourseUpdatedDeleted(true);
-    setTimeout(() => {
-      // Link to Teaching Home Page
-      navigate("/teaching");
-    }, 3000);
+    const r = window.confirm("Would you like to delete this file?");
+    if (r === true) {
+      dispatch(deleteFile(course._id));
+      setCourseUpdatedDeleted(true);
+      setTimeout(() => {
+        // Link to Teaching Home Page
+        navigate("/teaching");
+      }, 3000);
+    }
   };
 
   // Delete Entire Video (Video + Text)
   const handleDeleteVideo = (e) => {
     e.preventDefault();
-    dispatch(deleteVideo(course._id));
-    setCourseUpdatedDeleted(true);
-    setTimeout(() => {
-      // Link to Teaching Home Page
-      navigate("/teaching");
-    }, 3000);
+    const r = window.confirm("Would you like to delete this video?");
+    if (r === true) {
+      dispatch(deleteVideo(course._id));
+      setCourseUpdatedDeleted(true);
+      setTimeout(() => {
+        // Link to Teaching Home Page
+        navigate("/teaching");
+      }, 3000);
+    }
   };
 
   // Set the Edit Mode On
@@ -123,16 +145,16 @@ export default function TeachingCourses() {
     const updatedTitleValue = textareaRefTitle?.current?.value.trim();
     const updatedOverviewValue = textareaRefOverview?.current?.value || "";
     const updatedImageTextValue = textareaRefImageText?.current?.value || "";
-    const updatedVideoTextValue = textareaRefVideoText?.current?.value || ""; 
+    const updatedVideoTextValue = textareaRefVideoText?.current?.value || "";
     let updatedPDFValue;
-    if(!course.pdfLink) {
+    if (!course.pdfLink) {
       updatedPDFValue = textareaRefPDF?.current?.value || "";
     } else {
       updatedPDFValue = course.pdfLink;
     }
     let updateImage;
-    if(!course.teachingFile) {
-      if(inputRefImage.current.files[0] === undefined) {
+    if (!course.teachingFile) {
+      if (inputRefImage.current.files[0] === undefined) {
         updateImage = "";
       } else {
         updateImage = inputRefImage?.current?.files[0];
@@ -140,10 +162,10 @@ export default function TeachingCourses() {
       }
     } else {
       updateImage = course.teachingFile ? course.teachingFile : "";
-    } 
+    }
     let updateVideo;
-    if(!course.teachingVideo) {
-      if(inputRefVideo.current.files[0] === undefined) {
+    if (!course.teachingVideo) {
+      if (inputRefVideo.current.files[0] === undefined) {
         updateVideo = "";
       } else {
         updateVideo = inputRefVideo?.current?.files[0];
@@ -161,47 +183,52 @@ export default function TeachingCourses() {
     }
     // Update course
     if (updatedTitleValue) {
-      setShouldUpdate(true);
-      const updatedCourse = new FormData();
-      updatedCourse.append('senderId', course.senderId);
-      updatedCourse.append('senderName', course.senderName);
-      updatedCourse.append('senderEmail', course.senderEmail);
-      updatedCourse.append('senderImage', course.senderImage);
-      updatedCourse.append('teachingTitle', updatedTitleValue || course.teachingTitle);
-      updatedCourse.append('teachingOverview', updatedOverviewValue);
-      updatedCourse.append('teachingFileText', updatedImageTextValue);
-      updatedCourse.append('teachingVideoText', updatedVideoTextValue);
-      updatedCourse.append('pdfLink', updatedPDFValue);
-      updatedCourse.append('teachingFile', updateImage);
-      updatedCourse.append('teachingVideo', updateVideo);
+      const r = window.confirm("Would you like to update this course?");
+      if (r === true) {
+        setShouldUpdate(true);
+        const updatedCourse = new FormData();
+        updatedCourse.append("senderId", course.senderId);
+        updatedCourse.append("senderName", course.senderName);
+        updatedCourse.append("senderEmail", course.senderEmail);
+        updatedCourse.append("senderImage", course.senderImage);
+        updatedCourse.append(
+          "teachingTitle",
+          updatedTitleValue || course.teachingTitle
+        );
+        updatedCourse.append("teachingOverview", updatedOverviewValue);
+        updatedCourse.append("teachingFileText", updatedImageTextValue);
+        updatedCourse.append("teachingVideoText", updatedVideoTextValue);
+        updatedCourse.append("pdfLink", updatedPDFValue);
+        updatedCourse.append("teachingFile", updateImage);
+        updatedCourse.append("teachingVideo", updateVideo);
 
-      setUpdatedOverview(updatedOverviewValue);
-      setUpdatedTitle(updatedTitleValue);
-      setUpdatedImageText(updatedImageTextValue);
-      setUpdatedVideoText(updatedVideoTextValue);
-      setUpdatedImageFile(updateImage);
-      setUpdatedVideoFile(updateVideo);
-      
-      setCourseUpdated(true);
-      setTimeout(() => {
-        // Link to Teaching Home Page
-        navigate("/teaching");
-      }, 5000);
+        setUpdatedOverview(updatedOverviewValue);
+        setUpdatedTitle(updatedTitleValue);
+        setUpdatedImageText(updatedImageTextValue);
+        setUpdatedVideoText(updatedVideoTextValue);
+        setUpdatedImageFile(updateImage);
+        setUpdatedVideoFile(updateVideo);
 
-      // Edit Mode Off
-      setEditMode(false);
+        setCourseUpdated(true);
+        setTimeout(() => {
+          // Link to Teaching Home Page
+          navigate("/teaching");
+        }, 3000);
 
-      // Dispach Result in Redux
-      dispatch(updateCourse(course._id, updatedCourse));
+        // Edit Mode Off
+        setEditMode(false);
 
+        // Dispach Result in Redux
+        dispatch(updateCourse(course._id, updatedCourse));
+      }
     }
   };
 
   return (
     <div className="courseComponent">
-      {courseUpdated && <AlertSuccessCourseUpdated/>}
+      {courseUpdated && <AlertSuccessCourseUpdated />}
       {!shouldUpdate && <AlertWarningMissingTitleTeaching />}
-      {courseUpdatedDeleted && <AlertSuccessCourseUpdatedDelete/>}
+      {courseUpdatedDeleted && <AlertSuccessCourseUpdatedDelete />}
 
       {course && (
         <>
@@ -303,7 +330,17 @@ export default function TeachingCourses() {
           {inputRefVideo && (
             <label htmlFor="myfile">
               {selectedVideoName ? (
-                <span style={{ color: "white", fontSize: "18px", display: "block", marginTop: "20px", fontWeight: "700" }}>Video selected {selectedVideoName}</span>
+                <span
+                  style={{
+                    color: "white",
+                    fontSize: "18px",
+                    display: "block",
+                    marginTop: "20px",
+                    fontWeight: "700",
+                  }}
+                >
+                  Video selected {selectedVideoName}
+                </span>
               ) : (
                 ""
               )}
@@ -392,7 +429,17 @@ export default function TeachingCourses() {
           {inputRefImage && (
             <label htmlFor="myfile">
               {selectedFileName ? (
-                <span style={{ color: "white", fontSize: "18px", display: "block", marginTop: "20px", fontWeight: "700" }}>Image selected {selectedFileName}</span>
+                <span
+                  style={{
+                    color: "white",
+                    fontSize: "18px",
+                    display: "block",
+                    marginTop: "20px",
+                    fontWeight: "700",
+                  }}
+                >
+                  Image selected {selectedFileName}
+                </span>
               ) : (
                 ""
               )}

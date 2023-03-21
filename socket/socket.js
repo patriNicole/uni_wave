@@ -116,11 +116,18 @@ io.on("connection", (socket) => {
     io.emit("update-todo", updatedTodo);
   });
 
-  /* --------------- Update ToDo --------------- */ 
+  /* --------------- Update CALENDAR EVENT --------------- */ 
   socket.on("update-calendar", (updatedEvent) => {
     //console.log(updatedEvent);
     // Emit updated event to all connected clients
     io.emit("update-calendar", updatedEvent);
+  });
+
+  /* --------------- Update Teaching --------------- */ 
+  socket.on("update-teaching", (updatedEvent) => {
+    //console.log(updatedEvent);
+    // Emit updated event to all connected clients
+    io.emit("update-teaching", updatedEvent);
   });
 
   /* Real Time User Logout so it won't be Active anymore */

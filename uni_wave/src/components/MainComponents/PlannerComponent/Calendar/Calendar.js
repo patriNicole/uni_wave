@@ -274,14 +274,7 @@ export default function StudentCalendar(props) {
               type="text"
               placeholder="Add Title"
               style={{ width: "20%", marginRight: "10px" }}
-              /*value={newEvent.title}
-              onChange={(e) => {
-                setNewEvent({ ...newEvent, title: e.target.value });
-                //update the title state with the last input
-                setTitleEvent(e.target.value);
-              }}*/
               ref={titleRef}
-              //value={selectedEvent ? selectedEvent.title : ""}
             />
             <DatePicker
               selected={selectedEvent ? new Date(selectedEvent.start) : null}
