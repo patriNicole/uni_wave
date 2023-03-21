@@ -1,4 +1,4 @@
-import { CALENDAR_INPUT_SUCCESS, CALENDAR_GET_SUCCESS } from "../types/calendarType.js";
+import { CALENDAR_INPUT_SUCCESS, CALENDAR_GET_SUCCESS, DELETE_EVENT_SUCCESS } from "../types/calendarType.js";
 
 const calendarState = {
   calendarList: [],
@@ -25,17 +25,17 @@ export const calendarReducer = (state = calendarState, action) => {
       calendarList: payload.calendarList,
     };
   }
-/*
-  if(type === DELETE_TODO_SUCCESS) {
-    const filteredTodos= state.todoList.filter(post => post._id !== action.payload);
+
+  if(type === DELETE_EVENT_SUCCESS) {
+    const filteredEvents= state.calendarList.filter(post => post._id !== action.payload);
     //console.log(filteredTodos)
     return {
       //updating the state of the application with the latest message retrieved from the server
       ...state,
-      todoList: filteredTodos,
+      calendarList: filteredEvents,
     };
   }
-
+/*
   if (type === UPDATE_TODO) {
     // Find the todos' index which we want to change
     const updatedTodoIndex = state.todoList.findIndex((post) => post._id === payload._id);

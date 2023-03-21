@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CALENDAR_INPUT_SUCCESS, CALENDAR_GET_SUCCESS } from "../types/calendarType.js";
+import { CALENDAR_INPUT_SUCCESS, CALENDAR_GET_SUCCESS, DELETE_EVENT_SUCCESS } from "../types/calendarType.js";
 
 export const addEvent = (data) => async (dispatch) => {
   try {
@@ -40,4 +40,23 @@ export const getCalendar = () => async (dispatch) => {
   } catch (error) {
     console.log(error.response.data);
   }
+};
+
+/* DELETE THE EVENT CALENDAR */
+export const deleteEvent = (id) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:8000/api/uniwave/delete-event/${id}`,
+        { withCredentials: true }
+      );
+      //console.log(response)
+      dispatch({
+        type: DELETE_EVENT_SUCCESS,
+        payload: id,
+      });
+    } catch (error) {
+      console.log(error.response.data);
+    }
+  };
 };

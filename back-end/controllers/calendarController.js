@@ -49,3 +49,23 @@ module.exports.getCalendar = async (req, res) => {
     });
   }
 };
+
+module.exports.deleteEvent = async (req, res) => {
+  const { id } = req.params;
+  //console.log(id)
+  try {
+    // Delete the todolist with the specified id
+    await calendarSchema.findByIdAndDelete(id);
+
+    // Get all remaining todos
+    const events = await calendarSchema.find();
+
+    // Send the remaining todos as a response to frontend
+    res.status(200).json({ success: true, calendarList: events });
+  } catch (error) {
+    //console.log(error);
+    res
+      .status(500)
+      .json({ success: false, error: "Unable to delete todo list" });
+  }
+};
