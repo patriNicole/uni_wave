@@ -69,7 +69,7 @@ export default function MapInfoKilburnGroundFloor(props) {
       <map name="kilburngroundfloormap">
         <area
           shape="rect"
-          coords="255,601,413,588"
+          coords="233,505,352,544"
           alt="Kilburn Lower First Floor"
           onClick={() => {
             props.setShowGroundFloor(false);
@@ -84,7 +84,7 @@ export default function MapInfoKilburnGroundFloor(props) {
         />
         <area
           shape="rect"
-          coords="11,6,150,35"
+          coords="616,433,667,475"
           alt="Kilburn Lower First Floor"
           onClick={() => {
             props.setShowGroundFloor(false);
@@ -99,7 +99,7 @@ export default function MapInfoKilburnGroundFloor(props) {
         />
       </map>
       <p className="mousePos">
-        {props.showGroundFloor && (x)} {props.showGroundFloor && (y)}
+        {/*{props.showGroundFloor && (x)} {props.showGroundFloor && (y)}*/}
       </p>
     </>
   );

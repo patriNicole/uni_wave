@@ -48,7 +48,7 @@ export default function MapComponent(props) {
               setShowMainBuilding(false);
               setShowSports(false);
             }}/> 
-            <area shape="rect" coords="135,315,274,336" alt="Kilburn" 
+            <area shape="rect" coords="43,211,222,345" alt="Kilburn" 
             onClick={() => {
               setShowKilburn(true);
               setShowEngineering(false);
@@ -59,7 +59,7 @@ export default function MapComponent(props) {
               setShowMainBuilding(false);
               setShowSports(false);
             }}/>
-            <area shape="rect" coords="500,678,600,685" alt="Alan Gilbert Learning Commons" 
+            <area shape="rect" coords="462,583,534,633" alt="Alan Gilbert Learning Commons" 
             onClick={() => {
               setShowAliG(true);
               setShowKilburn(false);
@@ -70,7 +70,7 @@ export default function MapComponent(props) {
               setShowMainBuilding(false);
               setShowSports(false);
             }}/>
-            <area shape="rect" coords="317,769,565,794" alt="Main Library" 
+            <area shape="rect" coords="300,643,510,769" alt="Main Library" 
             onClick={() => {
               setShowAliG(false);
               setShowKilburn(false);
@@ -81,7 +81,7 @@ export default function MapComponent(props) {
               setShowMainBuilding(false);
               setShowSports(false);
             }}/>
-            <area shape="rect" coords="576,704,696,740" alt="Student Union" 
+            <area shape="rect" coords="537,623,624,704" alt="Student Union" 
             onClick={() => {
               setShowEngineering(false);
               setShowKilburn(false);
@@ -92,7 +92,7 @@ export default function MapComponent(props) {
               setShowMainBuilding(false);
               setShowSports(false);
             }}/> 
-            <area shape="rect" coords="256,378,343,407" alt="University Place" 
+            <area shape="rect" coords="222,327,288,407" alt="University Place" 
             onClick={() => {
               setShowEngineering(false);
               setShowKilburn(false);
@@ -103,7 +103,7 @@ export default function MapComponent(props) {
               setShowMainBuilding(false);
               setShowSports(false);
             }}/> 
-            <area shape="rect" coords="132,517,477,638" alt="University Main Bulding" 
+            <area shape="rect" coords="108,385,459,516" alt="University Main Bulding" 
             onClick={() => {
               setShowEngineering(false);
               setShowKilburn(false);
@@ -114,7 +114,7 @@ export default function MapComponent(props) {
               setShowMainBuilding(true);
               setShowSports(false);
             }}/> 
-            <area shape="rect" coords="0,72,54,0" alt="Sports" 
+            <area shape="rect" coords="10,7,75,30" alt="Sports" 
             onClick={() => {
               setShowEngineering(false);
               setShowKilburn(false);
