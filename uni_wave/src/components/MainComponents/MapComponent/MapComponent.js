@@ -192,6 +192,93 @@ export default function MapComponent(props) {
             <p className="infoMapMoreTitle">
               ------------------------------------
             </p>
+            <p className="infoMapMoreTitle">University Main Websites</p>
+            <p className="infoMapMoreTitle">
+              -------------
+            </p>
+            <p className="infoMapMoreTitle">
+              Blackboard
+              <a
+                className="mapInteractiveLink"
+                href="https://online.manchester.ac.uk/webapps/portal/execute/tabs/tabAction?tab_tab_group_id=_92_1"
+                target="_blank"
+              >
+                <FaUniversity size={20} style={style} />
+              </a>
+            </p>
+            <p className="infoMapMoreTitle">
+              Spot
+              <a
+                className="mapInteractiveLink"
+                href="https://studentnet.cs.manchester.ac.uk/me/spotv2/spotv2.php"
+                target="_blank"
+              >
+                <FaUniversity size={20} style={style} />
+              </a>
+            </p>
+            <p className="infoMapMoreTitle">
+              My Manchester
+              <a
+                className="mapInteractiveLink"
+                href="https://my.manchester.ac.uk/"
+                target="_blank"
+              >
+                <FaUniversity size={20} style={style} />
+              </a>
+            </p>
+            <p className="infoMapMoreTitle">
+              Attendance
+              <a
+                className="mapInteractiveLink"
+                href="https://my.manchester.ac.uk/MyCheckIn"
+                target="_blank"
+              >
+                <FaUniversity size={20} style={style} />
+              </a>
+            </p> 
+            <p className="infoMapMoreTitle">
+              Timetable
+              <a
+                className="mapInteractiveLink"
+                href="https://timetables.manchester.ac.uk/timetables?date=2023-3-20&view=week"
+                target="_blank"
+              >
+                <FaUniversity size={20} style={style} />
+              </a>
+            </p>
+            <p className="infoMapMoreTitle">
+              Student System
+              <a
+                className="mapInteractiveLink"
+                href="https://studentadmin.manchester.ac.uk/psc/CSPROD/EMPLOYEE/SA/c/NUI_FRAMEWORK.PT_LANDINGPAGE.GBL"
+                target="_blank"
+              >
+                <FaUniversity size={20} style={style} />
+              </a>
+            </p> 
+            <p className="infoMapMoreTitle">
+              Book Study Space
+              <a
+                className="mapInteractiveLink"
+                href="https://resourcebooker.manchester.ac.uk/app/booking-types"
+                target="_blank"
+              >
+                <FaUniversity size={20} style={style} />
+              </a>
+            </p> 
+            <p className="infoMapMoreTitle">
+              Third year Project Selection
+              <a
+                className="mapInteractiveLink"
+                href="https://studentnet.cs.manchester.ac.uk/ugt/year3/project/projectbooktitles.php?year=2023"
+                target="_blank"
+              >
+                <FaUniversity size={20} style={style} />
+              </a>
+            </p>
+            <p className="infoMapMoreTitle">
+              ------------------------------------
+            </p>
             <p className="infoMapTitle">
               Interactive Map
               <a
@@ -308,7 +395,7 @@ export default function MapComponent(props) {
               >
                 <MdOutlineHouse size={20} style={style} />
               </a>
-            </p>
+            </p> 
           </div>
         )}
 
