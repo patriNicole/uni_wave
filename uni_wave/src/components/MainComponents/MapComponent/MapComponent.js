@@ -259,6 +259,16 @@ export default function MapComponent(props) {
               ------------------------------------
             </p>
             <p className="infoMapMoreTitle">Campus and Accommodation Map </p>
+            <p className="infoMapMoreTitle">
+              Building Tours
+              <a
+                className="mapInteractiveLink"
+                href="https://www.manchester.ac.uk/study/virtual/360-tours/science-engineering/#d.en.846945"
+                target="_blank"
+              >
+                <FaUniversity size={20} style={style} />
+              </a>
+            </p>
             <iframe
               src={Campus}
               height="83%"

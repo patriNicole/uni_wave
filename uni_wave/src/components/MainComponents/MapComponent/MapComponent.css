@@ -64,6 +64,7 @@
   -webkit-backdrop-filter: blur(5px);
   padding: 50px 35px;
   border-radius: 58px;
+  overflow: scroll;
 }
 
 .campusImage {
