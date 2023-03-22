@@ -38,6 +38,7 @@ module.exports = {
             "Username already exists. Please choose a different username."
             );
         }
+        updateFields.username = username;
       }
 
       /* If error while processing the inputs */
@@ -49,9 +50,13 @@ module.exports = {
         });
       } else {
         try {
+          // If no updates, return
+          if(Object.keys(updateFields).length === 0) {
+            return
+          }
           const userProfile = await signupModel.findByIdAndUpdate(id, updateFields );
 
-          res.status(200).json({ success: true });
+          res.status(200).json({ success: true, successMessage: " Profile Updated Successfully ", });
         } catch (error) {
           //console.log(error);
           res.status(500).json({
