@@ -2,22 +2,40 @@ import React, { useState, useEffect, useRef } from "react";
 import "./SettingsComponent.css";
 
 import { useDispatch, useSelector } from "react-redux";
+import updateUserProfile from "../../../store/actions/updateProfileUserAction.js";
 
 import AlertWarningMissingUsernameSettings from "../../Alerts/AlertWarningMissingUsernameSettings.js";
+import AlertWarningMissingPasswordSettings from "../../Alerts/AlertWarningMissingPasswordSettings.js";
+import AlertWarning from "../../Alerts/AlertWarningRegister.js";
 
 export default function SettingsComponent() {
   const dispatch = useDispatch();
   /* Used user info as appears (Redux) when logged in in application */
   const { userInfo } = useSelector((state) => state.auth);
-  const [imageData, setImageData] = useState(null);
+  const { error, successMessage} = useSelector(state => state.auth);
+  const [errorDisplay, setErrorDisplay] = useState(false);
+  useEffect(()=>{
+    if(error) {
+      setErrorDisplay(true);
+    }
+  }, [error]);
+
+  const [imageData, setImageData] = useState("");
+  const [imageDataDB, setImageDataDB] = useState("");
   const inputFileRef = useRef(null);
+
   const [usernameProvide, setUsernameProvide] = useState(false);
   const textareaRefUsername = useRef();
+
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [passwordProvided, setPasswordProvided] = useState(false);
 
   const handleImageChange = (e) => {
-    e.preventDefault();
+    if (e.target.files[0] !== 0) {
+        setImageDataDB(e.target.files[0]);
+      }
+
     const reader = new FileReader();
     const file = e.target.files[0];
 
@@ -31,15 +49,27 @@ export default function SettingsComponent() {
   const handleSaveChanges = () => {
     if(textareaRefUsername?.current?.value.trim()) {
         setUsernameProvide(false);
+        setPasswordProvided(false);
         const r = window.confirm("Would you like to submit your updates?");
         if (r === true) {
             const formData = new FormData();
             const updatedUsername = textareaRefUsername?.current?.value.trim();
-            console.log(updatedUsername)
-            formData.append("userId", userInfo._id);
-            formData.append("imageData", imageData);
+            //console.log(userInfo.id)
+            formData.append("id", userInfo.id);
+            formData.append("imageData", imageDataDB);
+            formData.append("username", updatedUsername);
+            
+            if(oldPassword && newPassword) {
+                formData.append("oldPassword", oldPassword);
+                formData.append("newPassword", newPassword);
+                //console.log(oldPassword, newPassword);
+            } 
+
+            if((oldPassword && !newPassword) || (!oldPassword && newPassword)) {
+                setPasswordProvided(true);
+            }
             // Dispatch an action to update the user's profile picture in the store
-            //dispatch(updateUser(response.data));
+            dispatch(updateUserProfile(formData));
         }
     } else {
         setUsernameProvide(true);
@@ -50,6 +80,9 @@ export default function SettingsComponent() {
     <>
       <div className="settingsComponent">
         {usernameProvide && <AlertWarningMissingUsernameSettings/>}
+        {passwordProvided && <AlertWarningMissingPasswordSettings/>}
+        {errorDisplay && <AlertWarning/>}
+
         <div className="allUserSettingsInfo">
           <p>User Settings</p>
         </div>
@@ -100,8 +133,7 @@ export default function SettingsComponent() {
               <p>Update Password</p>
               <input
               className="inputTeachingTitle"
-              type="text"
-              id="myfile"
+              type="password"
               name="teachingFileText"
               style={{ marginBottom: "1rem" }}
               placeholder="Old Password"
@@ -113,8 +145,7 @@ export default function SettingsComponent() {
             />
             <input
               className="inputTeachingTitle"
-              type="text"
-              id="myfile"
+              type="password"
               name="teachingFileText"
               style={{ marginBottom: "1rem" }}
               placeholder="New Password"

@@ -1,4 +1,4 @@
-import { REGISTER_FAIL, REGISTER_SUCCESS, SUCCESS_MESSAGE_CLEAR, ERROR_CLEAR, USER_LOGIN_FAIL, USER_LOGIN_SUCCESS, LOGOUT_SUCCESS } from "../types/authType.js";
+import { REGISTER_FAIL, REGISTER_SUCCESS, SUCCESS_MESSAGE_CLEAR, ERROR_CLEAR, USER_LOGIN_FAIL, USER_LOGIN_SUCCESS, LOGOUT_SUCCESS, USER_UPDATED_SUCCESS, USER_UPDATED_FAIL } from "../types/authType.js";
 import deCodeToken from "jwt-decode";
 
 //the purpose of this function is to handle changes
@@ -107,6 +107,27 @@ export const authReducer = (state = authState, action) => {
     return {
       ...state,
       error: "",
+    };
+  }
+
+  if(type === USER_UPDATED_SUCCESS) {
+    //the token contains the data of user which needs to be decoded
+    return {
+      ...state,
+      userInfo: "",
+      successMessage: "Profile Updated Successfully",
+      authenticate: false,
+    };
+  }
+
+  if (type === USER_UPDATED_FAIL) {
+    //return the authState updated after registration failed
+    return {
+      ...state,
+      error: payload.error,
+      //user will not be logged in
+      authenticate: true,
+      loading: true,
     };
   }
 

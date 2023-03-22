@@ -84,7 +84,6 @@ export default function SignUpPass() {
     } else {
       setAlertEmail(true);
     }
-   
   };
 
   const navigate = useNavigate();

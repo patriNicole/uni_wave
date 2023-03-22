@@ -22,7 +22,6 @@ export default function signupAction(data) {
       //after successful registration go to
       //inspect -> application -> Local Storage -> http://localhost:3000/
       //localStorage.setItem("authToken", response.data.token);
-
       dispatch({
         type: REGISTER_SUCCESS,
         payload: {
