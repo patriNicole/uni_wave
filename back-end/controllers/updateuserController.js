@@ -20,15 +20,24 @@ module.exports = {
   async updateProfileUser(req, res) {
     const form = formidable();
     form.parse(req, async (err, fields, files) => {
+      const updateFields = {};
+
       const { id, username, oldPassword, newPassword } = fields;
       // check if new picture has been provided
       //console.log(Object.keys(files).length === 0 && files.constructor === Object);
       const error = [];
-      const user = await signupModel.findOne({ username });
-      if (user !== null) {
-        error.push(
-          "Username already exists. Please choose a different username."
-        );
+      // check if username did not change
+      const sameUser = await signupModel.findById(id);
+      // if the username changed
+      if (sameUser.username !== username) {
+        // check against all the other usernames in the database 
+        // to see if the username exists
+        const user = await signupModel.findOne({ username });
+        if (user !== null) {
+            error.push(
+            "Username already exists. Please choose a different username."
+            );
+        }
       }
 
       /* If error while processing the inputs */
@@ -40,9 +49,7 @@ module.exports = {
         });
       } else {
         try {
-          const userProfile = await signupModel.findByIdAndUpdate(id, {
-            username: username,
-          });
+          const userProfile = await signupModel.findByIdAndUpdate(id, updateFields );
 
           res.status(200).json({ success: true });
         } catch (error) {
