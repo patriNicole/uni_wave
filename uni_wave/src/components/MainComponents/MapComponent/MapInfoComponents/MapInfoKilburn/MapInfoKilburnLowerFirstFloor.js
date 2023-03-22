@@ -44,7 +44,7 @@ export default function MapInfoKilburnLowerFirstFloor(props) {
           Floor Plan
         </button>
       )}
-      {props.showLowerFirstFloorPlan && <img alt={KilburnLowerFirstFloorPlan} className="floorImage" />}
+      {props.showLowerFirstFloorPlan && <img src={KilburnLowerFirstFloorPlan} className="floorImage" />}
       {props.showLowerFirstFloorPlan && (
         <button
           className="buttonViewFloor"
@@ -69,7 +69,7 @@ export default function MapInfoKilburnLowerFirstFloor(props) {
       <map name="kilburnlowerfirstfloormap">
         <area
           shape="rect"
-          coords="340,565,431,587"
+          coords="326,531,368,550"
           alt="Kilburn Ground Floor"
           onClick={() => {
             props.setShowGroundFloor(true);
@@ -84,7 +84,22 @@ export default function MapInfoKilburnLowerFirstFloor(props) {
         />
         <area
           shape="rect"
-          coords="93,589,225,610"
+          coords="318,503,366,528"
+          alt="Kilburn First Floor"
+          onClick={() => {
+            props.setShowGroundFloor(false);
+            props.setShowGroundFloorPlan(false);
+            props.setShowFirstFloorLower(false);
+            props.setShowLowerFirstFloorPlan(false);
+            props.setShowFirstFloor(true);
+            props.setShowFirstFloorPlan(false);
+            props.setShowSecondFloor(false);
+            props.setShowSecondFloorPlan(false);
+          }}
+        />
+        <area
+          shape="rect"
+          coords="85,530,165,577"
           alt="Kilburn First Floor"
           onClick={() => {
             props.setShowGroundFloor(false);
@@ -99,7 +114,7 @@ export default function MapInfoKilburnLowerFirstFloor(props) {
         />
       </map>
       <p className="mousePos">
-        {props.showFirstFloorLower && (x)} {props.showFirstFloorLower && (y)}
+        {/*{props.showFirstFloorLower && (x)} {props.showFirstFloorLower && (y)}*/}
       </p>
     </>
   );
