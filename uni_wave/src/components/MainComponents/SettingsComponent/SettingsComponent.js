@@ -20,11 +20,11 @@ export default function SettingsComponent() {
     }
   }, [error]);
 
-  useEffect(()=>{
+  /*useEffect(()=>{
     if(error) {
       setErrorDisplay(false);
     }
-  }, [!error]);
+  }, [!error]);*/
 
   const [imageData, setImageData] = useState("");
   const [imageDataDB, setImageDataDB] = useState("");
