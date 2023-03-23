@@ -125,10 +125,10 @@ export default function SideBar(props) {
                 Teaching
                 <Link to="/teaching" />
               </MenuItem>
-              <MenuItem icon={<HiLightBulb size={20} />}>
+              {/*<MenuItem icon={<HiLightBulb size={20} />}>
                 Info
                 <Link to="/info" />
-              </MenuItem>
+              </MenuItem>*/}
               <MenuItem icon={<BiCog size={20} />}>
                 Settings
                 <Link to="/settings" />
