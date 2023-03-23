@@ -26,8 +26,13 @@ module.exports = {
       // check if new picture has been provided
 
       const error = [];
+
+      // Find the user in database
+      // The .select('+password') modifier is used to override the select:
+      // false setting for the password field and include it in the query result.
+      const sameUser = await signupModel.findById(id).select("+password");
+
       // check if username did not change
-      const sameUser = await signupModel.findById(id);
       // if the username changed
       if (sameUser.username !== username) {
         // check against all the other usernames in the database
@@ -39,6 +44,25 @@ module.exports = {
           );
         }
         updateFields.username = username;
+      }
+
+      // Check if old password matches hashed password in database
+      if (oldPassword) {
+        const samePassword = await bcrypt.compare(
+          oldPassword,
+          sameUser.password
+        );
+        if (!samePassword) {
+          error.push("Old password is incorrect.");
+        } else {
+          if (newPassword.length < 8) {
+            error.push("Password must be at least 8 characters long.");
+          } else {
+            // Generate new hashed password using provided new password
+            const hashedPassword = await bcrypt.hash(newPassword, 10);
+            updateFields.password = hashedPassword;
+          }
+        }
       }
 
       // Upload another user profile picture
@@ -73,12 +97,10 @@ module.exports = {
             updateFields
           );
 
-          res
-            .status(200)
-            .json({
-              success: true,
-              successMessage: " Profile Updated Successfully ",
-            });
+          res.status(200).json({
+            success: true,
+            successMessage: " Profile Updated Successfully ",
+          });
         } catch (error) {
           //console.log(error);
           res.status(500).json({
