@@ -24,21 +24,34 @@ module.exports = {
 
       const { id, username, oldPassword, newPassword } = fields;
       // check if new picture has been provided
-      //console.log(Object.keys(files).length === 0 && files.constructor === Object);
+
       const error = [];
       // check if username did not change
       const sameUser = await signupModel.findById(id);
       // if the username changed
       if (sameUser.username !== username) {
-        // check against all the other usernames in the database 
+        // check against all the other usernames in the database
         // to see if the username exists
         const user = await signupModel.findOne({ username });
         if (user !== null) {
-            error.push(
+          error.push(
             "Username already exists. Please choose a different username."
-            );
+          );
         }
         updateFields.username = username;
+      }
+
+      // Upload another user profile picture
+      //console.log(files.imageData.filepath);
+      if (Object.keys(files).length !== 0) {
+        const { url } = await cloudinary.uploader.upload(
+          files.imageData.filepath,
+          {
+            resource_type: "auto",
+            folder: "registration",
+          }
+        );
+        updateFields.image = url;
       }
 
       /* If error while processing the inputs */
@@ -50,13 +63,22 @@ module.exports = {
         });
       } else {
         try {
+          //console.log(updateFields);
           // If no updates, return
-          if(Object.keys(updateFields).length === 0) {
-            return
+          if (Object.keys(updateFields).length === 0) {
+            return;
           }
-          const userProfile = await signupModel.findByIdAndUpdate(id, updateFields );
+          const userProfile = await signupModel.findByIdAndUpdate(
+            id,
+            updateFields
+          );
 
-          res.status(200).json({ success: true, successMessage: " Profile Updated Successfully ", });
+          res
+            .status(200)
+            .json({
+              success: true,
+              successMessage: " Profile Updated Successfully ",
+            });
         } catch (error) {
           //console.log(error);
           res.status(500).json({
