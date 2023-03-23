@@ -13,3 +13,125 @@
   padding: 50px 35px;
   border-radius: 58px;
 }
+
+.mainChanging {
+  display: flex;
+  flex-direction: row;
+}
+
+.leftSettings {
+  flex: 1;
+}
+
+.rightSettings {
+  flex: 1;
+}
+
+.userSettingsInfo {
+  margin-right: 5%;
+}
+
+.userSettingsImage {
+  width: 10vh;
+  height: 10vh;
+  border-radius: 50%;
+  border: 2px solid rgb(255, 250, 250);
+  overflow: hidden;
+}
+
+.allUserSettingsInfo {
+  margin-left: 40%;
+  color: white;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.userChangeProfilePicture {
+  margin-left: 10%;
+  color: white;
+  font-size: 25px;
+  font-weight: 700;
+  margin-top: 2%;
+}
+
+.userChangeProfilePassword {
+  margin-left: 20%;
+  color: white;
+  font-size: 25px;
+  font-weight: 700;
+  margin-top: 5%;
+}
+
+.userChangeProfileUsername {
+  margin-left: 10%;
+  color: white;
+  font-size: 25px;
+  font-weight: 700;
+  margin-top: 8%;
+}
+
+.saveSettings {
+  background: #fff;
+  font-size: 14px;
+  padding: 16px 20px;
+  border-radius: 26px;
+  border: 1px solid #d4d3e8;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  color: #4c489d;
+  box-shadow: 0px 2px 2px #5c5696;
+  cursor: pointer;
+  transition: 0.2s;
+  padding: 10px 15px;
+  margin-top: 3%;
+  margin-left: 40%;
+  margin-bottom: 40px;
+  height: 50px;
+}
+
+.saveSettings:active,
+.saveSettings:focus,
+.saveSettings:hover {
+  border-color: #6a679e;
+  outline: none;
+}
+
+.uploadProfilePicture {
+  background: #fff;
+  font-size: 14px;
+  padding: 16px 20px;
+  border-radius: 26px;
+  border: 1px solid #d4d3e8;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  color: #4c489d;
+  box-shadow: 0px 2px 2px #5c5696;
+  cursor: pointer;
+  transition: 0.2s;
+  padding: 10px 15px;
+  margin-top: -10%;
+  margin-left: 25%;
+  margin-bottom: 40px;
+  height: 50px;
+}
+
+.uploadProfilePicture:active,
+.uploadProfilePicture:focus,
+.uploadProfilePicture:hover {
+  border-color: #6a679e;
+  outline: none;
+}
+
+.myTextareaClassUsername {
+  width: 40vh;
+  height: 10vh;
+  overflow: scroll;
+  padding: 10px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 5px solid transparent;
+}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import HomePage from "../components/HomePage/HomePage.js";
 import NotFound from "../components/HomePage/NotFound.js";
 import LogIn from "../components/Login/LogIn.js";
@@ -19,7 +19,14 @@ import ProtectRoute from "./ProtectRoute.js";
 export default function PageRoutes() {
 
   /* Change Backgroung Color of the Page */
-  const [pageColor, setPageColor] = useState(false);
+  const [pageColor, setPageColor] = useState(() => {
+    const storedColor = localStorage.getItem("pageColor");
+    return storedColor ? JSON.parse(storedColor) : false;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("pageColor", JSON.stringify(pageColor));
+  }, [pageColor]);
 
   return (
     
