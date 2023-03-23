@@ -31,7 +31,7 @@ export default function PageRoutes() {
   return (
     
       <Routes>
-        <Route exact path="/" element={<HomePage pageColor={pageColor} setPageColor={setPageColor}/>} />
+        <Route exact path="/" element={<HomePage pageColor={pageColor} setPageColor={setPageColor} />} />
         <Route path="/" element={<LogIn pageColor={pageColor} setPageColor={setPageColor}/>} />
         <Route path="/" element={<SignUp pageColor={pageColor} setPageColor={setPageColor}/>} />
         <Route path="/home" element={<ProtectRoute><Main pageColor={pageColor} setPageColor={setPageColor}/></ProtectRoute>} /> 
