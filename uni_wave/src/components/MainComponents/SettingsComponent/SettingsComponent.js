@@ -20,6 +20,12 @@ export default function SettingsComponent() {
     }
   }, [error]);
 
+  useEffect(()=>{
+    if(error) {
+      setErrorDisplay(false);
+    }
+  }, [!error]);
+
   const [imageData, setImageData] = useState("");
   const [imageDataDB, setImageDataDB] = useState("");
   const inputFileRef = useRef(null);
