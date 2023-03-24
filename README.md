@@ -20,12 +20,12 @@ peerjs --port 3001
 
 ## For running code in each folder:
 ### npm install 
-### cd uni_wave 
+### -> cd uni_wave 
 #### npm install force
 #### npm install redux-thunk --force
-### cd back-end
+### -> cd back-end
 #### npm install 
-### cd socket
+### -> cd socket
 #### npm install
-### cd video-call
+### -> cd video-call
 #### npm install
