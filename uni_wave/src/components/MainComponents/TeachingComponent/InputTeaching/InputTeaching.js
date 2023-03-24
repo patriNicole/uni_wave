@@ -12,6 +12,8 @@ import { inputCourse } from "../../../../store/actions/teachingAction.js";
 
 import { io } from "socket.io-client";
 
+import { getCourse } from "../../../../store/actions/teachingAction.js";
+
 import AlertSuccessVideoUploaded from "../../../Alerts/AlertSuccessVideoUploaded.js";
 import AlertNoTextWithoutVideo from "../../../Alerts/AlertNoTextWithoutVideo.js";
 
@@ -34,11 +36,15 @@ export default function InputTeaching({ setCoursePosts }) {
   });
 
   useEffect(() => {
+    dispatch(getCourse());
+  }, []);
+
+  useEffect(() => {
     socket.current.on("newCourse", (postData) => {
       // Add the new post to the posts state
       setCoursePosts((prevState) => [...prevState, postData]);
     });
-  }, []);
+  }, [dispatch]);
 
   /* INPUT FIELDS */
   const [course, setNewCourse] = useState({

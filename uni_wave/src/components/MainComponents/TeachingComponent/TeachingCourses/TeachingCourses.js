@@ -5,9 +5,10 @@ import "./TeachingCourses.css";
 import { FixedSizeList } from "react-window";
 
 import { useDispatch, useSelector } from "react-redux";
-import { getCourse } from "../../../../store/actions/teachingAction.js";
 
 import { Link } from "react-router-dom";
+
+import { getCourse } from "../../../../store/actions/teachingAction.js";
 
 export default function TeachingCourses({ coursePosts, setCoursePosts }) {
   const dispatch = useDispatch();
@@ -26,11 +27,11 @@ export default function TeachingCourses({ coursePosts, setCoursePosts }) {
     }
   }, [courses, coursePosts]);
 
-  //console.log(allCourses);
-
   useEffect(() => {
     dispatch(getCourse());
-  }, []);
+  }, [allCourses]);
+
+  //console.log(allCourses);
 
   return (
     <FixedSizeList
